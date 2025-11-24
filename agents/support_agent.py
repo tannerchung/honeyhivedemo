@@ -131,14 +131,18 @@ class CustomerSupportAgent:
                                 "content": content_text,
                             }
                     elif self.provider == "openai":
-                        resp = self.client.chat.completions.create(  # type: ignore[attr-defined]
-                            model=self.model,
-                            temperature=0,
-                            messages=[
-                                {"role": "system", "content": prompt},
-                                {"role": "user", "content": issue},
-                            ],
-                        )
+                        @trace  # type: ignore
+                        def _openai_route_call():
+                            return self.client.chat.completions.create(  # type: ignore[attr-defined]
+                                model=self.model,
+                                temperature=0,
+                                messages=[
+                                    {"role": "system", "content": prompt},
+                                    {"role": "user", "content": issue},
+                                ],
+                            )
+
+                        resp = _openai_route_call()
                         content_text = resp.choices[0].message.content or "{}"
                         try:
                             parsed = json.loads(content_text)
@@ -302,17 +306,21 @@ class CustomerSupportAgent:
                         tone = "friendly_technical"
                         raw = message.model_dump() if hasattr(message, "model_dump") else str(message)
                     elif self.provider == "openai":
-                        resp = self.client.chat.completions.create(  # type: ignore[attr-defined]
-                            model=self.model,
-                            temperature=0,
-                            messages=[
-                                {"role": "system", "content": system_prompt},
-                                {
-                                    "role": "user",
-                                "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                            },
-                        ],
-                        )
+                        @trace  # type: ignore
+                        def _openai_generate_call():
+                            return self.client.chat.completions.create(  # type: ignore[attr-defined]
+                                model=self.model,
+                                temperature=0,
+                                messages=[
+                                    {"role": "system", "content": system_prompt},
+                                    {
+                                        "role": "user",
+                                        "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
+                                    },
+                                ],
+                            )
+
+                        resp = _openai_generate_call()
                         completion_choice = resp.choices[0]
                         response_text = completion_choice.message.content or ""
                         reasoning_text = completion_choice.message.reasoning or "" if hasattr(completion_choice.message, "reasoning") else ""

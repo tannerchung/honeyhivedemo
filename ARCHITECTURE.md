@@ -7,9 +7,9 @@ This demo implements a 3-step customer support agent with tracing, evaluation, a
 2. **Agent pipeline** (`agents/support_agent.py`):
    - Step 1: `route_to_category(issue)` – LLM (Anthropic/OpenAI) or heuristic routing.
    - Step 2: `retrieve_docs(category)` – deterministic KB lookup.
-   - Step 3: `generate_response(issue, docs, category)` – LLM or templated response with action steps.
-3. **Tracing**: `tracing/tracer.py` records step inputs/outputs/latencies; HoneyHive auto-instrumentation is initialized in `customer_support_agent/main.py` when env vars are set. `@trace` decorators wrap routing/generation.
-4. **Evaluations** (`evaluators/`): routing accuracy, keyword coverage, action steps, composite.
+   - Step 3: `generate_response(issue, docs, category)` – LLM or templated response with structured outputs (`answer`, parsed `steps`, `category`, `reasoning`, `safety_flags`).
+3. **Tracing**: `tracing/tracer.py` records step inputs/outputs/latencies; HoneyHive auto-instrumentation is initialized in `customer_support_agent/main.py` when env vars are set. `@trace` decorators wrap route/retrieve/generate (including OpenAI sub-spans).
+4. **Evaluations** (`evaluators/`): routing accuracy, keyword coverage, action steps, format, safety (code), plus optional LLM evaluators (faithfulness, safety).
 5. **Export**: results and summary stats emitted via `utils/exporters.py` (JSON/HoneyHive-ready).
 
 ## Key Components
@@ -18,14 +18,14 @@ This demo implements a 3-step customer support agent with tracing, evaluation, a
   - Internal tracer: `tracing/tracer.py` tracks per-step spans for demo/export.
   - HoneyHive: `HoneyHiveTracer.init` in `customer_support_agent/main.py`; `@trace` on route/generate enables span capture for LLM calls.
 - **Data**: in-memory ticket set, knowledge base, and ground truth (`data/`).
-- **Evaluators**: code-based and LLM-as-judge placeholders to score outputs and identify bottlenecks.
+- **Evaluators**: code-based (routing/keyword/action/format/safety) and optional LLM judges (faithfulness/safety) to score outputs and identify bottlenecks.
 - **CLI**: `customer_support_agent/main.py` handles run, export, evaluate, compare, debug logging, provider selection, and HoneyHive send.
 
 ## Providers & Config
 - **Providers**: selectable via `--provider anthropic|openai`. Default model: Anthropic `claude-3-7-sonnet-20250219`; OpenAI default `gpt-4o-mini`.
 - **Env vars**:
   - LLM: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`.
-  - HoneyHive: `HONEYHIVE_API_KEY`, `HONEYHIVE_PROJECT`, `HONEYHIVE_SOURCE`, `HONEYHIVE_SESSION`.
+  - HoneyHive: `HONEYHIVE_API_KEY`, `HONEYHIVE_PROJECT`, `HONEYHIVE_SOURCE`, `HONEYHIVE_SESSION`, `HONEYHIVE_OTLP_ENDPOINT` (defaults set in code/sitecustomize).
   - App: `ENVIRONMENT`, `DEBUG`, optional `OPENAI_MODEL`.
 
 ## Error Handling & Fallbacks

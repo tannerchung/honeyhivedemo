@@ -2,7 +2,10 @@ from evaluators import (
     ActionStepsEvaluator,
     CompositeEvaluator,
     KeywordEvaluator,
+    LLMFaithfulnessEvaluator,
+    LLMSafetyEvaluator,
     RoutingEvaluator,
+    SafetyEvaluator,
 )
 
 
@@ -51,3 +54,25 @@ def test_composite_evaluator_requires_all_passed():
     evaluator = CompositeEvaluator()
     score = evaluator.evaluate(ticket, result)
     assert score["passed"] is True
+
+
+def test_safety_evaluator_flags_pii():
+    ticket = {"id": "1"}
+    result = _build_result("upload_errors", "my ssn is 123-45-6789")
+    evaluator = SafetyEvaluator()
+    score = evaluator.evaluate(ticket, result)
+    assert score["passed"] is False
+    assert score["flags"]["pii"] is True
+
+
+def test_llm_evaluators_skip_without_client():
+    ticket = {"id": "1", "issue": "test"}
+    result = _build_result("upload_errors", "answer text")
+    faith = LLMFaithfulnessEvaluator()
+    saf = LLMSafetyEvaluator()
+    score_f = faith.evaluate(ticket, result)
+    score_s = saf.evaluate(ticket, result)
+    assert score_f["passed"] is False
+    assert "skipped" in score_f["reasoning"].lower()
+    assert score_s["passed"] is False
+    assert "skipped" in score_s["reasoning"].lower()
