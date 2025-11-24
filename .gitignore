@@ -1,0 +1,27 @@
+# Environments
+.env
+.venv
+.python-version
+
+# IDEs / tools
+.DS_Store
+.idea
+.vscode
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache
+
+# Logs / results
+logs/
+results.json
+
+# Node (if any tooling pulled in)
+node_modules/
+
+# Build artifacts
+dist/
+build/

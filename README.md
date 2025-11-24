@@ -4,6 +4,7 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 
 ## Quickstart
 - Copy `.env.example` to `.env` and add your `ANTHROPIC_API_KEY` (or leave blank to use the offline heuristics).
+- Optional: add `OPENAI_API_KEY` if you want to switch providers (`--provider openai`).
 - Install deps: `pip install -r requirements.txt`
 - Run the pipeline on mock tickets: `python main.py --run --export`
 - Run tests: `pytest`
@@ -17,6 +18,7 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 - `python main.py --evaluate results.json` – run evaluators against a saved run.
 - `python main.py --compare v1_results.json v2_results.json` – compare iterations.
 - `python main.py --send-to-honeyhive results.json` – attempt HoneyHive SDK send (no-op if SDK missing).
+- `python main.py --run --debug` – enable debug logging to console and `logs/run.log`.
 
 ## What’s inside
 - `agents/support_agent.py` – 3-step pipeline (route, retrieve docs, generate response).
@@ -30,3 +32,4 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 - The agent falls back to a deterministic, rule-based mode when no Anthropic API key is available; this keeps tests offline-friendly.
 - You can switch providers via `--provider anthropic|openai`; set `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` accordingly.
 - Traces include timings, inputs, outputs, and raw model payloads to demo observability and error cascades.
+- Debug logging is available with `--debug` (stdout + `logs/run.log`).
