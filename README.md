@@ -19,6 +19,7 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 - `python main.py --compare v1_results.json v2_results.json` – compare iterations.
 - `python main.py --send-to-honeyhive results.json` – attempt HoneyHive SDK send (no-op if SDK missing).
 - `python main.py --run --debug` – enable debug logging to console and `logs/run.log`.
+- HoneyHive tracing auto-inits when `HONEYHIVE_API_KEY` is set (project/source/session via env).
 
 ## What’s inside
 - `agents/support_agent.py` – 3-step pipeline (route, retrieve docs, generate response).
@@ -33,3 +34,4 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 - You can switch providers via `--provider anthropic|openai`; set `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` accordingly.
 - Traces include timings, inputs, outputs, and raw model payloads to demo observability and error cascades.
 - Debug logging is available with `--debug` (stdout + `logs/run.log`).
+- HoneyHive tracing uses env vars: `HONEYHIVE_API_KEY`, `HONEYHIVE_PROJECT`, `HONEYHIVE_SOURCE`, `HONEYHIVE_SESSION`.

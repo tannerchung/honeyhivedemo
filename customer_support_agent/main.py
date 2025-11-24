@@ -22,6 +22,31 @@ from evaluators import (
 from utils.exporters import export_to_honeyhive_sdk, export_to_json
 
 
+def init_honeyhive_tracer(logger=None) -> None:
+    """
+    Initialize HoneyHive tracer if SDK and API key are available.
+    """
+    api_key = os.getenv("HONEYHIVE_API_KEY")
+    project = os.getenv("HONEYHIVE_PROJECT", "customer_support_demo")
+    source = os.getenv("HONEYHIVE_SOURCE", "dev")
+    session_name = os.getenv("HONEYHIVE_SESSION", "Demo Session")
+    if not api_key:
+        return
+    try:
+        from honeyhive import HoneyHiveTracer
+    except Exception as err:
+        if logger:
+            logger.warning("HoneyHive SDK not available", extra={"error": str(err)})
+        return
+    try:
+        HoneyHiveTracer.init(api_key=api_key, project=project, source=source, session_name=session_name)
+        if logger:
+            logger.info("HoneyHive tracer initialized", extra={"project": project, "source": source})
+    except Exception as err:
+        if logger:
+            logger.warning("HoneyHive tracer init failed", extra={"error": str(err)})
+
+
 def run_pipeline(version: str, offline: bool = False, logger=None, provider: str = "anthropic") -> List[Dict[str, Any]]:
     agent = CustomerSupportAgent(version=version, use_llm=not offline, logger=logger, provider=provider)
     evaluators = [
@@ -112,6 +137,9 @@ def main() -> None:
             ],
         )
         logger = logging.getLogger("customer_support_demo")
+
+    # Initialize HoneyHive tracing if configured
+    init_honeyhive_tracer(logger=logger)
 
     results: List[Dict[str, Any]] = []
 

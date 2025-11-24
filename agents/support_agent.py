@@ -23,6 +23,12 @@ try:
 except Exception:  # pragma: no cover - optional dependency for offline mode
     OpenAI = None  # type: ignore
 
+try:
+    from honeyhive import trace
+except Exception:  # pragma: no cover - honeyhive optional
+    def trace(func):  # type: ignore
+        return func
+
 
 class CustomerSupportAgent:
     """
@@ -81,69 +87,73 @@ class CustomerSupportAgent:
         """
         Step 1: Use LLM (or heuristic fallback) to categorize customer issue.
         """
-        if self.use_llm and self.client:
-            try:
-                prompt = (
-                    "Categorize the issue into one of: upload_errors, account_access, data_export, other. "
-                    "Respond with JSON keys: category, confidence, reasoning."
-                )
-                if self.provider == "anthropic":
-                    message = self.client.messages.create(  # type: ignore[attr-defined]
-                        model=self.model,
-                        max_tokens=150,
-                        temperature=0,
-                        system=prompt,
-                        messages=[{"role": "user", "content": issue}],
+        @trace  # type: ignore
+        def _run():
+            if self.use_llm and self.client:
+                try:
+                    prompt = (
+                        "Categorize the issue into one of: upload_errors, account_access, data_export, other. "
+                        "Respond with JSON keys: category, confidence, reasoning."
                     )
-                    content_text = ""
-                    try:
-                        content_text = message.content[0].text if hasattr(message, "content") else ""
-                        parsed = json.loads(content_text)
-                        output = {
-                            "category": parsed.get("category", "other"),
-                            "confidence": float(parsed.get("confidence", 0.5)),
-                            "reasoning": parsed.get("reasoning", content_text),
-                            "raw_response": (
-                                message.model_dump() if hasattr(message, "model_dump") else str(message)
-                            ),
-                        }
-                    except Exception:
-                        output = self._heuristic_route(issue)
-                        output["raw_response"] = {
-                            "mode": "fallback_parse_error",
-                            "content": content_text,
-                        }
-                elif self.provider == "openai":
-                    resp = self.client.chat.completions.create(  # type: ignore[attr-defined]
-                        model=self.model,
-                        temperature=0,
-                        messages=[
-                            {"role": "system", "content": prompt},
-                            {"role": "user", "content": issue},
-                        ],
-                    )
-                    content_text = resp.choices[0].message.content or "{}"
-                    try:
-                        parsed = json.loads(content_text)
-                        output = {
-                            "category": parsed.get("category", "other"),
-                            "confidence": float(parsed.get("confidence", 0.5)),
-                            "reasoning": parsed.get("reasoning", content_text),
-                            "raw_response": resp.model_dump() if hasattr(resp, "model_dump") else str(resp),
-                        }
-                    except Exception:
-                        output = self._heuristic_route(issue)
-                        output["raw_response"] = {
-                            "mode": "fallback_parse_error",
-                            "content": content_text,
-                        }
-            except Exception as err:
+                    if self.provider == "anthropic":
+                        message = self.client.messages.create(  # type: ignore[attr-defined]
+                            model=self.model,
+                            max_tokens=150,
+                            temperature=0,
+                            system=prompt,
+                            messages=[{"role": "user", "content": issue}],
+                        )
+                        content_text = ""
+                        try:
+                            content_text = message.content[0].text if hasattr(message, "content") else ""
+                            parsed = json.loads(content_text)
+                            output = {
+                                "category": parsed.get("category", "other"),
+                                "confidence": float(parsed.get("confidence", 0.5)),
+                                "reasoning": parsed.get("reasoning", content_text),
+                                "raw_response": (
+                                    message.model_dump() if hasattr(message, "model_dump") else str(message)
+                                ),
+                            }
+                        except Exception:
+                            output = self._heuristic_route(issue)
+                            output["raw_response"] = {
+                                "mode": "fallback_parse_error",
+                                "content": content_text,
+                            }
+                    elif self.provider == "openai":
+                        resp = self.client.chat.completions.create(  # type: ignore[attr-defined]
+                            model=self.model,
+                            temperature=0,
+                            messages=[
+                                {"role": "system", "content": prompt},
+                                {"role": "user", "content": issue},
+                            ],
+                        )
+                        content_text = resp.choices[0].message.content or "{}"
+                        try:
+                            parsed = json.loads(content_text)
+                            output = {
+                                "category": parsed.get("category", "other"),
+                                "confidence": float(parsed.get("confidence", 0.5)),
+                                "reasoning": parsed.get("reasoning", content_text),
+                                "raw_response": resp.model_dump() if hasattr(resp, "model_dump") else str(resp),
+                            }
+                        except Exception:
+                            output = self._heuristic_route(issue)
+                            output["raw_response"] = {
+                                "mode": "fallback_parse_error",
+                                "content": content_text,
+                            }
+                except Exception as err:
+                    output = self._heuristic_route(issue)
+                    output["raw_response"] = {"mode": "fallback_on_error", "error": str(err)}
+                    self.use_llm = False
+            else:
                 output = self._heuristic_route(issue)
-                output["raw_response"] = {"mode": "fallback_on_error", "error": str(err)}
-                self.use_llm = False
-        else:
-            output = self._heuristic_route(issue)
+            return output
 
+        output = _run()
         self.logger.debug("route_to_category", extra={"issue": issue, "output": output})
         self.tracer.record_step("route_to_category", {"issue": issue}, output)
         return output
@@ -204,53 +214,58 @@ class CustomerSupportAgent:
         """
         Step 3: Generate personalized support response.
         """
-        if self.use_llm and self.client:
-            try:
-                system_prompt = (
-                    "You are a concise, friendly technical support agent. Use provided docs to craft a numbered, "
-                    "actionable response. Include 2-4 steps."
-                )
-                if self.provider == "anthropic":
-                    message = self.client.messages.create(  # type: ignore[attr-defined]
-                        model=self.model,
-                        max_tokens=350,
-                        temperature=0,
-                        system=system_prompt,
-                        messages=[
-                            {
-                                "role": "user",
-                                "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                            },
-                        ],
+        @trace  # type: ignore
+        def _run():
+            if self.use_llm and self.client:
+                try:
+                    system_prompt = (
+                        "You are a concise, friendly technical support agent. Use provided docs to craft a numbered, "
+                        "actionable response. Include 2-4 steps."
                     )
-                    try:
-                        response_text = message.content[0].text if hasattr(message, "content") else ""
-                    except Exception:
-                        response_text = str(message)
-                    tone = "friendly_technical"
-                    raw = message.model_dump() if hasattr(message, "model_dump") else str(message)
-                elif self.provider == "openai":
-                    resp = self.client.chat.completions.create(  # type: ignore[attr-defined]
-                        model=self.model,
-                        temperature=0,
-                        messages=[
-                            {"role": "system", "content": system_prompt},
-                            {
-                                "role": "user",
-                                "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                            },
-                        ],
-                    )
-                    response_text = resp.choices[0].message.content or ""
-                    tone = "friendly_technical"
-                    raw = resp.model_dump() if hasattr(resp, "model_dump") else str(resp)
-                else:
-                    raise RuntimeError("Unsupported provider")
-            except Exception as err:
-                self.use_llm = False
-                response_text, tone, raw = self._build_fallback_response(issue, docs, category, err)
-        else:
-            response_text, tone, raw = self._build_fallback_response(issue, docs, category)
+                    if self.provider == "anthropic":
+                        message = self.client.messages.create(  # type: ignore[attr-defined]
+                            model=self.model,
+                            max_tokens=350,
+                            temperature=0,
+                            system=system_prompt,
+                            messages=[
+                                {
+                                    "role": "user",
+                                    "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
+                                },
+                            ],
+                        )
+                        try:
+                            response_text = message.content[0].text if hasattr(message, "content") else ""
+                        except Exception:
+                            response_text = str(message)
+                        tone = "friendly_technical"
+                        raw = message.model_dump() if hasattr(message, "model_dump") else str(message)
+                    elif self.provider == "openai":
+                        resp = self.client.chat.completions.create(  # type: ignore[attr-defined]
+                            model=self.model,
+                            temperature=0,
+                            messages=[
+                                {"role": "system", "content": system_prompt},
+                                {
+                                    "role": "user",
+                                    "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
+                                },
+                            ],
+                        )
+                        response_text = resp.choices[0].message.content or ""
+                        tone = "friendly_technical"
+                        raw = resp.model_dump() if hasattr(resp, "model_dump") else str(resp)
+                    else:
+                        raise RuntimeError("Unsupported provider")
+                except Exception as err:
+                    self.use_llm = False
+                    response_text, tone, raw = self._build_fallback_response(issue, docs, category, err)
+            else:
+                response_text, tone, raw = self._build_fallback_response(issue, docs, category)
+            return response_text, tone, raw
+
+        response_text, tone, raw = _run()
 
         has_action_steps = self._has_action_steps(response_text)
         output = {

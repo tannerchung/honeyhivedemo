@@ -1,7 +1,7 @@
 {
   "project": "customer_support_demo",
-  "run_id": "e046b0c8-9f86-4fac-b8f1-7a2d3a10a8b1",
-  "timestamp": "2025-11-24T04:34:35Z",
+  "run_id": "e44158c4-b483-4f18-b2c1-fcbafa645664",
+  "timestamp": "2025-11-24T05:58:20Z",
   "results": [
     {
       "ticket_id": "1",
@@ -14,16 +14,16 @@
         "step_1": {
           "category": "upload_errors",
           "confidence": 0.95,
-          "reasoning": "The mention of a 404 error during the file upload process indicates a problem specifically related to the upload functionality, which falls under upload_errors.",
+          "reasoning": "The mention of a 404 error during the file upload process indicates a problem specifically related to uploading files, which falls under the category of upload errors.",
           "raw_response": {
-            "id": "chatcmpl-CfIYeNqWrGROezeEhr2p0Mrp6Wg1M",
+            "id": "chatcmpl-CfJrbKYPqDrmr0NL9sMrCQnrwQL9J",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The mention of a 404 error during the file upload process indicates a problem specifically related to the upload functionality, which falls under upload_errors.\"\n}",
+                  "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The mention of a 404 error during the file upload process indicates a problem specifically related to uploading files, which falls under the category of upload errors.\"\n}",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -33,15 +33,15 @@
                 }
               }
             ],
-            "created": 1763958820,
+            "created": 1763963839,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 53,
+              "completion_tokens": 55,
               "prompt_tokens": 57,
-              "total_tokens": 110,
+              "total_tokens": 112,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -67,18 +67,18 @@
           "tokens": 55
         },
         "step_3": {
-          "response": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check the endpoint you are using for the upload. Ensure that the URL is correct and includes the proper trailing slashes.\n\n2. **Check File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Ensure that your uploads are being made over HTTPS. Mixed content (HTTP) can be blocked by your browser, leading to errors.\n\nIf you continue to experience issues, please let me know!",
+          "response": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Make sure that your uploads are being made over HTTPS, as mixed content (HTTP) can be blocked by your browser.\n\nIf you continue to experience issues, please let me know!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIYhmNzshd8JwJedfPYVr3cY9NX2",
+            "id": "chatcmpl-CfJrdgoWQxfGt2lbKFxL1ExRIZKUi",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check the endpoint you are using for the upload. Ensure that the URL is correct and includes the proper trailing slashes.\n\n2. **Check File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Ensure that your uploads are being made over HTTPS. Mixed content (HTTP) can be blocked by your browser, leading to errors.\n\nIf you continue to experience issues, please let me know!",
+                  "content": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Make sure that your uploads are being made over HTTPS, as mixed content (HTTP) can be blocked by your browser.\n\nIf you continue to experience issues, please let me know!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -88,15 +88,15 @@
                 }
               }
             ],
-            "created": 1763958823,
+            "created": 1763963841,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 163,
+              "completion_tokens": 154,
               "prompt_tokens": 131,
-              "total_tokens": 294,
+              "total_tokens": 285,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -113,7 +113,7 @@
       },
       "output": {
         "category": "upload_errors",
-        "response": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check the endpoint you are using for the upload. Ensure that the URL is correct and includes the proper trailing slashes.\n\n2. **Check File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Ensure that your uploads are being made over HTTPS. Mixed content (HTTP) can be blocked by your browser, leading to errors.\n\nIf you continue to experience issues, please let me know!"
+        "response": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Make sure that your uploads are being made over HTTPS, as mixed content (HTTP) can be blocked by your browser.\n\nIf you continue to experience issues, please let me know!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -142,10 +142,10 @@
         }
       },
       "trace": {
-        "trace_id": "187986ca-e3ef-4b83-b9e7-51ddce7d7222",
+        "trace_id": "6ae39a05-4d3e-4ea4-baf9-8c424553438e",
         "ticket_id": "1",
         "version": "v1",
-        "start_time": 1763958819.129677,
+        "start_time": 1763963839.177793,
         "steps": [
           {
             "name": "route_to_category",
@@ -155,16 +155,16 @@
             "output": {
               "category": "upload_errors",
               "confidence": 0.95,
-              "reasoning": "The mention of a 404 error during the file upload process indicates a problem specifically related to the upload functionality, which falls under upload_errors.",
+              "reasoning": "The mention of a 404 error during the file upload process indicates a problem specifically related to uploading files, which falls under the category of upload errors.",
               "raw_response": {
-                "id": "chatcmpl-CfIYeNqWrGROezeEhr2p0Mrp6Wg1M",
+                "id": "chatcmpl-CfJrbKYPqDrmr0NL9sMrCQnrwQL9J",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The mention of a 404 error during the file upload process indicates a problem specifically related to the upload functionality, which falls under upload_errors.\"\n}",
+                      "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The mention of a 404 error during the file upload process indicates a problem specifically related to uploading files, which falls under the category of upload errors.\"\n}",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -174,15 +174,15 @@
                     }
                   }
                 ],
-                "created": 1763958820,
+                "created": 1763963839,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 53,
+                  "completion_tokens": 55,
                   "prompt_tokens": 57,
-                  "total_tokens": 110,
+                  "total_tokens": 112,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -196,8 +196,8 @@
                 }
               }
             },
-            "start_time": 1763958821.74492,
-            "end_time": 1763958821.7449238,
+            "start_time": 1763963841.377341,
+            "end_time": 1763963841.377345,
             "latency_ms": 0.0
           },
           {
@@ -216,8 +216,8 @@
               "count": 4,
               "tokens": 55
             },
-            "start_time": 1763958821.745016,
-            "end_time": 1763958821.745017,
+            "start_time": 1763963841.377596,
+            "end_time": 1763963841.3775969,
             "latency_ms": 0.0
           },
           {
@@ -232,18 +232,18 @@
               ]
             },
             "output": {
-              "response": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check the endpoint you are using for the upload. Ensure that the URL is correct and includes the proper trailing slashes.\n\n2. **Check File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Ensure that your uploads are being made over HTTPS. Mixed content (HTTP) can be blocked by your browser, leading to errors.\n\nIf you continue to experience issues, please let me know!",
+              "response": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Make sure that your uploads are being made over HTTPS, as mixed content (HTTP) can be blocked by your browser.\n\nIf you continue to experience issues, please let me know!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIYhmNzshd8JwJedfPYVr3cY9NX2",
+                "id": "chatcmpl-CfJrdgoWQxfGt2lbKFxL1ExRIZKUi",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check the endpoint you are using for the upload. Ensure that the URL is correct and includes the proper trailing slashes.\n\n2. **Check File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Ensure that your uploads are being made over HTTPS. Mixed content (HTTP) can be blocked by your browser, leading to errors.\n\nIf you continue to experience issues, please let me know!",
+                      "content": "To resolve the 404 error when uploading files through the dashboard, please follow these steps:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, you will need to use chunked uploads.\n\n3. **Clear Cache**: After redeploying any static assets, clear your CDN or browser cache to avoid any stale 404 errors.\n\n4. **Use HTTPS**: Make sure that your uploads are being made over HTTPS, as mixed content (HTTP) can be blocked by your browser.\n\nIf you continue to experience issues, please let me know!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -253,15 +253,15 @@
                     }
                   }
                 ],
-                "created": 1763958823,
+                "created": 1763963841,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 163,
+                  "completion_tokens": 154,
                   "prompt_tokens": 131,
-                  "total_tokens": 294,
+                  "total_tokens": 285,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -275,13 +275,13 @@
                 }
               }
             },
-            "start_time": 1763958826.3711202,
-            "end_time": 1763958826.371121,
+            "start_time": 1763963845.831564,
+            "end_time": 1763963845.831564,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958826.371135,
-        "latency_ms": 7241.46
+        "end_time": 1763963845.831574,
+        "latency_ms": 6653.78
       },
       "version": "v1"
     },
@@ -298,7 +298,7 @@
           "confidence": 0.95,
           "reasoning": "The issue described involves difficulties in logging into an account due to a problem with the Single Sign-On (SSO) process, which directly relates to account access.",
           "raw_response": {
-            "id": "chatcmpl-CfIYlEqbSEVvtGWvwm6qM9uZCaDrb",
+            "id": "chatcmpl-CfJrifV2zYNh9rYvtuNnzuzvIJBec",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -315,7 +315,7 @@
                 }
               }
             ],
-            "created": 1763958827,
+            "created": 1763963846,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -349,18 +349,18 @@
           "tokens": 45
         },
         "step_3": {
-          "response": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as this can affect the login process.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
+          "response": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as drift can cause issues.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIYmEYF3q3dn019P4cV33LDPWOUR",
+            "id": "chatcmpl-CfJrk9zqqG4i5mlOA77w102L9Og4N",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as this can affect the login process.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
+                  "content": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as drift can cause issues.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -370,15 +370,15 @@
                 }
               }
             ],
-            "created": 1763958828,
+            "created": 1763963848,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 152,
+              "completion_tokens": 150,
               "prompt_tokens": 114,
-              "total_tokens": 266,
+              "total_tokens": 264,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -395,7 +395,7 @@
       },
       "output": {
         "category": "account_access",
-        "response": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as this can affect the login process.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!"
+        "response": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as drift can cause issues.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -424,10 +424,10 @@
         }
       },
       "trace": {
-        "trace_id": "a48c0118-9144-4f83-ba74-6ea08d845ea3",
+        "trace_id": "54c7d857-0da9-4a29-a50e-855db869bca6",
         "ticket_id": "2",
         "version": "v1",
-        "start_time": 1763958826.371256,
+        "start_time": 1763963845.831729,
         "steps": [
           {
             "name": "route_to_category",
@@ -439,7 +439,7 @@
               "confidence": 0.95,
               "reasoning": "The issue described involves difficulties in logging into an account due to a problem with the Single Sign-On (SSO) process, which directly relates to account access.",
               "raw_response": {
-                "id": "chatcmpl-CfIYlEqbSEVvtGWvwm6qM9uZCaDrb",
+                "id": "chatcmpl-CfJrifV2zYNh9rYvtuNnzuzvIJBec",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -456,7 +456,7 @@
                     }
                   }
                 ],
-                "created": 1763958827,
+                "created": 1763963846,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -478,8 +478,8 @@
                 }
               }
             },
-            "start_time": 1763958828.710777,
-            "end_time": 1763958828.710779,
+            "start_time": 1763963848.1170728,
+            "end_time": 1763963848.1170728,
             "latency_ms": 0.0
           },
           {
@@ -498,8 +498,8 @@
               "count": 4,
               "tokens": 45
             },
-            "start_time": 1763958828.710838,
-            "end_time": 1763958828.710838,
+            "start_time": 1763963848.117159,
+            "end_time": 1763963848.117159,
             "latency_ms": 0.0
           },
           {
@@ -514,18 +514,18 @@
               ]
             },
             "output": {
-              "response": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as this can affect the login process.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
+              "response": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as drift can cause issues.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIYmEYF3q3dn019P4cV33LDPWOUR",
+                "id": "chatcmpl-CfJrk9zqqG4i5mlOA77w102L9Og4N",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as this can affect the login process.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
+                      "content": "Here are the steps to resolve your SSO redirect issue:\n\n1. **Initiate Login from the Company Portal**: Ensure you are starting the login process from your company\u2019s designated portal, not the direct login form.\n\n2. **Check for Account Lock**: If you\u2019ve attempted to log in multiple times, your account may be locked. Ask your admin to check the Security > Sessions page to unlock your account.\n\n3. **Sync Device Time**: If you have two-factor authentication enabled, make sure your device's time is synced correctly, as drift can cause issues.\n\n4. **Retry Login**: After following the above steps, try logging in again through the company portal.\n\nIf the issue persists, please reach out for further assistance!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -535,15 +535,15 @@
                     }
                   }
                 ],
-                "created": 1763958828,
+                "created": 1763963848,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 152,
+                  "completion_tokens": 150,
                   "prompt_tokens": 114,
-                  "total_tokens": 266,
+                  "total_tokens": 264,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -557,13 +557,13 @@
                 }
               }
             },
-            "start_time": 1763958831.6551921,
-            "end_time": 1763958831.655193,
+            "start_time": 1763963852.078748,
+            "end_time": 1763963852.078749,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958831.655214,
-        "latency_ms": 5283.96
+        "end_time": 1763963852.0787709,
+        "latency_ms": 6247.04
       },
       "version": "v1"
     },
@@ -580,7 +580,7 @@
           "confidence": 0.9,
           "reasoning": "The issue described involves an export process that is delayed, which directly relates to data export functionality.",
           "raw_response": {
-            "id": "chatcmpl-CfIYrWPnVhklyNMHgkTp2YGG4Y9pr",
+            "id": "chatcmpl-CfJrolqErVAKnzHuktGm9AxLXXTvg",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -597,7 +597,7 @@
                 }
               }
             ],
-            "created": 1763958833,
+            "created": 1763963852,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -631,18 +631,18 @@
           "tokens": 49
         },
         "step_3": {
-          "response": "Here\u2019s how to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page to see the current status of your export. This will confirm if it\u2019s still processing or if there\u2019s an issue.\n\n2. **Wait a Bit Longer**: If your export is large, it may take up to 15 minutes. If it\u2019s been less than that, consider waiting a little longer.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and reinitiate the export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV.\n\nIf you need further assistance, feel free to ask!",
+          "response": "Here are the steps to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your application to see the current status of your export. This will confirm if it is still processing or if there is an issue.\n\n2. **Wait a Bit Longer**: Since large exports can take up to 15 minutes, give it a few more minutes to see if it completes.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and initiate a new export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV for a quicker result.\n\nIf you still encounter issues, feel free to reach out for further assistance!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIYtni55OKKguJxP3Ihbff4mpSvp",
+            "id": "chatcmpl-CfJrpUwRD2W4qCt85wLs13lgrsrRD",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "Here\u2019s how to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page to see the current status of your export. This will confirm if it\u2019s still processing or if there\u2019s an issue.\n\n2. **Wait a Bit Longer**: If your export is large, it may take up to 15 minutes. If it\u2019s been less than that, consider waiting a little longer.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and reinitiate the export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV.\n\nIf you need further assistance, feel free to ask!",
+                  "content": "Here are the steps to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your application to see the current status of your export. This will confirm if it is still processing or if there is an issue.\n\n2. **Wait a Bit Longer**: Since large exports can take up to 15 minutes, give it a few more minutes to see if it completes.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and initiate a new export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV for a quicker result.\n\nIf you still encounter issues, feel free to reach out for further assistance!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -652,15 +652,15 @@
                 }
               }
             ],
-            "created": 1763958835,
+            "created": 1763963853,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 170,
+              "completion_tokens": 175,
               "prompt_tokens": 124,
-              "total_tokens": 294,
+              "total_tokens": 299,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -677,7 +677,7 @@
       },
       "output": {
         "category": "data_export",
-        "response": "Here\u2019s how to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page to see the current status of your export. This will confirm if it\u2019s still processing or if there\u2019s an issue.\n\n2. **Wait a Bit Longer**: If your export is large, it may take up to 15 minutes. If it\u2019s been less than that, consider waiting a little longer.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and reinitiate the export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV.\n\nIf you need further assistance, feel free to ask!"
+        "response": "Here are the steps to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your application to see the current status of your export. This will confirm if it is still processing or if there is an issue.\n\n2. **Wait a Bit Longer**: Since large exports can take up to 15 minutes, give it a few more minutes to see if it completes.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and initiate a new export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV for a quicker result.\n\nIf you still encounter issues, feel free to reach out for further assistance!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -706,10 +706,10 @@
         }
       },
       "trace": {
-        "trace_id": "c14fcf61-1c20-4177-b49d-ac005251d394",
+        "trace_id": "fc85c57a-a849-4e77-bb9e-a3ba1e84d8a0",
         "ticket_id": "3",
         "version": "v1",
-        "start_time": 1763958831.655313,
+        "start_time": 1763963852.079027,
         "steps": [
           {
             "name": "route_to_category",
@@ -721,7 +721,7 @@
               "confidence": 0.9,
               "reasoning": "The issue described involves an export process that is delayed, which directly relates to data export functionality.",
               "raw_response": {
-                "id": "chatcmpl-CfIYrWPnVhklyNMHgkTp2YGG4Y9pr",
+                "id": "chatcmpl-CfJrolqErVAKnzHuktGm9AxLXXTvg",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -738,7 +738,7 @@
                     }
                   }
                 ],
-                "created": 1763958833,
+                "created": 1763963852,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -760,8 +760,8 @@
                 }
               }
             },
-            "start_time": 1763958834.2910368,
-            "end_time": 1763958834.291039,
+            "start_time": 1763963853.695908,
+            "end_time": 1763963853.695912,
             "latency_ms": 0.0
           },
           {
@@ -780,8 +780,8 @@
               "count": 4,
               "tokens": 49
             },
-            "start_time": 1763958834.291081,
-            "end_time": 1763958834.291081,
+            "start_time": 1763963853.6961641,
+            "end_time": 1763963853.6961658,
             "latency_ms": 0.0
           },
           {
@@ -796,18 +796,18 @@
               ]
             },
             "output": {
-              "response": "Here\u2019s how to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page to see the current status of your export. This will confirm if it\u2019s still processing or if there\u2019s an issue.\n\n2. **Wait a Bit Longer**: If your export is large, it may take up to 15 minutes. If it\u2019s been less than that, consider waiting a little longer.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and reinitiate the export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV.\n\nIf you need further assistance, feel free to ask!",
+              "response": "Here are the steps to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your application to see the current status of your export. This will confirm if it is still processing or if there is an issue.\n\n2. **Wait a Bit Longer**: Since large exports can take up to 15 minutes, give it a few more minutes to see if it completes.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and initiate a new export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV for a quicker result.\n\nIf you still encounter issues, feel free to reach out for further assistance!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIYtni55OKKguJxP3Ihbff4mpSvp",
+                "id": "chatcmpl-CfJrpUwRD2W4qCt85wLs13lgrsrRD",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "Here\u2019s how to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page to see the current status of your export. This will confirm if it\u2019s still processing or if there\u2019s an issue.\n\n2. **Wait a Bit Longer**: If your export is large, it may take up to 15 minutes. If it\u2019s been less than that, consider waiting a little longer.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and reinitiate the export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV.\n\nIf you need further assistance, feel free to ask!",
+                      "content": "Here are the steps to address your pending export issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your application to see the current status of your export. This will confirm if it is still processing or if there is an issue.\n\n2. **Wait a Bit Longer**: Since large exports can take up to 15 minutes, give it a few more minutes to see if it completes.\n\n3. **Consider Reducing Filters**: If the export remains pending for too long, try reducing the filters or date range and initiate a new export. This can help speed up the process.\n\n4. **Switch to JSON for Larger Datasets**: If your dataset exceeds 1 million rows, consider exporting it in JSON format instead of CSV for a quicker result.\n\nIf you still encounter issues, feel free to reach out for further assistance!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -817,15 +817,15 @@
                     }
                   }
                 ],
-                "created": 1763958835,
+                "created": 1763963853,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 170,
+                  "completion_tokens": 175,
                   "prompt_tokens": 124,
-                  "total_tokens": 294,
+                  "total_tokens": 299,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -839,13 +839,13 @@
                 }
               }
             },
-            "start_time": 1763958838.3377962,
-            "end_time": 1763958838.3377988,
+            "start_time": 1763963858.065954,
+            "end_time": 1763963858.0659552,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958838.3378189,
-        "latency_ms": 6682.51
+        "end_time": 1763963858.065965,
+        "latency_ms": 5986.94
       },
       "version": "v1"
     },
@@ -862,7 +862,7 @@
           "confidence": 0.9,
           "reasoning": "The issue involves difficulties in signing into an account due to an expired password reset email, which directly relates to account access problems.",
           "raw_response": {
-            "id": "chatcmpl-CfIYxiQQtUPVtlqnwWt2HcGr7BdGA",
+            "id": "chatcmpl-CfJruKLBt16T7nXKF2Pb4jRgbZwK0",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -879,7 +879,7 @@
                 }
               }
             ],
-            "created": 1763958839,
+            "created": 1763963858,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -913,18 +913,18 @@
           "tokens": 45
         },
         "step_3": {
-          "response": "Here are the steps to resolve your sign-in issue:\n\n1. **Resend Password Reset Email**: Since the reset password email expired, please request a new password reset link. Check your inbox for the new email and ensure to use the link within 15 minutes.\n\n2. **Check Two-Factor Authentication**: If you have two-factor authentication enabled, ensure your device's time is synced correctly. This can help avoid any code drift issues.\n\n3. **Account Unlock**: If you still cannot sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **SSO Login**: If you are using Single Sign-On (SSO), make sure you are initiating the login from your company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
+          "response": "Here are the steps to resolve your issue:\n\n1. **Resend the Password Reset Email**: Since the reset link has expired, request a new password reset email and check your inbox for the new link.\n\n2. **Check for Two-Factor Authentication Issues**: If you're using two-factor authentication, ensure your device's time is synced correctly, as this can affect code validity.\n\n3. **Account Unlock**: If you still can't sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **Use the Correct Login Method**: If you are an SSO user, make sure you are initiating your login from the company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIYzHnuMDoCDrM10GkfEzpTY9SHc",
+            "id": "chatcmpl-CfJrx4gCcQYmmiu8nA22JOO3WWd8d",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "Here are the steps to resolve your sign-in issue:\n\n1. **Resend Password Reset Email**: Since the reset password email expired, please request a new password reset link. Check your inbox for the new email and ensure to use the link within 15 minutes.\n\n2. **Check Two-Factor Authentication**: If you have two-factor authentication enabled, ensure your device's time is synced correctly. This can help avoid any code drift issues.\n\n3. **Account Unlock**: If you still cannot sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **SSO Login**: If you are using Single Sign-On (SSO), make sure you are initiating the login from your company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
+                  "content": "Here are the steps to resolve your issue:\n\n1. **Resend the Password Reset Email**: Since the reset link has expired, request a new password reset email and check your inbox for the new link.\n\n2. **Check for Two-Factor Authentication Issues**: If you're using two-factor authentication, ensure your device's time is synced correctly, as this can affect code validity.\n\n3. **Account Unlock**: If you still can't sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **Use the Correct Login Method**: If you are an SSO user, make sure you are initiating your login from the company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -934,15 +934,15 @@
                 }
               }
             ],
-            "created": 1763958841,
+            "created": 1763963861,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 178,
+              "completion_tokens": 164,
               "prompt_tokens": 112,
-              "total_tokens": 290,
+              "total_tokens": 276,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -959,7 +959,7 @@
       },
       "output": {
         "category": "account_access",
-        "response": "Here are the steps to resolve your sign-in issue:\n\n1. **Resend Password Reset Email**: Since the reset password email expired, please request a new password reset link. Check your inbox for the new email and ensure to use the link within 15 minutes.\n\n2. **Check Two-Factor Authentication**: If you have two-factor authentication enabled, ensure your device's time is synced correctly. This can help avoid any code drift issues.\n\n3. **Account Unlock**: If you still cannot sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **SSO Login**: If you are using Single Sign-On (SSO), make sure you are initiating the login from your company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!"
+        "response": "Here are the steps to resolve your issue:\n\n1. **Resend the Password Reset Email**: Since the reset link has expired, request a new password reset email and check your inbox for the new link.\n\n2. **Check for Two-Factor Authentication Issues**: If you're using two-factor authentication, ensure your device's time is synced correctly, as this can affect code validity.\n\n3. **Account Unlock**: If you still can't sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **Use the Correct Login Method**: If you are an SSO user, make sure you are initiating your login from the company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -970,8 +970,8 @@
         },
         "keyword_coverage": {
           "name": "keyword_coverage",
-          "score": 1.0,
-          "reasoning": "matched 100% of expected keywords",
+          "score": 0.667,
+          "reasoning": "matched 67% of expected keywords",
           "passed": true
         },
         "action_steps": {
@@ -983,15 +983,15 @@
         "composite": {
           "name": "composite",
           "score": true,
-          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
           "passed": true
         }
       },
       "trace": {
-        "trace_id": "dc39a205-3a31-4788-a425-d66c1c46c094",
+        "trace_id": "970a3670-d751-48fb-b479-aade75c90898",
         "ticket_id": "4",
         "version": "v1",
-        "start_time": 1763958838.337934,
+        "start_time": 1763963858.066126,
         "steps": [
           {
             "name": "route_to_category",
@@ -1003,7 +1003,7 @@
               "confidence": 0.9,
               "reasoning": "The issue involves difficulties in signing into an account due to an expired password reset email, which directly relates to account access problems.",
               "raw_response": {
-                "id": "chatcmpl-CfIYxiQQtUPVtlqnwWt2HcGr7BdGA",
+                "id": "chatcmpl-CfJruKLBt16T7nXKF2Pb4jRgbZwK0",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -1020,7 +1020,7 @@
                     }
                   }
                 ],
-                "created": 1763958839,
+                "created": 1763963858,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1042,8 +1042,8 @@
                 }
               }
             },
-            "start_time": 1763958840.357864,
-            "end_time": 1763958840.357866,
+            "start_time": 1763963861.69349,
+            "end_time": 1763963861.693492,
             "latency_ms": 0.0
           },
           {
@@ -1062,8 +1062,8 @@
               "count": 4,
               "tokens": 45
             },
-            "start_time": 1763958840.357904,
-            "end_time": 1763958840.357904,
+            "start_time": 1763963861.693717,
+            "end_time": 1763963861.693718,
             "latency_ms": 0.0
           },
           {
@@ -1078,18 +1078,18 @@
               ]
             },
             "output": {
-              "response": "Here are the steps to resolve your sign-in issue:\n\n1. **Resend Password Reset Email**: Since the reset password email expired, please request a new password reset link. Check your inbox for the new email and ensure to use the link within 15 minutes.\n\n2. **Check Two-Factor Authentication**: If you have two-factor authentication enabled, ensure your device's time is synced correctly. This can help avoid any code drift issues.\n\n3. **Account Unlock**: If you still cannot sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **SSO Login**: If you are using Single Sign-On (SSO), make sure you are initiating the login from your company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
+              "response": "Here are the steps to resolve your issue:\n\n1. **Resend the Password Reset Email**: Since the reset link has expired, request a new password reset email and check your inbox for the new link.\n\n2. **Check for Two-Factor Authentication Issues**: If you're using two-factor authentication, ensure your device's time is synced correctly, as this can affect code validity.\n\n3. **Account Unlock**: If you still can't sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **Use the Correct Login Method**: If you are an SSO user, make sure you are initiating your login from the company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIYzHnuMDoCDrM10GkfEzpTY9SHc",
+                "id": "chatcmpl-CfJrx4gCcQYmmiu8nA22JOO3WWd8d",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "Here are the steps to resolve your sign-in issue:\n\n1. **Resend Password Reset Email**: Since the reset password email expired, please request a new password reset link. Check your inbox for the new email and ensure to use the link within 15 minutes.\n\n2. **Check Two-Factor Authentication**: If you have two-factor authentication enabled, ensure your device's time is synced correctly. This can help avoid any code drift issues.\n\n3. **Account Unlock**: If you still cannot sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **SSO Login**: If you are using Single Sign-On (SSO), make sure you are initiating the login from your company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
+                      "content": "Here are the steps to resolve your issue:\n\n1. **Resend the Password Reset Email**: Since the reset link has expired, request a new password reset email and check your inbox for the new link.\n\n2. **Check for Two-Factor Authentication Issues**: If you're using two-factor authentication, ensure your device's time is synced correctly, as this can affect code validity.\n\n3. **Account Unlock**: If you still can't sign in after resetting your password, contact your admin to check if your account is locked. They can unlock it from the Security > Sessions page.\n\n4. **Use the Correct Login Method**: If you are an SSO user, make sure you are initiating your login from the company portal instead of the direct login form.\n\nIf you need further assistance, feel free to ask!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -1099,15 +1099,15 @@
                     }
                   }
                 ],
-                "created": 1763958841,
+                "created": 1763963861,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 178,
+                  "completion_tokens": 164,
                   "prompt_tokens": 112,
-                  "total_tokens": 290,
+                  "total_tokens": 276,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -1121,13 +1121,13 @@
                 }
               }
             },
-            "start_time": 1763958844.892479,
-            "end_time": 1763958844.89248,
+            "start_time": 1763963865.6372569,
+            "end_time": 1763963865.637259,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958844.8925009,
-        "latency_ms": 6554.57
+        "end_time": 1763963865.637277,
+        "latency_ms": 7571.15
       },
       "version": "v1"
     },
@@ -1144,7 +1144,7 @@
           "confidence": 0.9,
           "reasoning": "The issue specifically pertains to uploads failing in one browser (Safari) while functioning correctly in another (Chrome), indicating a problem related to the upload process.",
           "raw_response": {
-            "id": "chatcmpl-CfIZ3lxXf23Ue4xDxsv5ijxSTBwx0",
+            "id": "chatcmpl-CfJs1lAy1Od2StiNQ0tHYPKGi6y6t",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -1161,7 +1161,7 @@
                 }
               }
             ],
-            "created": 1763958845,
+            "created": 1763963865,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -1195,18 +1195,18 @@
           "tokens": 55
         },
         "step_3": {
-          "response": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
+          "response": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider implementing chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIZ4pb0mpyoRGX7DnE8AqYxtAS1O",
+            "id": "chatcmpl-CfJs3UV1JH0UmxJdj131RhQMKoIjD",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
+                  "content": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider implementing chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -1216,7 +1216,7 @@
                 }
               }
             ],
-            "created": 1763958846,
+            "created": 1763963867,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -1241,7 +1241,7 @@
       },
       "output": {
         "category": "upload_errors",
-        "response": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!"
+        "response": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider implementing chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -1270,10 +1270,10 @@
         }
       },
       "trace": {
-        "trace_id": "3a5a7941-59a8-4963-a60f-3bc0ae801a26",
+        "trace_id": "c61cfad1-64a8-4569-96fc-773136167064",
         "ticket_id": "5",
         "version": "v1",
-        "start_time": 1763958844.892612,
+        "start_time": 1763963865.637474,
         "steps": [
           {
             "name": "route_to_category",
@@ -1285,7 +1285,7 @@
               "confidence": 0.9,
               "reasoning": "The issue specifically pertains to uploads failing in one browser (Safari) while functioning correctly in another (Chrome), indicating a problem related to the upload process.",
               "raw_response": {
-                "id": "chatcmpl-CfIZ3lxXf23Ue4xDxsv5ijxSTBwx0",
+                "id": "chatcmpl-CfJs1lAy1Od2StiNQ0tHYPKGi6y6t",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -1302,7 +1302,7 @@
                     }
                   }
                 ],
-                "created": 1763958845,
+                "created": 1763963865,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1324,8 +1324,8 @@
                 }
               }
             },
-            "start_time": 1763958846.4255512,
-            "end_time": 1763958846.425552,
+            "start_time": 1763963867.282264,
+            "end_time": 1763963867.2822652,
             "latency_ms": 0.0
           },
           {
@@ -1344,8 +1344,8 @@
               "count": 4,
               "tokens": 55
             },
-            "start_time": 1763958846.425581,
-            "end_time": 1763958846.425581,
+            "start_time": 1763963867.282423,
+            "end_time": 1763963867.282424,
             "latency_ms": 0.0
           },
           {
@@ -1360,18 +1360,18 @@
               ]
             },
             "output": {
-              "response": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
+              "response": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider implementing chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIZ4pb0mpyoRGX7DnE8AqYxtAS1O",
+                "id": "chatcmpl-CfJs3UV1JH0UmxJdj131RhQMKoIjD",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
+                      "content": "Here are some steps to troubleshoot your upload issue in Safari:\n\n1. **Verify the Upload URL**: Check that the upload URL is correct and includes the proper endpoint and trailing slashes. A 404 error may indicate an incorrect path.\n\n2. **Check File Size**: Ensure that the file you are trying to upload is under 100MB. If it exceeds this limit, consider implementing chunked uploads.\n\n3. **Clear Cache**: Clear your browser cache in Safari to avoid any stale 404 errors. You can do this by going to Safari > Preferences > Privacy > Manage Website Data, then remove the relevant data.\n\n4. **Use HTTPS**: Make sure that the upload is being made over HTTPS. Mixed content (HTTP) can be blocked by Safari, preventing uploads from succeeding.\n\nTry these steps and let me know if the issue persists!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -1381,7 +1381,7 @@
                     }
                   }
                 ],
-                "created": 1763958846,
+                "created": 1763963867,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1403,13 +1403,13 @@
                 }
               }
             },
-            "start_time": 1763958850.1414988,
-            "end_time": 1763958850.141501,
+            "start_time": 1763963871.185267,
+            "end_time": 1763963871.1852689,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958850.141515,
-        "latency_ms": 5248.9
+        "end_time": 1763963871.1852832,
+        "latency_ms": 5547.81
       },
       "version": "v1"
     },
@@ -1426,7 +1426,7 @@
           "confidence": 0.95,
           "reasoning": "The issue pertains to the inability to export a large dataset (more than a million records) in CSV format, indicating a problem with data export capabilities.",
           "raw_response": {
-            "id": "chatcmpl-CfIZ8sd3V0D02PZufW598c9zlteEU",
+            "id": "chatcmpl-CfJs78TsOUsoywZDlIrVmtkyBhCME",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -1443,7 +1443,7 @@
                 }
               }
             ],
-            "created": 1763958850,
+            "created": 1763963871,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -1477,18 +1477,18 @@
           "tokens": 49
         },
         "step_3": {
-          "response": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Be sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
+          "response": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Make sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIZ98RRchOWlvg2bxIlB1C7GJBtR",
+            "id": "chatcmpl-CfJs93GxxWZcUu8QTToe4AjtL2q3E",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Be sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
+                  "content": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Make sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -1498,7 +1498,7 @@
                 }
               }
             ],
-            "created": 1763958851,
+            "created": 1763963873,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -1523,7 +1523,7 @@
       },
       "output": {
         "category": "data_export",
-        "response": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Be sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!"
+        "response": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Make sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -1552,10 +1552,10 @@
         }
       },
       "trace": {
-        "trace_id": "34392fba-a1d7-4be4-a3e6-8a920f55c113",
+        "trace_id": "8155bf47-2e91-4d47-a2d9-44cef912a5e1",
         "ticket_id": "6",
         "version": "v1",
-        "start_time": 1763958850.1416168,
+        "start_time": 1763963871.1854458,
         "steps": [
           {
             "name": "route_to_category",
@@ -1567,7 +1567,7 @@
               "confidence": 0.95,
               "reasoning": "The issue pertains to the inability to export a large dataset (more than a million records) in CSV format, indicating a problem with data export capabilities.",
               "raw_response": {
-                "id": "chatcmpl-CfIZ8sd3V0D02PZufW598c9zlteEU",
+                "id": "chatcmpl-CfJs78TsOUsoywZDlIrVmtkyBhCME",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -1584,7 +1584,7 @@
                     }
                   }
                 ],
-                "created": 1763958850,
+                "created": 1763963871,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1606,8 +1606,8 @@
                 }
               }
             },
-            "start_time": 1763958851.591865,
-            "end_time": 1763958851.591866,
+            "start_time": 1763963872.866273,
+            "end_time": 1763963872.866274,
             "latency_ms": 0.0
           },
           {
@@ -1626,8 +1626,8 @@
               "count": 4,
               "tokens": 49
             },
-            "start_time": 1763958851.591914,
-            "end_time": 1763958851.591915,
+            "start_time": 1763963872.866354,
+            "end_time": 1763963872.866355,
             "latency_ms": 0.0
           },
           {
@@ -1642,18 +1642,18 @@
               ]
             },
             "output": {
-              "response": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Be sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
+              "response": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Make sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIZ98RRchOWlvg2bxIlB1C7GJBtR",
+                "id": "chatcmpl-CfJs93GxxWZcUu8QTToe4AjtL2q3E",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Be sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
+                      "content": "To export more than a million records in JSON format, please follow these steps:\n\n1. **Initiate JSON Export**: Go to the export section of your application and select the JSON format for your dataset. This format supports larger datasets beyond the 1M row limit of CSV.\n\n2. **Monitor Export Status**: Check the Exports page to monitor the status of your export. Remember that large exports may take up to 15 minutes to generate.\n\n3. **Download the Export**: Once the export is complete, you will find a download link on the Exports page. Make sure to download it within 24 hours, as the link will expire.\n\n4. **Retry if Necessary**: If the export fails, try reducing any filters or the date range and initiate the export again.\n\nIf you have any further questions, feel free to ask!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -1663,7 +1663,7 @@
                     }
                   }
                 ],
-                "created": 1763958851,
+                "created": 1763963873,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1685,13 +1685,13 @@
                 }
               }
             },
-            "start_time": 1763958855.1956758,
-            "end_time": 1763958855.195677,
+            "start_time": 1763963877.956162,
+            "end_time": 1763963877.9561632,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958855.195688,
-        "latency_ms": 5054.07
+        "end_time": 1763963877.9561758,
+        "latency_ms": 6770.73
       },
       "version": "v1"
     },
@@ -1708,7 +1708,7 @@
           "confidence": 0.95,
           "reasoning": "The issue pertains to the inability to access the account due to a lockout from too many two-factor authentication attempts, which directly relates to account access.",
           "raw_response": {
-            "id": "chatcmpl-CfIZDQLUt8urvJHulJBMyID2B5pTo",
+            "id": "chatcmpl-CfJsEjk8GL234rbva9ZIwZu8yRUEA",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -1725,7 +1725,7 @@
                 }
               }
             ],
-            "created": 1763958855,
+            "created": 1763963878,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -1763,7 +1763,7 @@
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIZFUXCL5vTWPkG4KJeUXAbQcnvG",
+            "id": "chatcmpl-CfJsFONe7dvsCl91XNRFqmSGl9B3y",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -1780,7 +1780,7 @@
                 }
               }
             ],
-            "created": 1763958857,
+            "created": 1763963879,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -1834,10 +1834,10 @@
         }
       },
       "trace": {
-        "trace_id": "0078b336-702f-433b-86d2-4542245ca2fe",
+        "trace_id": "ad19305e-16e0-41d1-a4c9-813f020df938",
         "ticket_id": "7",
         "version": "v1",
-        "start_time": 1763958855.1957629,
+        "start_time": 1763963877.9563289,
         "steps": [
           {
             "name": "route_to_category",
@@ -1849,7 +1849,7 @@
               "confidence": 0.95,
               "reasoning": "The issue pertains to the inability to access the account due to a lockout from too many two-factor authentication attempts, which directly relates to account access.",
               "raw_response": {
-                "id": "chatcmpl-CfIZDQLUt8urvJHulJBMyID2B5pTo",
+                "id": "chatcmpl-CfJsEjk8GL234rbva9ZIwZu8yRUEA",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -1866,7 +1866,7 @@
                     }
                   }
                 ],
-                "created": 1763958855,
+                "created": 1763963878,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1888,8 +1888,8 @@
                 }
               }
             },
-            "start_time": 1763958857.77696,
-            "end_time": 1763958857.776961,
+            "start_time": 1763963879.198587,
+            "end_time": 1763963879.198588,
             "latency_ms": 0.0
           },
           {
@@ -1908,8 +1908,8 @@
               "count": 4,
               "tokens": 45
             },
-            "start_time": 1763958857.776982,
-            "end_time": 1763958857.776982,
+            "start_time": 1763963879.198658,
+            "end_time": 1763963879.198658,
             "latency_ms": 0.0
           },
           {
@@ -1928,7 +1928,7 @@
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIZFUXCL5vTWPkG4KJeUXAbQcnvG",
+                "id": "chatcmpl-CfJsFONe7dvsCl91XNRFqmSGl9B3y",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -1945,7 +1945,7 @@
                     }
                   }
                 ],
-                "created": 1763958857,
+                "created": 1763963879,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -1967,13 +1967,13 @@
                 }
               }
             },
-            "start_time": 1763958860.905175,
-            "end_time": 1763958860.9051762,
+            "start_time": 1763963883.955935,
+            "end_time": 1763963883.955936,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958860.905185,
-        "latency_ms": 5709.42
+        "end_time": 1763963883.9559522,
+        "latency_ms": 5999.62
       },
       "version": "v1"
     },
@@ -1986,18 +1986,18 @@
       },
       "steps": {
         "step_1": {
-          "category": "other",
+          "category": "upload_errors",
           "confidence": 0.85,
-          "reasoning": "The question pertains to clearing CDN cache, which is not directly related to upload errors, account access, or data export. It involves managing cached content rather than issues with uploads or account functionalities.",
+          "reasoning": "The issue pertains to the visibility of uploaded assets, which suggests a problem with how new uploads are being served, likely due to caching mechanisms in place for content delivery networks (CDN).",
           "raw_response": {
-            "id": "chatcmpl-CfIZJ9yIxha3qJG2gGtub9YaC0aX8",
+            "id": "chatcmpl-CfJsKED7LPmlrRztMnhF36InT64Fa",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "{\n  \"category\": \"other\",\n  \"confidence\": 0.85,\n  \"reasoning\": \"The question pertains to clearing CDN cache, which is not directly related to upload errors, account access, or data export. It involves managing cached content rather than issues with uploads or account functionalities.\"\n}",
+                  "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.85,\n  \"reasoning\": \"The issue pertains to the visibility of uploaded assets, which suggests a problem with how new uploads are being served, likely due to caching mechanisms in place for content delivery networks (CDN).\"\n}",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -2007,15 +2007,15 @@
                 }
               }
             ],
-            "created": 1763958861,
+            "created": 1763963884,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 62,
+              "completion_tokens": 63,
               "prompt_tokens": 58,
-              "total_tokens": 120,
+              "total_tokens": 121,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -2031,27 +2031,28 @@
         },
         "step_2": {
           "docs": [
-            "For issues outside documented categories, collect logs and timestamps before escalation.",
-            "Share browser, OS, and app version to speed up troubleshooting.",
-            "Check status page for ongoing incidents before deep-diving."
+            "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+            "Ensure the file size is under 100MB; larger files require chunked uploads.",
+            "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+            "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
           ],
           "source": "knowledge_base",
-          "count": 3,
-          "tokens": 29
+          "count": 4,
+          "tokens": 55
         },
         "step_3": {
-          "response": "To clear the CDN cache for your uploads, please follow these steps:\n\n1. **Check for Ongoing Incidents**: Visit the status page to ensure there are no current issues affecting the CDN.\n\n2. **Clear Cache**: If there are no incidents, you can manually clear the CDN cache through your CDN management dashboard. Look for an option like \"Purge Cache\" or \"Clear Cache\" and select the specific assets you want to refresh.\n\n3. **Verify Changes**: After purging the cache, refresh your browser or clear your browser cache to see if the new assets are now visible.\n\n4. **Collect Logs**: If you still see old assets, gather relevant logs and timestamps, and provide your browser, OS, and app version for further troubleshooting.\n\nIf the issue persists, please escalate with the collected information.",
+          "response": "To clear the CDN cache for your uploads and ensure you're seeing the latest assets, please follow these steps:\n\n1. **Verify Upload URL**: Double-check that the upload URL or path is correct, including any necessary trailing slashes.\n\n2. **Clear CDN Cache**: After redeploying your static assets, clear the CDN cache to avoid stale content. This can usually be done through your CDN provider's dashboard.\n\n3. **Check File Size**: Ensure that your uploaded files are under 100MB. If they exceed this limit, consider using chunked uploads.\n\n4. **Use HTTPS**: Make sure that all uploads are done using HTTPS to prevent any mixed content issues that could block the assets from loading.\n\nFollowing these steps should help you resolve the issue with old assets appearing. If you continue to experience problems, please let me know!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIZKuApPN6ezAurkUwayzKbachkI",
+            "id": "chatcmpl-CfJsLd3ubdwSa01qR15FsqpUtpTm5",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "To clear the CDN cache for your uploads, please follow these steps:\n\n1. **Check for Ongoing Incidents**: Visit the status page to ensure there are no current issues affecting the CDN.\n\n2. **Clear Cache**: If there are no incidents, you can manually clear the CDN cache through your CDN management dashboard. Look for an option like \"Purge Cache\" or \"Clear Cache\" and select the specific assets you want to refresh.\n\n3. **Verify Changes**: After purging the cache, refresh your browser or clear your browser cache to see if the new assets are now visible.\n\n4. **Collect Logs**: If you still see old assets, gather relevant logs and timestamps, and provide your browser, OS, and app version for further troubleshooting.\n\nIf the issue persists, please escalate with the collected information.",
+                  "content": "To clear the CDN cache for your uploads and ensure you're seeing the latest assets, please follow these steps:\n\n1. **Verify Upload URL**: Double-check that the upload URL or path is correct, including any necessary trailing slashes.\n\n2. **Clear CDN Cache**: After redeploying your static assets, clear the CDN cache to avoid stale content. This can usually be done through your CDN provider's dashboard.\n\n3. **Check File Size**: Ensure that your uploaded files are under 100MB. If they exceed this limit, consider using chunked uploads.\n\n4. **Use HTTPS**: Make sure that all uploads are done using HTTPS to prevent any mixed content issues that could block the assets from loading.\n\nFollowing these steps should help you resolve the issue with old assets appearing. If you continue to experience problems, please let me know!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -2061,15 +2062,15 @@
                 }
               }
             ],
-            "created": 1763958862,
+            "created": 1763963885,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 168,
-              "prompt_tokens": 97,
-              "total_tokens": 265,
+              "completion_tokens": 171,
+              "prompt_tokens": 132,
+              "total_tokens": 303,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -2085,15 +2086,15 @@
         }
       },
       "output": {
-        "category": "other",
-        "response": "To clear the CDN cache for your uploads, please follow these steps:\n\n1. **Check for Ongoing Incidents**: Visit the status page to ensure there are no current issues affecting the CDN.\n\n2. **Clear Cache**: If there are no incidents, you can manually clear the CDN cache through your CDN management dashboard. Look for an option like \"Purge Cache\" or \"Clear Cache\" and select the specific assets you want to refresh.\n\n3. **Verify Changes**: After purging the cache, refresh your browser or clear your browser cache to see if the new assets are now visible.\n\n4. **Collect Logs**: If you still see old assets, gather relevant logs and timestamps, and provide your browser, OS, and app version for further troubleshooting.\n\nIf the issue persists, please escalate with the collected information."
+        "category": "upload_errors",
+        "response": "To clear the CDN cache for your uploads and ensure you're seeing the latest assets, please follow these steps:\n\n1. **Verify Upload URL**: Double-check that the upload URL or path is correct, including any necessary trailing slashes.\n\n2. **Clear CDN Cache**: After redeploying your static assets, clear the CDN cache to avoid stale content. This can usually be done through your CDN provider's dashboard.\n\n3. **Check File Size**: Ensure that your uploaded files are under 100MB. If they exceed this limit, consider using chunked uploads.\n\n4. **Use HTTPS**: Make sure that all uploads are done using HTTPS to prevent any mixed content issues that could block the assets from loading.\n\nFollowing these steps should help you resolve the issue with old assets appearing. If you continue to experience problems, please let me know!"
       },
       "evaluations": {
         "routing_accuracy": {
           "name": "routing_accuracy",
-          "score": 2,
-          "reasoning": "expected=upload_errors, predicted=other",
-          "passed": false
+          "score": 5,
+          "reasoning": "expected=upload_errors, predicted=upload_errors",
+          "passed": true
         },
         "keyword_coverage": {
           "name": "keyword_coverage",
@@ -2109,16 +2110,16 @@
         },
         "composite": {
           "name": "composite",
-          "score": false,
-          "reasoning": "routing_ok=False, keyword_score=1.0, action_steps=True",
-          "passed": false
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "passed": true
         }
       },
       "trace": {
-        "trace_id": "99baef82-1852-47d2-8be3-b64ef8336a8a",
+        "trace_id": "e5008b9a-c7a0-4c6e-b7e5-6fe9c157cf69",
         "ticket_id": "8",
         "version": "v1",
-        "start_time": 1763958860.905258,
+        "start_time": 1763963883.956084,
         "steps": [
           {
             "name": "route_to_category",
@@ -2126,18 +2127,18 @@
               "issue": "Is there a way to clear CDN cache for uploads? I'm still seeing old assets."
             },
             "output": {
-              "category": "other",
+              "category": "upload_errors",
               "confidence": 0.85,
-              "reasoning": "The question pertains to clearing CDN cache, which is not directly related to upload errors, account access, or data export. It involves managing cached content rather than issues with uploads or account functionalities.",
+              "reasoning": "The issue pertains to the visibility of uploaded assets, which suggests a problem with how new uploads are being served, likely due to caching mechanisms in place for content delivery networks (CDN).",
               "raw_response": {
-                "id": "chatcmpl-CfIZJ9yIxha3qJG2gGtub9YaC0aX8",
+                "id": "chatcmpl-CfJsKED7LPmlrRztMnhF36InT64Fa",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "{\n  \"category\": \"other\",\n  \"confidence\": 0.85,\n  \"reasoning\": \"The question pertains to clearing CDN cache, which is not directly related to upload errors, account access, or data export. It involves managing cached content rather than issues with uploads or account functionalities.\"\n}",
+                      "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.85,\n  \"reasoning\": \"The issue pertains to the visibility of uploaded assets, which suggests a problem with how new uploads are being served, likely due to caching mechanisms in place for content delivery networks (CDN).\"\n}",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -2147,15 +2148,15 @@
                     }
                   }
                 ],
-                "created": 1763958861,
+                "created": 1763963884,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 62,
+                  "completion_tokens": 63,
                   "prompt_tokens": 58,
-                  "total_tokens": 120,
+                  "total_tokens": 121,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -2169,27 +2170,28 @@
                 }
               }
             },
-            "start_time": 1763958862.6012459,
-            "end_time": 1763958862.601247,
+            "start_time": 1763963885.5212102,
+            "end_time": 1763963885.521211,
             "latency_ms": 0.0
           },
           {
             "name": "retrieve_docs",
             "input": {
-              "category": "other"
+              "category": "upload_errors"
             },
             "output": {
               "docs": [
-                "For issues outside documented categories, collect logs and timestamps before escalation.",
-                "Share browser, OS, and app version to speed up troubleshooting.",
-                "Check status page for ongoing incidents before deep-diving."
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
               ],
               "source": "knowledge_base",
-              "count": 3,
-              "tokens": 29
+              "count": 4,
+              "tokens": 55
             },
-            "start_time": 1763958862.601283,
-            "end_time": 1763958862.601284,
+            "start_time": 1763963885.5212789,
+            "end_time": 1763963885.5212789,
             "latency_ms": 0.0
           },
           {
@@ -2197,24 +2199,25 @@
             "input": {
               "issue": "Is there a way to clear CDN cache for uploads? I'm still seeing old assets.",
               "docs": [
-                "For issues outside documented categories, collect logs and timestamps before escalation.",
-                "Share browser, OS, and app version to speed up troubleshooting.",
-                "Check status page for ongoing incidents before deep-diving."
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
               ]
             },
             "output": {
-              "response": "To clear the CDN cache for your uploads, please follow these steps:\n\n1. **Check for Ongoing Incidents**: Visit the status page to ensure there are no current issues affecting the CDN.\n\n2. **Clear Cache**: If there are no incidents, you can manually clear the CDN cache through your CDN management dashboard. Look for an option like \"Purge Cache\" or \"Clear Cache\" and select the specific assets you want to refresh.\n\n3. **Verify Changes**: After purging the cache, refresh your browser or clear your browser cache to see if the new assets are now visible.\n\n4. **Collect Logs**: If you still see old assets, gather relevant logs and timestamps, and provide your browser, OS, and app version for further troubleshooting.\n\nIf the issue persists, please escalate with the collected information.",
+              "response": "To clear the CDN cache for your uploads and ensure you're seeing the latest assets, please follow these steps:\n\n1. **Verify Upload URL**: Double-check that the upload URL or path is correct, including any necessary trailing slashes.\n\n2. **Clear CDN Cache**: After redeploying your static assets, clear the CDN cache to avoid stale content. This can usually be done through your CDN provider's dashboard.\n\n3. **Check File Size**: Ensure that your uploaded files are under 100MB. If they exceed this limit, consider using chunked uploads.\n\n4. **Use HTTPS**: Make sure that all uploads are done using HTTPS to prevent any mixed content issues that could block the assets from loading.\n\nFollowing these steps should help you resolve the issue with old assets appearing. If you continue to experience problems, please let me know!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIZKuApPN6ezAurkUwayzKbachkI",
+                "id": "chatcmpl-CfJsLd3ubdwSa01qR15FsqpUtpTm5",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "To clear the CDN cache for your uploads, please follow these steps:\n\n1. **Check for Ongoing Incidents**: Visit the status page to ensure there are no current issues affecting the CDN.\n\n2. **Clear Cache**: If there are no incidents, you can manually clear the CDN cache through your CDN management dashboard. Look for an option like \"Purge Cache\" or \"Clear Cache\" and select the specific assets you want to refresh.\n\n3. **Verify Changes**: After purging the cache, refresh your browser or clear your browser cache to see if the new assets are now visible.\n\n4. **Collect Logs**: If you still see old assets, gather relevant logs and timestamps, and provide your browser, OS, and app version for further troubleshooting.\n\nIf the issue persists, please escalate with the collected information.",
+                      "content": "To clear the CDN cache for your uploads and ensure you're seeing the latest assets, please follow these steps:\n\n1. **Verify Upload URL**: Double-check that the upload URL or path is correct, including any necessary trailing slashes.\n\n2. **Clear CDN Cache**: After redeploying your static assets, clear the CDN cache to avoid stale content. This can usually be done through your CDN provider's dashboard.\n\n3. **Check File Size**: Ensure that your uploaded files are under 100MB. If they exceed this limit, consider using chunked uploads.\n\n4. **Use HTTPS**: Make sure that all uploads are done using HTTPS to prevent any mixed content issues that could block the assets from loading.\n\nFollowing these steps should help you resolve the issue with old assets appearing. If you continue to experience problems, please let me know!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -2224,15 +2227,15 @@
                     }
                   }
                 ],
-                "created": 1763958862,
+                "created": 1763963885,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 168,
-                  "prompt_tokens": 97,
-                  "total_tokens": 265,
+                  "completion_tokens": 171,
+                  "prompt_tokens": 132,
+                  "total_tokens": 303,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -2246,13 +2249,13 @@
                 }
               }
             },
-            "start_time": 1763958866.191206,
-            "end_time": 1763958866.191208,
+            "start_time": 1763963889.229876,
+            "end_time": 1763963889.229877,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958866.191251,
-        "latency_ms": 5285.99
+        "end_time": 1763963889.229891,
+        "latency_ms": 5273.81
       },
       "version": "v1"
     },
@@ -2269,7 +2272,7 @@
           "confidence": 0.95,
           "reasoning": "The issue involves an expired download link for data retrieval, which directly relates to the data export process.",
           "raw_response": {
-            "id": "chatcmpl-CfIZOHAPSL6haL7s3aQTYnB2Gvf1G",
+            "id": "chatcmpl-CfJsPGFjRWxNafm8NSIlHDjFo3CE5",
             "choices": [
               {
                 "finish_reason": "stop",
@@ -2286,7 +2289,7 @@
                 }
               }
             ],
-            "created": 1763958866,
+            "created": 1763963889,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
@@ -2320,18 +2323,18 @@
           "tokens": 49
         },
         "step_3": {
-          "response": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your account to see the status of your export. Ensure that it has completed successfully.\n\n2. **Wait for Completion**: If the export is still processing, wait up to 15 minutes for it to generate, especially if it's a large dataset.\n\n3. **Retry the Export**: If the export has failed or the link has expired, try exporting again. Consider reducing filters or the date range to ensure it processes successfully.\n\n4. **Use JSON for Large Datasets**: If your dataset exceeds 1 million rows, switch to exporting in JSON format to avoid limitations.\n\nIf you continue to experience issues, feel free to reach out for further assistance!",
+          "response": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check Export Status**: Go to the Exports page to see if your export is still being processed. If it\u2019s queued, wait for up to 15 minutes for it to complete.\n\n2. **Verify Link Expiration**: Remember that download links expire after 24 hours. If your link has expired, you will need to create a new export.\n\n3. **Create a New Export**: If the previous export failed or the link expired, try reducing the filters or date range to create a new export. \n\n4. **Choose the Right Format**: If your dataset exceeds 1 million rows, opt for JSON format instead of CSV to avoid limitations.\n\nIf you need further assistance, feel free to ask!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIZPXtsd7e7kE73EMwqXUWhcuHLy",
+            "id": "chatcmpl-CfJsR0CDMwY6LafHDAZIq75HG9icl",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your account to see the status of your export. Ensure that it has completed successfully.\n\n2. **Wait for Completion**: If the export is still processing, wait up to 15 minutes for it to generate, especially if it's a large dataset.\n\n3. **Retry the Export**: If the export has failed or the link has expired, try exporting again. Consider reducing filters or the date range to ensure it processes successfully.\n\n4. **Use JSON for Large Datasets**: If your dataset exceeds 1 million rows, switch to exporting in JSON format to avoid limitations.\n\nIf you continue to experience issues, feel free to reach out for further assistance!",
+                  "content": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check Export Status**: Go to the Exports page to see if your export is still being processed. If it\u2019s queued, wait for up to 15 minutes for it to complete.\n\n2. **Verify Link Expiration**: Remember that download links expire after 24 hours. If your link has expired, you will need to create a new export.\n\n3. **Create a New Export**: If the previous export failed or the link expired, try reducing the filters or date range to create a new export. \n\n4. **Choose the Right Format**: If your dataset exceeds 1 million rows, opt for JSON format instead of CSV to avoid limitations.\n\nIf you need further assistance, feel free to ask!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -2341,15 +2344,15 @@
                 }
               }
             ],
-            "created": 1763958867,
+            "created": 1763963891,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 161,
+              "completion_tokens": 160,
               "prompt_tokens": 118,
-              "total_tokens": 279,
+              "total_tokens": 278,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -2366,7 +2369,7 @@
       },
       "output": {
         "category": "data_export",
-        "response": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your account to see the status of your export. Ensure that it has completed successfully.\n\n2. **Wait for Completion**: If the export is still processing, wait up to 15 minutes for it to generate, especially if it's a large dataset.\n\n3. **Retry the Export**: If the export has failed or the link has expired, try exporting again. Consider reducing filters or the date range to ensure it processes successfully.\n\n4. **Use JSON for Large Datasets**: If your dataset exceeds 1 million rows, switch to exporting in JSON format to avoid limitations.\n\nIf you continue to experience issues, feel free to reach out for further assistance!"
+        "response": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check Export Status**: Go to the Exports page to see if your export is still being processed. If it\u2019s queued, wait for up to 15 minutes for it to complete.\n\n2. **Verify Link Expiration**: Remember that download links expire after 24 hours. If your link has expired, you will need to create a new export.\n\n3. **Create a New Export**: If the previous export failed or the link expired, try reducing the filters or date range to create a new export. \n\n4. **Choose the Right Format**: If your dataset exceeds 1 million rows, opt for JSON format instead of CSV to avoid limitations.\n\nIf you need further assistance, feel free to ask!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -2377,8 +2380,8 @@
         },
         "keyword_coverage": {
           "name": "keyword_coverage",
-          "score": 0.667,
-          "reasoning": "matched 67% of expected keywords",
+          "score": 1.0,
+          "reasoning": "matched 100% of expected keywords",
           "passed": true
         },
         "action_steps": {
@@ -2390,15 +2393,15 @@
         "composite": {
           "name": "composite",
           "score": true,
-          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
           "passed": true
         }
       },
       "trace": {
-        "trace_id": "01e3f7ac-4ec0-49d1-8f2f-8d76883a22b5",
+        "trace_id": "e57afeb0-0620-4bfa-b6fe-228ce6e7c393",
         "ticket_id": "9",
         "version": "v1",
-        "start_time": 1763958866.191375,
+        "start_time": 1763963889.230006,
         "steps": [
           {
             "name": "route_to_category",
@@ -2410,7 +2413,7 @@
               "confidence": 0.95,
               "reasoning": "The issue involves an expired download link for data retrieval, which directly relates to the data export process.",
               "raw_response": {
-                "id": "chatcmpl-CfIZOHAPSL6haL7s3aQTYnB2Gvf1G",
+                "id": "chatcmpl-CfJsPGFjRWxNafm8NSIlHDjFo3CE5",
                 "choices": [
                   {
                     "finish_reason": "stop",
@@ -2427,7 +2430,7 @@
                     }
                   }
                 ],
-                "created": 1763958866,
+                "created": 1763963889,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
@@ -2449,8 +2452,8 @@
                 }
               }
             },
-            "start_time": 1763958867.488451,
-            "end_time": 1763958867.4884539,
+            "start_time": 1763963890.921401,
+            "end_time": 1763963890.9214022,
             "latency_ms": 0.0
           },
           {
@@ -2469,8 +2472,8 @@
               "count": 4,
               "tokens": 49
             },
-            "start_time": 1763958867.488519,
-            "end_time": 1763958867.4885209,
+            "start_time": 1763963890.921482,
+            "end_time": 1763963890.921482,
             "latency_ms": 0.0
           },
           {
@@ -2485,18 +2488,18 @@
               ]
             },
             "output": {
-              "response": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your account to see the status of your export. Ensure that it has completed successfully.\n\n2. **Wait for Completion**: If the export is still processing, wait up to 15 minutes for it to generate, especially if it's a large dataset.\n\n3. **Retry the Export**: If the export has failed or the link has expired, try exporting again. Consider reducing filters or the date range to ensure it processes successfully.\n\n4. **Use JSON for Large Datasets**: If your dataset exceeds 1 million rows, switch to exporting in JSON format to avoid limitations.\n\nIf you continue to experience issues, feel free to reach out for further assistance!",
+              "response": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check Export Status**: Go to the Exports page to see if your export is still being processed. If it\u2019s queued, wait for up to 15 minutes for it to complete.\n\n2. **Verify Link Expiration**: Remember that download links expire after 24 hours. If your link has expired, you will need to create a new export.\n\n3. **Create a New Export**: If the previous export failed or the link expired, try reducing the filters or date range to create a new export. \n\n4. **Choose the Right Format**: If your dataset exceeds 1 million rows, opt for JSON format instead of CSV to avoid limitations.\n\nIf you need further assistance, feel free to ask!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIZPXtsd7e7kE73EMwqXUWhcuHLy",
+                "id": "chatcmpl-CfJsR0CDMwY6LafHDAZIq75HG9icl",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check the Exports Page**: Go to the Exports page in your account to see the status of your export. Ensure that it has completed successfully.\n\n2. **Wait for Completion**: If the export is still processing, wait up to 15 minutes for it to generate, especially if it's a large dataset.\n\n3. **Retry the Export**: If the export has failed or the link has expired, try exporting again. Consider reducing filters or the date range to ensure it processes successfully.\n\n4. **Use JSON for Large Datasets**: If your dataset exceeds 1 million rows, switch to exporting in JSON format to avoid limitations.\n\nIf you continue to experience issues, feel free to reach out for further assistance!",
+                      "content": "Here\u2019s how to resolve the expired export download link issue:\n\n1. **Check Export Status**: Go to the Exports page to see if your export is still being processed. If it\u2019s queued, wait for up to 15 minutes for it to complete.\n\n2. **Verify Link Expiration**: Remember that download links expire after 24 hours. If your link has expired, you will need to create a new export.\n\n3. **Create a New Export**: If the previous export failed or the link expired, try reducing the filters or date range to create a new export. \n\n4. **Choose the Right Format**: If your dataset exceeds 1 million rows, opt for JSON format instead of CSV to avoid limitations.\n\nIf you need further assistance, feel free to ask!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -2506,15 +2509,15 @@
                     }
                   }
                 ],
-                "created": 1763958867,
+                "created": 1763963891,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 161,
+                  "completion_tokens": 160,
                   "prompt_tokens": 118,
-                  "total_tokens": 279,
+                  "total_tokens": 278,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -2528,13 +2531,13 @@
                 }
               }
             },
-            "start_time": 1763958871.310832,
-            "end_time": 1763958871.310834,
+            "start_time": 1763963894.6074839,
+            "end_time": 1763963894.6074848,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958871.310857,
-        "latency_ms": 5119.48
+        "end_time": 1763963894.607567,
+        "latency_ms": 5377.56
       },
       "version": "v1"
     },
@@ -2548,17 +2551,17 @@
       "steps": {
         "step_1": {
           "category": "upload_errors",
-          "confidence": 0.9,
-          "reasoning": "The issue pertains to a problem encountered during the upload process, specifically related to mixed content blocking in the browser, which prevents the upload from proceeding.",
+          "confidence": 0.95,
+          "reasoning": "The issue described involves a problem with uploading content due to browser security settings related to mixed content, which directly affects the upload process.",
           "raw_response": {
-            "id": "chatcmpl-CfIZTRSdpMgvB3EjhvNDlmECBCXlx",
+            "id": "chatcmpl-CfJsUMuLLVklHrfy8mDGyyKSQxZfx",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.9,\n  \"reasoning\": \"The issue pertains to a problem encountered during the upload process, specifically related to mixed content blocking in the browser, which prevents the upload from proceeding.\"\n}",
+                  "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The issue described involves a problem with uploading content due to browser security settings related to mixed content, which directly affects the upload process.\"\n}",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -2568,15 +2571,15 @@
                 }
               }
             ],
-            "created": 1763958871,
+            "created": 1763963894,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 54,
+              "completion_tokens": 51,
               "prompt_tokens": 54,
-              "total_tokens": 108,
+              "total_tokens": 105,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -2602,18 +2605,18 @@
           "tokens": 55
         },
         "step_3": {
-          "response": "To resolve the mixed content issue while uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and not `http://`. Mixed content occurs when secure and non-secure content is mixed.\n\n2. **Verify File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might be causing the issue.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, try the upload again.\n\nIf you continue to experience issues, please let me know!",
+          "response": "To resolve the mixed content issue when uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and is correct. Verify that there are no trailing slashes or incorrect paths.\n\n2. **File Size Verification**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might cause 404 errors.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, attempt the upload again. \n\nIf you continue to experience issues, please let me know!",
           "has_action_steps": true,
           "tone": "friendly_technical",
           "raw_response": {
-            "id": "chatcmpl-CfIZViSeQsMffhKN2aqcoPSyBpofd",
+            "id": "chatcmpl-CfJsWJeR7d6wUirjV2hqknnmvAnEZ",
             "choices": [
               {
                 "finish_reason": "stop",
                 "index": 0,
                 "logprobs": null,
                 "message": {
-                  "content": "To resolve the mixed content issue while uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and not `http://`. Mixed content occurs when secure and non-secure content is mixed.\n\n2. **Verify File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might be causing the issue.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, try the upload again.\n\nIf you continue to experience issues, please let me know!",
+                  "content": "To resolve the mixed content issue when uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and is correct. Verify that there are no trailing slashes or incorrect paths.\n\n2. **File Size Verification**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might cause 404 errors.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, attempt the upload again. \n\nIf you continue to experience issues, please let me know!",
                   "refusal": null,
                   "role": "assistant",
                   "annotations": [],
@@ -2623,15 +2626,15 @@
                 }
               }
             ],
-            "created": 1763958873,
+            "created": 1763963896,
             "model": "gpt-4o-mini-2024-07-18",
             "object": "chat.completion",
             "service_tier": "default",
             "system_fingerprint": "fp_560af6e559",
             "usage": {
-              "completion_tokens": 161,
+              "completion_tokens": 159,
               "prompt_tokens": 128,
-              "total_tokens": 289,
+              "total_tokens": 287,
               "completion_tokens_details": {
                 "accepted_prediction_tokens": 0,
                 "audio_tokens": 0,
@@ -2648,7 +2651,7 @@
       },
       "output": {
         "category": "upload_errors",
-        "response": "To resolve the mixed content issue while uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and not `http://`. Mixed content occurs when secure and non-secure content is mixed.\n\n2. **Verify File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might be causing the issue.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, try the upload again.\n\nIf you continue to experience issues, please let me know!"
+        "response": "To resolve the mixed content issue when uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and is correct. Verify that there are no trailing slashes or incorrect paths.\n\n2. **File Size Verification**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might cause 404 errors.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, attempt the upload again. \n\nIf you continue to experience issues, please let me know!"
       },
       "evaluations": {
         "routing_accuracy": {
@@ -2677,10 +2680,10 @@
         }
       },
       "trace": {
-        "trace_id": "7659ab5b-162d-4f54-b88c-e5f6da50644c",
+        "trace_id": "6fd51daf-8f33-4d30-80e3-cb35253029e2",
         "ticket_id": "10",
         "version": "v1",
-        "start_time": 1763958871.3109708,
+        "start_time": 1763963894.607858,
         "steps": [
           {
             "name": "route_to_category",
@@ -2689,17 +2692,17 @@
             },
             "output": {
               "category": "upload_errors",
-              "confidence": 0.9,
-              "reasoning": "The issue pertains to a problem encountered during the upload process, specifically related to mixed content blocking in the browser, which prevents the upload from proceeding.",
+              "confidence": 0.95,
+              "reasoning": "The issue described involves a problem with uploading content due to browser security settings related to mixed content, which directly affects the upload process.",
               "raw_response": {
-                "id": "chatcmpl-CfIZTRSdpMgvB3EjhvNDlmECBCXlx",
+                "id": "chatcmpl-CfJsUMuLLVklHrfy8mDGyyKSQxZfx",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.9,\n  \"reasoning\": \"The issue pertains to a problem encountered during the upload process, specifically related to mixed content blocking in the browser, which prevents the upload from proceeding.\"\n}",
+                      "content": "{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The issue described involves a problem with uploading content due to browser security settings related to mixed content, which directly affects the upload process.\"\n}",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -2709,15 +2712,15 @@
                     }
                   }
                 ],
-                "created": 1763958871,
+                "created": 1763963894,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 54,
+                  "completion_tokens": 51,
                   "prompt_tokens": 54,
-                  "total_tokens": 108,
+                  "total_tokens": 105,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -2731,8 +2734,8 @@
                 }
               }
             },
-            "start_time": 1763958872.820259,
-            "end_time": 1763958872.820261,
+            "start_time": 1763963896.2696378,
+            "end_time": 1763963896.269639,
             "latency_ms": 0.0
           },
           {
@@ -2751,8 +2754,8 @@
               "count": 4,
               "tokens": 55
             },
-            "start_time": 1763958872.8202949,
-            "end_time": 1763958872.8202949,
+            "start_time": 1763963896.271564,
+            "end_time": 1763963896.2715662,
             "latency_ms": 0.0
           },
           {
@@ -2767,18 +2770,18 @@
               ]
             },
             "output": {
-              "response": "To resolve the mixed content issue while uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and not `http://`. Mixed content occurs when secure and non-secure content is mixed.\n\n2. **Verify File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might be causing the issue.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, try the upload again.\n\nIf you continue to experience issues, please let me know!",
+              "response": "To resolve the mixed content issue when uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and is correct. Verify that there are no trailing slashes or incorrect paths.\n\n2. **File Size Verification**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might cause 404 errors.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, attempt the upload again. \n\nIf you continue to experience issues, please let me know!",
               "has_action_steps": true,
               "tone": "friendly_technical",
               "raw_response": {
-                "id": "chatcmpl-CfIZViSeQsMffhKN2aqcoPSyBpofd",
+                "id": "chatcmpl-CfJsWJeR7d6wUirjV2hqknnmvAnEZ",
                 "choices": [
                   {
                     "finish_reason": "stop",
                     "index": 0,
                     "logprobs": null,
                     "message": {
-                      "content": "To resolve the mixed content issue while uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and not `http://`. Mixed content occurs when secure and non-secure content is mixed.\n\n2. **Verify File Size**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might be causing the issue.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, try the upload again.\n\nIf you continue to experience issues, please let me know!",
+                      "content": "To resolve the mixed content issue when uploading, please follow these steps:\n\n1. **Check the Upload URL**: Ensure that the upload URL you are using starts with `https://` and is correct. Verify that there are no trailing slashes or incorrect paths.\n\n2. **File Size Verification**: Make sure the file you are trying to upload is under 100MB. If it exceeds this limit, consider using chunked uploads.\n\n3. **Clear Cache**: After making any changes, clear your browser cache or CDN cache to avoid stale content that might cause 404 errors.\n\n4. **Retry the Upload**: Once you have confirmed the URL is correct and the file size is appropriate, attempt the upload again. \n\nIf you continue to experience issues, please let me know!",
                       "refusal": null,
                       "role": "assistant",
                       "annotations": [],
@@ -2788,15 +2791,15 @@
                     }
                   }
                 ],
-                "created": 1763958873,
+                "created": 1763963896,
                 "model": "gpt-4o-mini-2024-07-18",
                 "object": "chat.completion",
                 "service_tier": "default",
                 "system_fingerprint": "fp_560af6e559",
                 "usage": {
-                  "completion_tokens": 161,
+                  "completion_tokens": 159,
                   "prompt_tokens": 128,
-                  "total_tokens": 289,
+                  "total_tokens": 287,
                   "completion_tokens_details": {
                     "accepted_prediction_tokens": 0,
                     "audio_tokens": 0,
@@ -2810,23 +2813,23 @@
                 }
               }
             },
-            "start_time": 1763958875.6555352,
-            "end_time": 1763958875.655537,
+            "start_time": 1763963900.0816388,
+            "end_time": 1763963900.0816388,
             "latency_ms": 0.0
           }
         ],
-        "end_time": 1763958875.655564,
-        "latency_ms": 4344.59
+        "end_time": 1763963900.081645,
+        "latency_ms": 5473.79
       },
       "version": "v1"
     }
   ],
   "summary": {
     "total": 10,
-    "passed": 9,
-    "failed": 1,
+    "passed": 10,
+    "failed": 0,
     "metrics": {
-      "routing_accuracy": 4.7,
+      "routing_accuracy": 5,
       "keyword_coverage": 0.834,
       "action_steps_presence": 1.0,
       "bottleneck": "keyword_coverage"
