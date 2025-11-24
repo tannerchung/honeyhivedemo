@@ -21,6 +21,15 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 - `python main.py --run --debug` – enable debug logging to console and `logs/run.log`.
 - HoneyHive tracing auto-inits when `HONEYHIVE_API_KEY` is set (project/source/session via env).
 
+## Demo: Tracing + Experiments
+- Anthropic run: `python main.py --run --dataset mock --provider anthropic --version v1 --run-id demo-run-1 --export --output results.json --debug`
+- OpenAI run: `python main.py --run --dataset mock --provider openai --version v1 --run-id demo-run-2 --export --output results.json --debug`
+- What you get:
+  - Structured outputs (`answer`, parsed `steps`, `category`, `reasoning`, `safety_flags`).
+  - Traces per ticket with spans for route/retrieve/generate and metadata (run_id, datapoint_id, prompt_version, token_usage, provider/model).
+  - Evaluations: routing, keyword, action steps, format, safety, and optional LLM-based faithfulness/safety (if OpenAI key is set).
+  - Export: `results.json` tagged with run_id/dataset/prompt_version; optional HoneyHive experiment log when SDK is installed.
+
 ## What’s inside
 - `agents/support_agent.py` – 3-step pipeline (route, retrieve docs, generate response).
 - `evaluators/` – routing, keyword coverage, action steps, and composite evaluators.

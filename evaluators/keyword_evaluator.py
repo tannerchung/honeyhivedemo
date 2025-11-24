@@ -25,7 +25,7 @@ class KeywordEvaluator:
     def evaluate(self, ticket: Dict[str, Any], result: Dict[str, Any]) -> Dict[str, Any]:
         ticket_id = str(ticket["id"])
         expected = GROUND_TRUTH.get(ticket_id, {}).get("expected_keywords", [])
-        response = result.get("steps", {}).get("step_3", {}).get("response", "") or ""
+        response = result.get("steps", {}).get("generate", {}).get("answer", "") or ""
         coverage = round(self._coverage(expected, response), 3)
         passed = coverage >= 0.6
         reasoning = f"matched {coverage*100:.0f}% of expected keywords"

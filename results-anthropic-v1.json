@@ -1,0 +1,3905 @@
+{
+  "project": "customer_support_demo",
+  "run_id": "demo-anthropic-v1",
+  "dataset": "mock",
+  "prompt_version": "v1",
+  "timestamp": "2025-11-24T07:11:04Z",
+  "results": [
+    {
+      "ticket_id": "1",
+      "datapoint_id": "1",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "1",
+        "customer": "Alice",
+        "issue": "I'm getting a 404 error when I try to upload files through the dashboard."
+      },
+      "steps": {
+        "route": {
+          "category": "upload_errors",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for upload_errors",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": \"high\",\n  \"reasoning\": \"The user is explicitly mentioning an error (404) that occurs during the file upload process through the dashboard. This is a clear upload functionality issue where the upload endpoint might not be found, which falls directly under the 'upload_errors' category.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+            "Ensure the file size is under 100MB; larger files require chunked uploads.",
+            "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+            "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 55
+        },
+        "generate": {
+          "category": "upload_errors",
+          "answer": "# Fixing 404 Error During File Upload\n\n1. Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.\n\n2. Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.\n\n3. Try clearing your browser cache and CDN cache if you recently redeployed any assets.\n\n4. Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors.",
+          "steps": [
+            "Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.",
+            "Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.",
+            "Try clearing your browser cache and CDN cache if you recently redeployed any assets.",
+            "Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_014Rmk4tT8AomULAfFSawPEe",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Fixing 404 Error During File Upload\n\n1. Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.\n\n2. Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.\n\n3. Try clearing your browser cache and CDN cache if you recently redeployed any assets.\n\n4. Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 146,
+              "output_tokens": 119,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 146,
+            "output_tokens": 119,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "upload_errors",
+        "answer": "# Fixing 404 Error During File Upload\n\n1. Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.\n\n2. Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.\n\n3. Try clearing your browser cache and CDN cache if you recently redeployed any assets.\n\n4. Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors.",
+        "steps": [
+          "Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.",
+          "Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.",
+          "Try clearing your browser cache and CDN cache if you recently redeployed any assets.",
+          "Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=upload_errors, predicted=upload_errors",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 0.667,
+          "reasoning": "matched 67% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of receiving a 404 error during file uploads by providing specific steps that align with the documentation. Each point in the answer corresponds to the relevant advice given in the docs, ensuring that the user has a comprehensive guide to troubleshoot the error effectively.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content provided is technical advice related to fixing a 404 error during file uploads. It does not contain any personally identifiable information (PII) or toxic content. The information is general and applicable to anyone facing similar issues without revealing any sensitive or harmful information.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "8eb58dfc-4fac-4e89-b1bc-d659c3bfdf6b",
+        "ticket_id": "1",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "1",
+        "prompt_version": "v1",
+        "start_time": 1763968168.93893,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "I'm getting a 404 error when I try to upload files through the dashboard."
+            },
+            "output": {
+              "category": "upload_errors",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for upload_errors",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": \"high\",\n  \"reasoning\": \"The user is explicitly mentioning an error (404) that occurs during the file upload process through the dashboard. This is a clear upload functionality issue where the upload endpoint might not be found, which falls directly under the 'upload_errors' category.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "upload_errors",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 14,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968171.104095,
+            "end_time": 1763968171.104095,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "upload_errors"
+            },
+            "output": {
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 55
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 55,
+                "output": 0
+              }
+            },
+            "start_time": 1763968171.1044211,
+            "end_time": 1763968171.1044219,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "I'm getting a 404 error when I try to upload files through the dashboard.",
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ]
+            },
+            "output": {
+              "category": "upload_errors",
+              "answer": "# Fixing 404 Error During File Upload\n\n1. Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.\n\n2. Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.\n\n3. Try clearing your browser cache and CDN cache if you recently redeployed any assets.\n\n4. Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors.",
+              "steps": [
+                "Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.",
+                "Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.",
+                "Try clearing your browser cache and CDN cache if you recently redeployed any assets.",
+                "Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_014Rmk4tT8AomULAfFSawPEe",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Fixing 404 Error During File Upload\n\n1. Check that you're using the correct upload URL, paying special attention to any trailing slashes that might be missing.\n\n2. Verify your file size is under 100MB. Larger files require chunked uploads instead of standard uploads.\n\n3. Try clearing your browser cache and CDN cache if you recently redeployed any assets.\n\n4. Ensure you're using HTTPS for the upload (not HTTP), as mixed content can be blocked by browsers and cause 404 errors.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 146,
+                  "output_tokens": 119,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 146,
+                "output_tokens": 119,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "upload_errors",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 146,
+                "output_tokens": 119,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968173.7010372,
+            "end_time": 1763968173.701041,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "upload_errors",
+          "expected_keywords": [
+            "404",
+            "path",
+            "https"
+          ],
+          "expected_tone": "friendly_technical"
+        },
+        "end_time": 1763968173.701065,
+        "latency_ms": 4762.14,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=upload_errors, predicted=upload_errors",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 0.667,
+            "reasoning": "matched 67% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of receiving a 404 error during file uploads by providing specific steps that align with the documentation. Each point in the answer corresponds to the relevant advice given in the docs, ensuring that the user has a comprehensive guide to troubleshoot the error effectively.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content provided is technical advice related to fixing a 404 error during file uploads. It does not contain any personally identifiable information (PII) or toxic content. The information is general and applicable to anyone facing similar issues without revealing any sensitive or harmful information.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "2",
+      "datapoint_id": "2",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "2",
+        "customer": "Ben",
+        "issue": "I can't log into my account because the SSO redirect keeps looping."
+      },
+      "steps": {
+        "route": {
+          "category": "account_access",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for account_access",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"account_access\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is describing an issue where they cannot log into their account due to a technical problem with the Single Sign-On (SSO) authentication process. The SSO redirect loop is preventing them from successfully accessing their account, which is clearly an account access issue.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "Password resets expire after 15 minutes; resend if the link has lapsed.",
+            "Two-factor authentication codes can drift\u2014sync device time and retry.",
+            "Admins can unlock accounts from the Security > Sessions page.",
+            "SSO users must initiate login from the company portal, not the direct login form."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 45
+        },
+        "generate": {
+          "category": "account_access",
+          "answer": "# SSO Login Loop Fix\n\nIt looks like you're experiencing an SSO redirect loop. This typically happens when you're trying to log in directly instead of through your company portal. Here's how to fix it:\n\n1. Close all browser tabs related to our service.\n2. Go to your company's SSO portal or intranet first.\n3. Find our application in your company portal and click to access it.\n4. If the issue persists, contact your IT administrator to check your SSO session status.",
+          "steps": [
+            "Close all browser tabs related to our service.",
+            "Go to your company's SSO portal or intranet first.",
+            "Find our application in your company portal and click to access it.",
+            "If the issue persists, contact your IT administrator to check your SSO session status."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_0163uiVPytbAxoSKqWmeUWqe",
+            "content": [
+              {
+                "citations": null,
+                "text": "# SSO Login Loop Fix\n\nIt looks like you're experiencing an SSO redirect loop. This typically happens when you're trying to log in directly instead of through your company portal. Here's how to fix it:\n\n1. Close all browser tabs related to our service.\n2. Go to your company's SSO portal or intranet first.\n3. Find our application in your company portal and click to access it.\n4. If the issue persists, contact your IT administrator to check your SSO session status.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 128,
+              "output_tokens": 113,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 128,
+            "output_tokens": 113,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "account_access",
+        "answer": "# SSO Login Loop Fix\n\nIt looks like you're experiencing an SSO redirect loop. This typically happens when you're trying to log in directly instead of through your company portal. Here's how to fix it:\n\n1. Close all browser tabs related to our service.\n2. Go to your company's SSO portal or intranet first.\n3. Find our application in your company portal and click to access it.\n4. If the issue persists, contact your IT administrator to check your SSO session status.",
+        "steps": [
+          "Close all browser tabs related to our service.",
+          "Go to your company's SSO portal or intranet first.",
+          "Find our application in your company portal and click to access it.",
+          "If the issue persists, contact your IT administrator to check your SSO session status."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=account_access, predicted=account_access",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 0.667,
+          "reasoning": "matched 67% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of the SSO redirect loop by providing a clear solution that aligns with the documentation, specifically stating that SSO users must initiate login from the company portal. The steps outlined are practical and relevant to resolving the problem, making the response faithful to the provided issue and docs.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, it does not contain any toxic content, as it provides a helpful guide for resolving a technical issue without any harmful or offensive language.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "9b5bc352-3194-467c-a5c7-e629870e1775",
+        "ticket_id": "2",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "2",
+        "prompt_version": "v1",
+        "start_time": 1763968179.403109,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "I can't log into my account because the SSO redirect keeps looping."
+            },
+            "output": {
+              "category": "account_access",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for account_access",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"account_access\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is describing an issue where they cannot log into their account due to a technical problem with the Single Sign-On (SSO) authentication process. The SSO redirect loop is preventing them from successfully accessing their account, which is clearly an account access issue.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "account_access",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 12,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968181.279098,
+            "end_time": 1763968181.279099,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "account_access"
+            },
+            "output": {
+              "docs": [
+                "Password resets expire after 15 minutes; resend if the link has lapsed.",
+                "Two-factor authentication codes can drift\u2014sync device time and retry.",
+                "Admins can unlock accounts from the Security > Sessions page.",
+                "SSO users must initiate login from the company portal, not the direct login form."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 45
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 45,
+                "output": 0
+              }
+            },
+            "start_time": 1763968181.279499,
+            "end_time": 1763968181.2795,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "I can't log into my account because the SSO redirect keeps looping.",
+              "docs": [
+                "Password resets expire after 15 minutes; resend if the link has lapsed.",
+                "Two-factor authentication codes can drift\u2014sync device time and retry.",
+                "Admins can unlock accounts from the Security > Sessions page.",
+                "SSO users must initiate login from the company portal, not the direct login form."
+              ]
+            },
+            "output": {
+              "category": "account_access",
+              "answer": "# SSO Login Loop Fix\n\nIt looks like you're experiencing an SSO redirect loop. This typically happens when you're trying to log in directly instead of through your company portal. Here's how to fix it:\n\n1. Close all browser tabs related to our service.\n2. Go to your company's SSO portal or intranet first.\n3. Find our application in your company portal and click to access it.\n4. If the issue persists, contact your IT administrator to check your SSO session status.",
+              "steps": [
+                "Close all browser tabs related to our service.",
+                "Go to your company's SSO portal or intranet first.",
+                "Find our application in your company portal and click to access it.",
+                "If the issue persists, contact your IT administrator to check your SSO session status."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_0163uiVPytbAxoSKqWmeUWqe",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# SSO Login Loop Fix\n\nIt looks like you're experiencing an SSO redirect loop. This typically happens when you're trying to log in directly instead of through your company portal. Here's how to fix it:\n\n1. Close all browser tabs related to our service.\n2. Go to your company's SSO portal or intranet first.\n3. Find our application in your company portal and click to access it.\n4. If the issue persists, contact your IT administrator to check your SSO session status.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 128,
+                  "output_tokens": 113,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 128,
+                "output_tokens": 113,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "account_access",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 128,
+                "output_tokens": 113,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968183.907084,
+            "end_time": 1763968183.907085,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "account_access",
+          "expected_keywords": [
+            "sso",
+            "idp",
+            "redirect"
+          ],
+          "expected_tone": "reassuring"
+        },
+        "end_time": 1763968183.907108,
+        "latency_ms": 4504.0,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=account_access, predicted=account_access",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 0.667,
+            "reasoning": "matched 67% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of the SSO redirect loop by providing a clear solution that aligns with the documentation, specifically stating that SSO users must initiate login from the company portal. The steps outlined are practical and relevant to resolving the problem, making the response faithful to the provided issue and docs.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, it does not contain any toxic content, as it provides a helpful guide for resolving a technical issue without any harmful or offensive language.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "3",
+      "datapoint_id": "3",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "3",
+        "customer": "Cara",
+        "issue": "My export has been stuck in pending for 20 minutes and I need the CSV soon."
+      },
+      "steps": {
+        "route": {
+          "category": "data_export",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for data_export",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"data_export\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is explicitly mentioning an export that is stuck in pending status and specifically mentions needing a CSV file, which is a common data export format. This clearly falls under the data_export category as they are having issues with exporting their data.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "Exports are queued; large exports may take up to 15 minutes to generate.",
+            "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+            "Check the Exports page for status and download links; links expire after 24 hours.",
+            "If an export fails, retry after reducing filters or date range."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 49
+        },
+        "generate": {
+          "category": "data_export",
+          "answer": "# Export Stuck in Pending\n\n1. Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.\n\n2. Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.\n\n3. If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.\n\n4. After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours).",
+          "steps": [
+            "Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.",
+            "Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.",
+            "If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.",
+            "After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours)."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_015fXyEWs2GR9KTucwQpPbcp",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Export Stuck in Pending\n\n1. Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.\n\n2. Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.\n\n3. If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.\n\n4. After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours).",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 134,
+              "output_tokens": 154,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 134,
+            "output_tokens": 154,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "data_export",
+        "answer": "# Export Stuck in Pending\n\n1. Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.\n\n2. Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.\n\n3. If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.\n\n4. After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours).",
+        "steps": [
+          "Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.",
+          "Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.",
+          "If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.",
+          "After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours)."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=data_export, predicted=data_export",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 0.667,
+          "reasoning": "matched 67% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer accurately addresses the issue of the export being stuck in pending for 20 minutes by acknowledging the typical export time and suggesting possible reasons for the delay. It correctly mentions the 1M row limit for CSV exports and recommends using JSON for larger datasets. Additionally, it provides practical steps to cancel the current export and create a new one with reduced filters, which aligns with the guidance in the provided documentation. Overall, the response is comprehensive and directly relevant to the user's concern.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, the content is technical advice regarding data export processes and does not contain any toxic language or harmful content.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "cc77a0f5-5e94-4956-8867-5218fc0cc0b6",
+        "ticket_id": "3",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "3",
+        "prompt_version": "v1",
+        "start_time": 1763968188.466704,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "My export has been stuck in pending for 20 minutes and I need the CSV soon."
+            },
+            "output": {
+              "category": "data_export",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for data_export",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"data_export\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is explicitly mentioning an export that is stuck in pending status and specifically mentions needing a CSV file, which is a common data export format. This clearly falls under the data_export category as they are having issues with exporting their data.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "data_export",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 16,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968190.442533,
+            "end_time": 1763968190.442534,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "data_export"
+            },
+            "output": {
+              "docs": [
+                "Exports are queued; large exports may take up to 15 minutes to generate.",
+                "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+                "Check the Exports page for status and download links; links expire after 24 hours.",
+                "If an export fails, retry after reducing filters or date range."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 49
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 49,
+                "output": 0
+              }
+            },
+            "start_time": 1763968190.442785,
+            "end_time": 1763968190.442786,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "My export has been stuck in pending for 20 minutes and I need the CSV soon.",
+              "docs": [
+                "Exports are queued; large exports may take up to 15 minutes to generate.",
+                "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+                "Check the Exports page for status and download links; links expire after 24 hours.",
+                "If an export fails, retry after reducing filters or date range."
+              ]
+            },
+            "output": {
+              "category": "data_export",
+              "answer": "# Export Stuck in Pending\n\n1. Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.\n\n2. Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.\n\n3. If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.\n\n4. After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours).",
+              "steps": [
+                "Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.",
+                "Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.",
+                "If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.",
+                "After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours)."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_015fXyEWs2GR9KTucwQpPbcp",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Export Stuck in Pending\n\n1. Since exports typically take up to 15 minutes but yours has been pending for 20 minutes, it may be too large or encountering an issue.\n\n2. Check if your export might exceed the 1M row limit for CSV files. If so, try exporting as JSON format instead, which can handle larger datasets.\n\n3. If size isn't the issue, try canceling the current export and creating a new one with a smaller date range or additional filters to reduce the data size.\n\n4. After starting a new export, monitor its status on the Exports page where you'll find the download link once it's complete (links remain valid for 24 hours).",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 134,
+                  "output_tokens": 154,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 134,
+                "output_tokens": 154,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "data_export",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 134,
+                "output_tokens": 154,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968193.712936,
+            "end_time": 1763968193.712939,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "data_export",
+          "expected_keywords": [
+            "queue",
+            "15 minutes",
+            "status"
+          ],
+          "expected_tone": "urgent_but_calm"
+        },
+        "end_time": 1763968193.712961,
+        "latency_ms": 5246.26,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=data_export, predicted=data_export",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 0.667,
+            "reasoning": "matched 67% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer accurately addresses the issue of the export being stuck in pending for 20 minutes by acknowledging the typical export time and suggesting possible reasons for the delay. It correctly mentions the 1M row limit for CSV exports and recommends using JSON for larger datasets. Additionally, it provides practical steps to cancel the current export and create a new one with reduced filters, which aligns with the guidance in the provided documentation. Overall, the response is comprehensive and directly relevant to the user's concern.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, the content is technical advice regarding data export processes and does not contain any toxic language or harmful content.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "4",
+      "datapoint_id": "4",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "4",
+        "customer": "Diego",
+        "issue": "The reset password email expired and I still can't sign in."
+      },
+      "steps": {
+        "route": {
+          "category": "account_access",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for account_access",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"account_access\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is describing an issue with signing into their account due to an expired password reset email. This is clearly related to accessing their account, which falls under the 'account_access' category. The user cannot sign in, which is a fundamental account access problem.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "Password resets expire after 15 minutes; resend if the link has lapsed.",
+            "Two-factor authentication codes can drift\u2014sync device time and retry.",
+            "Admins can unlock accounts from the Security > Sessions page.",
+            "SSO users must initiate login from the company portal, not the direct login form."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 45
+        },
+        "generate": {
+          "category": "account_access",
+          "answer": "# Password Reset Link Expired\n\n1. Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.\n\n2. When you receive the new email, click the reset link and complete the password change process promptly.\n\n3. If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form.\n\nNeed more help? Contact your admin who can unlock your account from the Security > Sessions page.",
+          "steps": [
+            "Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.",
+            "When you receive the new email, click the reset link and complete the password change process promptly.",
+            "If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_01WK5sokvvu6FS18PaTWNGWS",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Password Reset Link Expired\n\n1. Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.\n\n2. When you receive the new email, click the reset link and complete the password change process promptly.\n\n3. If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form.\n\nNeed more help? Contact your admin who can unlock your account from the Security > Sessions page.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 125,
+              "output_tokens": 131,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 125,
+            "output_tokens": 131,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "account_access",
+        "answer": "# Password Reset Link Expired\n\n1. Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.\n\n2. When you receive the new email, click the reset link and complete the password change process promptly.\n\n3. If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form.\n\nNeed more help? Contact your admin who can unlock your account from the Security > Sessions page.",
+        "steps": [
+          "Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.",
+          "When you receive the new email, click the reset link and complete the password change process promptly.",
+          "If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=account_access, predicted=account_access",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 1.0,
+          "reasoning": "matched 100% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of the expired password reset email by instructing the user to request a new one and explaining the time limit for the reset link. It also provides additional relevant information about SSO login requirements and suggests contacting an admin if further assistance is needed, which aligns with the provided documentation.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, it does not contain any toxic content, as it provides helpful instructions regarding password reset procedures without any harmful or offensive language.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "a76a6979-c2be-4809-8e60-dd3b60763a5b",
+        "ticket_id": "4",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "4",
+        "prompt_version": "v1",
+        "start_time": 1763968199.1824472,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "The reset password email expired and I still can't sign in."
+            },
+            "output": {
+              "category": "account_access",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for account_access",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"account_access\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is describing an issue with signing into their account due to an expired password reset email. This is clearly related to accessing their account, which falls under the 'account_access' category. The user cannot sign in, which is a fundamental account access problem.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "account_access",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 11,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968201.116118,
+            "end_time": 1763968201.1161191,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "account_access"
+            },
+            "output": {
+              "docs": [
+                "Password resets expire after 15 minutes; resend if the link has lapsed.",
+                "Two-factor authentication codes can drift\u2014sync device time and retry.",
+                "Admins can unlock accounts from the Security > Sessions page.",
+                "SSO users must initiate login from the company portal, not the direct login form."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 45
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 45,
+                "output": 0
+              }
+            },
+            "start_time": 1763968201.11644,
+            "end_time": 1763968201.116441,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "The reset password email expired and I still can't sign in.",
+              "docs": [
+                "Password resets expire after 15 minutes; resend if the link has lapsed.",
+                "Two-factor authentication codes can drift\u2014sync device time and retry.",
+                "Admins can unlock accounts from the Security > Sessions page.",
+                "SSO users must initiate login from the company portal, not the direct login form."
+              ]
+            },
+            "output": {
+              "category": "account_access",
+              "answer": "# Password Reset Link Expired\n\n1. Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.\n\n2. When you receive the new email, click the reset link and complete the password change process promptly.\n\n3. If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form.\n\nNeed more help? Contact your admin who can unlock your account from the Security > Sessions page.",
+              "steps": [
+                "Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.",
+                "When you receive the new email, click the reset link and complete the password change process promptly.",
+                "If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_01WK5sokvvu6FS18PaTWNGWS",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Password Reset Link Expired\n\n1. Request a new password reset email by clicking \"Forgot Password\" on the login page. The previous link expired after 15 minutes.\n\n2. When you receive the new email, click the reset link and complete the password change process promptly.\n\n3. If you still can't sign in after resetting your password, check if you're using SSO (Single Sign-On). If so, you'll need to start from your company portal instead of our direct login form.\n\nNeed more help? Contact your admin who can unlock your account from the Security > Sessions page.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 125,
+                  "output_tokens": 131,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 125,
+                "output_tokens": 131,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "account_access",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 125,
+                "output_tokens": 131,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968203.796322,
+            "end_time": 1763968203.796323,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "account_access",
+          "expected_keywords": [
+            "reset",
+            "link",
+            "15 minutes"
+          ],
+          "expected_tone": "reassuring"
+        },
+        "end_time": 1763968203.7963352,
+        "latency_ms": 4613.89,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=account_access, predicted=account_access",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 1.0,
+            "reasoning": "matched 100% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of the expired password reset email by instructing the user to request a new one and explaining the time limit for the reset link. It also provides additional relevant information about SSO login requirements and suggests contacting an admin if further assistance is needed, which aligns with the provided documentation.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, it does not contain any toxic content, as it provides helpful instructions regarding password reset procedures without any harmful or offensive language.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "5",
+      "datapoint_id": "5",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "5",
+        "customer": "Ella",
+        "issue": "Uploads fail in Safari but work in Chrome. Any ideas?"
+      },
+      "steps": {
+        "route": {
+          "category": "upload_errors",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for upload_errors",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is explicitly describing an issue with file uploads failing in a specific browser (Safari) while working in another browser (Chrome). This is clearly an upload functionality problem, which falls directly into the 'upload_errors' category.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+            "Ensure the file size is under 100MB; larger files require chunked uploads.",
+            "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+            "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 55
+        },
+        "generate": {
+          "category": "upload_errors",
+          "answer": "# Safari Upload Issue Troubleshooting\n\n1. Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.\n\n2. Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.\n\n3. Verify your file size is under 100MB, as Safari may handle large files differently than Chrome.\n\nIf these steps don't resolve the issue, please share any error messages you see in Safari's developer console (Option+Command+C) for more specific help.",
+          "steps": [
+            "Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.",
+            "Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.",
+            "Verify your file size is under 100MB, as Safari may handle large files differently than Chrome."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_01WfSqr9zgi78NU5Xwh2mfN1",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Safari Upload Issue Troubleshooting\n\n1. Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.\n\n2. Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.\n\n3. Verify your file size is under 100MB, as Safari may handle large files differently than Chrome.\n\nIf these steps don't resolve the issue, please share any error messages you see in Safari's developer console (Option+Command+C) for more specific help.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 141,
+              "output_tokens": 127,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 141,
+            "output_tokens": 127,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "upload_errors",
+        "answer": "# Safari Upload Issue Troubleshooting\n\n1. Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.\n\n2. Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.\n\n3. Verify your file size is under 100MB, as Safari may handle large files differently than Chrome.\n\nIf these steps don't resolve the issue, please share any error messages you see in Safari's developer console (Option+Command+C) for more specific help.",
+        "steps": [
+          "Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.",
+          "Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.",
+          "Verify your file size is under 100MB, as Safari may handle large files differently than Chrome."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=upload_errors, predicted=upload_errors",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 0.667,
+          "reasoning": "matched 67% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of uploads failing in Safari by providing relevant troubleshooting steps that align with the provided documentation. It emphasizes the importance of using HTTPS, which is a key point from the docs, and suggests clearing the cache, which is also mentioned. Additionally, it includes a check for file size, which is another relevant point from the documentation. Overall, the answer is comprehensive and faithful to the issue and the provided docs.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content provided is technical troubleshooting advice related to a web browser issue and does not contain any personally identifiable information (PII) or toxic content.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "163588da-4e55-4fe6-96eb-202e0004c051",
+        "ticket_id": "5",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "5",
+        "prompt_version": "v1",
+        "start_time": 1763968208.144087,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "Uploads fail in Safari but work in Chrome. Any ideas?"
+            },
+            "output": {
+              "category": "upload_errors",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for upload_errors",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is explicitly describing an issue with file uploads failing in a specific browser (Safari) while working in another browser (Chrome). This is clearly an upload functionality problem, which falls directly into the 'upload_errors' category.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "upload_errors",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 10,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968210.329464,
+            "end_time": 1763968210.3294652,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "upload_errors"
+            },
+            "output": {
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 55
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 55,
+                "output": 0
+              }
+            },
+            "start_time": 1763968210.329726,
+            "end_time": 1763968210.329727,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "Uploads fail in Safari but work in Chrome. Any ideas?",
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ]
+            },
+            "output": {
+              "category": "upload_errors",
+              "answer": "# Safari Upload Issue Troubleshooting\n\n1. Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.\n\n2. Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.\n\n3. Verify your file size is under 100MB, as Safari may handle large files differently than Chrome.\n\nIf these steps don't resolve the issue, please share any error messages you see in Safari's developer console (Option+Command+C) for more specific help.",
+              "steps": [
+                "Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.",
+                "Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.",
+                "Verify your file size is under 100MB, as Safari may handle large files differently than Chrome."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_01WfSqr9zgi78NU5Xwh2mfN1",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Safari Upload Issue Troubleshooting\n\n1. Check if you're using HTTPS for uploads. Safari has stricter mixed content policies than Chrome and may block HTTP uploads even when Chrome allows them.\n\n2. Clear Safari's cache by going to Safari \u2192 Settings \u2192 Privacy \u2192 Manage Website Data \u2192 Remove All.\n\n3. Verify your file size is under 100MB, as Safari may handle large files differently than Chrome.\n\nIf these steps don't resolve the issue, please share any error messages you see in Safari's developer console (Option+Command+C) for more specific help.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 141,
+                  "output_tokens": 127,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 141,
+                "output_tokens": 127,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "upload_errors",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 141,
+                "output_tokens": 127,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968213.6128798,
+            "end_time": 1763968213.612881,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "upload_errors",
+          "expected_keywords": [
+            "browser",
+            "safari",
+            "https"
+          ],
+          "expected_tone": "friendly_technical"
+        },
+        "end_time": 1763968213.612928,
+        "latency_ms": 5468.84,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=upload_errors, predicted=upload_errors",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 0.667,
+            "reasoning": "matched 67% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of uploads failing in Safari by providing relevant troubleshooting steps that align with the provided documentation. It emphasizes the importance of using HTTPS, which is a key point from the docs, and suggests clearing the cache, which is also mentioned. Additionally, it includes a check for file size, which is another relevant point from the documentation. Overall, the answer is comprehensive and faithful to the issue and the provided docs.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content provided is technical troubleshooting advice related to a web browser issue and does not contain any personally identifiable information (PII) or toxic content.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "6",
+      "datapoint_id": "6",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "6",
+        "customer": "Farah",
+        "issue": "I need a JSON export for more than a million records; the CSV cuts off."
+      },
+      "steps": {
+        "route": {
+          "category": "data_export",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for data_export",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"data_export\",\n  \"confidence\": \"high\",\n  \"reasoning\": \"The user is specifically requesting help with exporting a large volume of data (more than a million records) and mentions that the CSV export is insufficient because it cuts off. This is clearly a data export issue as it relates to limitations in exporting large datasets.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "Exports are queued; large exports may take up to 15 minutes to generate.",
+            "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+            "Check the Exports page for status and download links; links expire after 24 hours.",
+            "If an export fails, retry after reducing filters or date range."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 49
+        },
+        "generate": {
+          "category": "data_export",
+          "answer": "# Exporting Large Datasets (Over 1M Records)\n\n1. Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.\n\n2. After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.\n\n3. Download your export when ready - remember that download links will expire after 24 hours.\n\n4. If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again.",
+          "steps": [
+            "Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.",
+            "After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.",
+            "Download your export when ready - remember that download links will expire after 24 hours.",
+            "If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_01DuYrndd797cwTwJNpM5TC3",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Exporting Large Datasets (Over 1M Records)\n\n1. Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.\n\n2. After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.\n\n3. Download your export when ready - remember that download links will expire after 24 hours.\n\n4. If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 132,
+              "output_tokens": 134,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 132,
+            "output_tokens": 134,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "data_export",
+        "answer": "# Exporting Large Datasets (Over 1M Records)\n\n1. Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.\n\n2. After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.\n\n3. Download your export when ready - remember that download links will expire after 24 hours.\n\n4. If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again.",
+        "steps": [
+          "Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.",
+          "After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.",
+          "Download your export when ready - remember that download links will expire after 24 hours.",
+          "If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=data_export, predicted=data_export",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 1.0,
+          "reasoning": "matched 100% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer accurately addresses the issue of needing a JSON export for more than a million records by clearly stating that JSON supports larger datasets compared to CSV. It also includes relevant details from the documentation about checking the export status, the time it may take, the expiration of download links, and suggestions for retrying the export if it fails. All points are directly aligned with the provided documentation.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content provided is technical guidance on exporting large datasets and does not contain any personally identifiable information (PII) or toxic content.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "38df0056-cf09-4f65-ad44-ecc11cdae0fd",
+        "ticket_id": "6",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "6",
+        "prompt_version": "v1",
+        "start_time": 1763968218.9574451,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "I need a JSON export for more than a million records; the CSV cuts off."
+            },
+            "output": {
+              "category": "data_export",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for data_export",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"data_export\",\n  \"confidence\": \"high\",\n  \"reasoning\": \"The user is specifically requesting help with exporting a large volume of data (more than a million records) and mentions that the CSV export is insufficient because it cuts off. This is clearly a data export issue as it relates to limitations in exporting large datasets.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "data_export",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 15,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968220.753697,
+            "end_time": 1763968220.753698,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "data_export"
+            },
+            "output": {
+              "docs": [
+                "Exports are queued; large exports may take up to 15 minutes to generate.",
+                "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+                "Check the Exports page for status and download links; links expire after 24 hours.",
+                "If an export fails, retry after reducing filters or date range."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 49
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 49,
+                "output": 0
+              }
+            },
+            "start_time": 1763968220.754119,
+            "end_time": 1763968220.7541199,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "I need a JSON export for more than a million records; the CSV cuts off.",
+              "docs": [
+                "Exports are queued; large exports may take up to 15 minutes to generate.",
+                "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+                "Check the Exports page for status and download links; links expire after 24 hours.",
+                "If an export fails, retry after reducing filters or date range."
+              ]
+            },
+            "output": {
+              "category": "data_export",
+              "answer": "# Exporting Large Datasets (Over 1M Records)\n\n1. Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.\n\n2. After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.\n\n3. Download your export when ready - remember that download links will expire after 24 hours.\n\n4. If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again.",
+              "steps": [
+                "Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.",
+                "After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.",
+                "Download your export when ready - remember that download links will expire after 24 hours.",
+                "If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_01DuYrndd797cwTwJNpM5TC3",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Exporting Large Datasets (Over 1M Records)\n\n1. Switch to JSON format instead of CSV for your export, as JSON supports more than 1 million records while CSV has a 1M row limit.\n\n2. After initiating the export, check the Exports page for status updates. Large exports can take up to 15 minutes to process.\n\n3. Download your export when ready - remember that download links will expire after 24 hours.\n\n4. If the export still fails, try reducing your data volume by applying additional filters or narrowing your date range, then attempt the export again.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 132,
+                  "output_tokens": 134,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 132,
+                "output_tokens": 134,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "data_export",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 132,
+                "output_tokens": 134,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968223.705101,
+            "end_time": 1763968223.705102,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "data_export",
+          "expected_keywords": [
+            "json",
+            "limit",
+            "1m"
+          ],
+          "expected_tone": "pragmatic"
+        },
+        "end_time": 1763968223.7051132,
+        "latency_ms": 4747.67,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=data_export, predicted=data_export",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 1.0,
+            "reasoning": "matched 100% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer accurately addresses the issue of needing a JSON export for more than a million records by clearly stating that JSON supports larger datasets compared to CSV. It also includes relevant details from the documentation about checking the export status, the time it may take, the expiration of download links, and suggestions for retrying the export if it fails. All points are directly aligned with the provided documentation.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content provided is technical guidance on exporting large datasets and does not contain any personally identifiable information (PII) or toxic content.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "7",
+      "datapoint_id": "7",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "7",
+        "customer": "Gina",
+        "issue": "The app says my account is locked after too many 2FA attempts."
+      },
+      "steps": {
+        "route": {
+          "category": "account_access",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for account_access",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"account_access\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The issue clearly relates to the user being unable to access their account due to it being locked after multiple two-factor authentication (2FA) attempts. This is a classic account access problem where security measures have temporarily restricted the user's ability to log in.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "Password resets expire after 15 minutes; resend if the link has lapsed.",
+            "Two-factor authentication codes can drift\u2014sync device time and retry.",
+            "Admins can unlock accounts from the Security > Sessions page.",
+            "SSO users must initiate login from the company portal, not the direct login form."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 45
+        },
+        "generate": {
+          "category": "account_access",
+          "answer": "# Account Locked After Too Many 2FA Attempts\n\n1. Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.\n\n2. Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.\n\n3. If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect.",
+          "steps": [
+            "Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.",
+            "Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.",
+            "If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_01RtVKZi2iKnNry3wQnXwE2c",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Account Locked After Too Many 2FA Attempts\n\n1. Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.\n\n2. Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.\n\n3. If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 127,
+              "output_tokens": 114,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 127,
+            "output_tokens": 114,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "account_access",
+        "answer": "# Account Locked After Too Many 2FA Attempts\n\n1. Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.\n\n2. Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.\n\n3. If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect.",
+        "steps": [
+          "Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.",
+          "Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.",
+          "If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=account_access, predicted=account_access",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 1.0,
+          "reasoning": "matched 100% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of an account being locked after too many 2FA attempts by providing a clear solution to request an unlock from an administrator. It also includes relevant information about logging in as an SSO user and troubleshooting 2FA issues, which aligns well with the provided documentation.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, it does not contain any toxic content, as it provides helpful instructions regarding account access and security without any harmful or offensive language.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "34912593-de7b-48eb-b520-e7cd043300c2",
+        "ticket_id": "7",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "7",
+        "prompt_version": "v1",
+        "start_time": 1763968227.486239,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "The app says my account is locked after too many 2FA attempts."
+            },
+            "output": {
+              "category": "account_access",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for account_access",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"account_access\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The issue clearly relates to the user being unable to access their account due to it being locked after multiple two-factor authentication (2FA) attempts. This is a classic account access problem where security measures have temporarily restricted the user's ability to log in.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "account_access",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 12,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968229.373735,
+            "end_time": 1763968229.373736,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "account_access"
+            },
+            "output": {
+              "docs": [
+                "Password resets expire after 15 minutes; resend if the link has lapsed.",
+                "Two-factor authentication codes can drift\u2014sync device time and retry.",
+                "Admins can unlock accounts from the Security > Sessions page.",
+                "SSO users must initiate login from the company portal, not the direct login form."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 45
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 45,
+                "output": 0
+              }
+            },
+            "start_time": 1763968229.374285,
+            "end_time": 1763968229.3742862,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "The app says my account is locked after too many 2FA attempts.",
+              "docs": [
+                "Password resets expire after 15 minutes; resend if the link has lapsed.",
+                "Two-factor authentication codes can drift\u2014sync device time and retry.",
+                "Admins can unlock accounts from the Security > Sessions page.",
+                "SSO users must initiate login from the company portal, not the direct login form."
+              ]
+            },
+            "output": {
+              "category": "account_access",
+              "answer": "# Account Locked After Too Many 2FA Attempts\n\n1. Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.\n\n2. Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.\n\n3. If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect.",
+              "steps": [
+                "Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.",
+                "Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.",
+                "If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_01RtVKZi2iKnNry3wQnXwE2c",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Account Locked After Too Many 2FA Attempts\n\n1. Request an account unlock by contacting your administrator. They can unlock your account from the Security > Sessions page in the admin dashboard.\n\n2. Once unlocked, try logging in again. If you're an SSO user, make sure to initiate your login from your company portal rather than the direct login form.\n\n3. If you continue having 2FA issues, check that your device time is properly synchronized, as authentication codes can drift when device time is incorrect.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 127,
+                  "output_tokens": 114,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 127,
+                "output_tokens": 114,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "account_access",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 127,
+                "output_tokens": 114,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968231.933692,
+            "end_time": 1763968231.933694,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "account_access",
+          "expected_keywords": [
+            "lock",
+            "admin",
+            "security"
+          ],
+          "expected_tone": "reassuring"
+        },
+        "end_time": 1763968231.933711,
+        "latency_ms": 4447.47,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=account_access, predicted=account_access",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 1.0,
+            "reasoning": "matched 100% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of an account being locked after too many 2FA attempts by providing a clear solution to request an unlock from an administrator. It also includes relevant information about logging in as an SSO user and troubleshooting 2FA issues, which aligns well with the provided documentation.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, it does not contain any toxic content, as it provides helpful instructions regarding account access and security without any harmful or offensive language.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "8",
+      "datapoint_id": "8",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "8",
+        "customer": "Hank",
+        "issue": "Is there a way to clear CDN cache for uploads? I'm still seeing old assets."
+      },
+      "steps": {
+        "route": {
+          "category": "upload_errors",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for upload_errors",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.9,\n  \"reasoning\": \"The user is experiencing an issue with uploaded assets not updating properly due to CDN caching. This is directly related to how uploads are being served and cached, which falls under upload errors since the system is technically working but not displaying the expected updated content.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+            "Ensure the file size is under 100MB; larger files require chunked uploads.",
+            "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+            "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 55
+        },
+        "generate": {
+          "category": "upload_errors",
+          "answer": "# Clearing CDN Cache for Uploads\n\n1. Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.\n\n2. For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.\n\n3. If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.\n\n4. Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues.",
+          "steps": [
+            "Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.",
+            "For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.",
+            "If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.",
+            "Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_01QSd5cwQjz5FSAzL7L388bS",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Clearing CDN Cache for Uploads\n\n1. Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.\n\n2. For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.\n\n3. If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.\n\n4. Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 147,
+              "output_tokens": 135,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 147,
+            "output_tokens": 135,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "upload_errors",
+        "answer": "# Clearing CDN Cache for Uploads\n\n1. Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.\n\n2. For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.\n\n3. If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.\n\n4. Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues.",
+        "steps": [
+          "Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.",
+          "For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.",
+          "If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.",
+          "Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=upload_errors, predicted=upload_errors",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 1.0,
+          "reasoning": "matched 100% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of clearing CDN cache for uploads by providing practical steps to clear both browser and CDN cache. It also includes relevant information from the docs about redeploying static assets to force a cache refresh and checking file paths to avoid 404 errors. Additionally, it mentions the importance of using HTTPS for upload URLs, which aligns with the provided documentation. Overall, the answer is comprehensive and faithful to the issue and the documentation.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content provided is technical guidance on clearing CDN cache and does not contain any personally identifiable information (PII) or toxic content. It focuses on web development practices and does not include any harmful language or sensitive data.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "9e8b3fa1-4c1b-4657-9b0e-da7b46861dcc",
+        "ticket_id": "8",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "8",
+        "prompt_version": "v1",
+        "start_time": 1763968236.4157271,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "Is there a way to clear CDN cache for uploads? I'm still seeing old assets."
+            },
+            "output": {
+              "category": "upload_errors",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for upload_errors",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": 0.9,\n  \"reasoning\": \"The user is experiencing an issue with uploaded assets not updating properly due to CDN caching. This is directly related to how uploads are being served and cached, which falls under upload errors since the system is technically working but not displaying the expected updated content.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "upload_errors",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 15,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968238.529491,
+            "end_time": 1763968238.529492,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "upload_errors"
+            },
+            "output": {
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 55
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 55,
+                "output": 0
+              }
+            },
+            "start_time": 1763968238.5298681,
+            "end_time": 1763968238.529869,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "Is there a way to clear CDN cache for uploads? I'm still seeing old assets.",
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ]
+            },
+            "output": {
+              "category": "upload_errors",
+              "answer": "# Clearing CDN Cache for Uploads\n\n1. Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.\n\n2. For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.\n\n3. If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.\n\n4. Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues.",
+              "steps": [
+                "Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.",
+                "For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.",
+                "If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.",
+                "Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_01QSd5cwQjz5FSAzL7L388bS",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Clearing CDN Cache for Uploads\n\n1. Clear your browser cache first by pressing Ctrl+Shift+R (Windows/Linux) or Cmd+Shift+R (Mac) to reload without using cached content.\n\n2. For CDN cache clearing, redeploy your static assets to force a cache refresh. This typically creates new file paths that bypass cached versions.\n\n3. If you're still seeing old assets, check that your file paths are correct and include proper trailing slashes to avoid 404 errors.\n\n4. Ensure all upload URLs use HTTPS rather than HTTP to prevent browser blocking issues.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 147,
+                  "output_tokens": 135,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 147,
+                "output_tokens": 135,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "upload_errors",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 147,
+                "output_tokens": 135,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968241.576847,
+            "end_time": 1763968241.576849,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "upload_errors",
+          "expected_keywords": [
+            "cdn",
+            "cache",
+            "clear"
+          ],
+          "expected_tone": "friendly_technical"
+        },
+        "end_time": 1763968241.576861,
+        "latency_ms": 5161.13,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=upload_errors, predicted=upload_errors",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 1.0,
+            "reasoning": "matched 100% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of clearing CDN cache for uploads by providing practical steps to clear both browser and CDN cache. It also includes relevant information from the docs about redeploying static assets to force a cache refresh and checking file paths to avoid 404 errors. Additionally, it mentions the importance of using HTTPS for upload URLs, which aligns with the provided documentation. Overall, the answer is comprehensive and faithful to the issue and the documentation.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content provided is technical guidance on clearing CDN cache and does not contain any personally identifiable information (PII) or toxic content. It focuses on web development practices and does not include any harmful language or sensitive data.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "9",
+      "datapoint_id": "9",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "9",
+        "customer": "Ivan",
+        "issue": "Export download link says expired and I can't retrieve the data."
+      },
+      "steps": {
+        "route": {
+          "category": "data_export",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for data_export",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"data_export\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is specifically mentioning an issue with an export download link being expired and being unable to retrieve their data. This is a clear data export issue where the user is having trouble accessing previously exported information.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "Exports are queued; large exports may take up to 15 minutes to generate.",
+            "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+            "Check the Exports page for status and download links; links expire after 24 hours.",
+            "If an export fails, retry after reducing filters or date range."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 49
+        },
+        "generate": {
+          "category": "data_export",
+          "answer": "# Export Link Expired Issue\n\nHere's how to resolve your expired export download link:\n\n1. Return to the Exports page to check if your export is still available. Export links expire after 24 hours.\n\n2. If the link has expired, create a new export request with the same parameters.\n\n3. For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.\n\n4. If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset.",
+          "steps": [
+            "Return to the Exports page to check if your export is still available. Export links expire after 24 hours.",
+            "If the link has expired, create a new export request with the same parameters.",
+            "For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.",
+            "If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_011wsympN1q7iGVU6rS22g2o",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Export Link Expired Issue\n\nHere's how to resolve your expired export download link:\n\n1. Return to the Exports page to check if your export is still available. Export links expire after 24 hours.\n\n2. If the link has expired, create a new export request with the same parameters.\n\n3. For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.\n\n4. If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 128,
+              "output_tokens": 135,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 128,
+            "output_tokens": 135,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "data_export",
+        "answer": "# Export Link Expired Issue\n\nHere's how to resolve your expired export download link:\n\n1. Return to the Exports page to check if your export is still available. Export links expire after 24 hours.\n\n2. If the link has expired, create a new export request with the same parameters.\n\n3. For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.\n\n4. If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset.",
+        "steps": [
+          "Return to the Exports page to check if your export is still available. Export links expire after 24 hours.",
+          "If the link has expired, create a new export request with the same parameters.",
+          "For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.",
+          "If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=data_export, predicted=data_export",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 1.0,
+          "reasoning": "matched 100% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of an expired export download link by providing clear steps to check the status of the export, create a new request if necessary, and considerations for large datasets. It accurately reflects the information in the provided documentation, ensuring that the user understands the time limits and potential solutions for their issue.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content provided does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, the content is instructional and does not contain any toxic language or harmful content.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "ac687846-608a-4de2-b272-8f8ad9ec3198",
+        "ticket_id": "9",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "9",
+        "prompt_version": "v1",
+        "start_time": 1763968245.858419,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "Export download link says expired and I can't retrieve the data."
+            },
+            "output": {
+              "category": "data_export",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for data_export",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"data_export\",\n  \"confidence\": 0.95,\n  \"reasoning\": \"The user is specifically mentioning an issue with an export download link being expired and being unable to retrieve their data. This is a clear data export issue where the user is having trouble accessing previously exported information.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "data_export",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 11,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968247.874586,
+            "end_time": 1763968247.874589,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "data_export"
+            },
+            "output": {
+              "docs": [
+                "Exports are queued; large exports may take up to 15 minutes to generate.",
+                "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+                "Check the Exports page for status and download links; links expire after 24 hours.",
+                "If an export fails, retry after reducing filters or date range."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 49
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 49,
+                "output": 0
+              }
+            },
+            "start_time": 1763968247.875328,
+            "end_time": 1763968247.8753312,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "Export download link says expired and I can't retrieve the data.",
+              "docs": [
+                "Exports are queued; large exports may take up to 15 minutes to generate.",
+                "CSV exports are limited to 1M rows\u2014use JSON for larger datasets.",
+                "Check the Exports page for status and download links; links expire after 24 hours.",
+                "If an export fails, retry after reducing filters or date range."
+              ]
+            },
+            "output": {
+              "category": "data_export",
+              "answer": "# Export Link Expired Issue\n\nHere's how to resolve your expired export download link:\n\n1. Return to the Exports page to check if your export is still available. Export links expire after 24 hours.\n\n2. If the link has expired, create a new export request with the same parameters.\n\n3. For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.\n\n4. If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset.",
+              "steps": [
+                "Return to the Exports page to check if your export is still available. Export links expire after 24 hours.",
+                "If the link has expired, create a new export request with the same parameters.",
+                "For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.",
+                "If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_011wsympN1q7iGVU6rS22g2o",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Export Link Expired Issue\n\nHere's how to resolve your expired export download link:\n\n1. Return to the Exports page to check if your export is still available. Export links expire after 24 hours.\n\n2. If the link has expired, create a new export request with the same parameters.\n\n3. For large datasets, please be patient as exports can take up to 15 minutes to generate. If your export contains over 1 million rows, try using JSON format instead of CSV.\n\n4. If your export continues to fail, try reducing your filters or narrowing your date range to create a smaller dataset.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 128,
+                  "output_tokens": 135,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 128,
+                "output_tokens": 135,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "data_export",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 128,
+                "output_tokens": 135,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968250.8296561,
+            "end_time": 1763968250.829658,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "data_export",
+          "expected_keywords": [
+            "expired",
+            "download",
+            "24 hours"
+          ],
+          "expected_tone": "pragmatic"
+        },
+        "end_time": 1763968250.8296719,
+        "latency_ms": 4971.25,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=data_export, predicted=data_export",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 1.0,
+            "reasoning": "matched 100% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of an expired export download link by providing clear steps to check the status of the export, create a new request if necessary, and considerations for large datasets. It accurately reflects the information in the provided documentation, ensuring that the user understands the time limits and potential solutions for their issue.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content provided does not contain any personally identifiable information (PII) such as names, addresses, or contact details. Additionally, the content is instructional and does not contain any toxic language or harmful content.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=1.0, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    },
+    {
+      "ticket_id": "10",
+      "datapoint_id": "10",
+      "run_id": "demo-anthropic-v1",
+      "prompt_version": "v1",
+      "input": {
+        "id": "10",
+        "customer": "Judy",
+        "issue": "The browser blocks the upload because it says mixed content. Help?"
+      },
+      "steps": {
+        "route": {
+          "category": "upload_errors",
+          "confidence": 0.82,
+          "reasoning": "Rule-based routing matched keywords for upload_errors",
+          "raw_response": {
+            "mode": "fallback_parse_error",
+            "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": \"high\",\n  \"reasoning\": \"The user is describing an issue where their browser is blocking an upload due to 'mixed content' errors. Mixed content occurs when a secure HTTPS page loads resources (like scripts, images, or in this case, possibly an upload endpoint) over an insecure HTTP connection. This is clearly related to the upload process being prevented by security mechanisms in the browser, making it an upload error rather than an account access or data export issue.\"\n}\n```"
+          },
+          "prompt_version": "v1"
+        },
+        "retrieve": {
+          "docs": [
+            "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+            "Ensure the file size is under 100MB; larger files require chunked uploads.",
+            "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+            "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+          ],
+          "source": "knowledge_base",
+          "count": 4,
+          "tokens": 55
+        },
+        "generate": {
+          "category": "upload_errors",
+          "answer": "# Mixed Content Upload Issue\n\nIt looks like your browser is blocking uploads because of a mixed content issue. This happens when your page loads over HTTPS but tries to upload to an HTTP endpoint. Here's how to fix it:\n\n1. Update your upload URL to use HTTPS instead of HTTP in your code.\n2. Make sure all resources (including API endpoints) use secure connections.\n\nIf you're still having issues after making these changes, try clearing your browser cache to ensure you're using the latest version of your site.",
+          "steps": [
+            "Update your upload URL to use HTTPS instead of HTTP in your code.",
+            "Make sure all resources (including API endpoints) use secure connections."
+          ],
+          "has_action_steps": true,
+          "tone": "friendly_technical",
+          "reasoning": "Anthropic response",
+          "safety_flags": {
+            "pii": false,
+            "toxic": false
+          },
+          "raw_response": {
+            "id": "msg_01QGYwWiGfitp9WT7LKpBLU7",
+            "content": [
+              {
+                "citations": null,
+                "text": "# Mixed Content Upload Issue\n\nIt looks like your browser is blocking uploads because of a mixed content issue. This happens when your page loads over HTTPS but tries to upload to an HTTP endpoint. Here's how to fix it:\n\n1. Update your upload URL to use HTTPS instead of HTTP in your code.\n2. Make sure all resources (including API endpoints) use secure connections.\n\nIf you're still having issues after making these changes, try clearing your browser cache to ensure you're using the latest version of your site.",
+                "type": "text"
+              }
+            ],
+            "model": "claude-3-7-sonnet-20250219",
+            "role": "assistant",
+            "stop_reason": "end_turn",
+            "stop_sequence": null,
+            "type": "message",
+            "usage": {
+              "cache_creation": {
+                "ephemeral_1h_input_tokens": 0,
+                "ephemeral_5m_input_tokens": 0
+              },
+              "cache_creation_input_tokens": 0,
+              "cache_read_input_tokens": 0,
+              "input_tokens": 141,
+              "output_tokens": 112,
+              "server_tool_use": null,
+              "service_tier": "standard"
+            }
+          },
+          "prompt_version": "v1",
+          "token_usage": {
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 0,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "input_tokens": 141,
+            "output_tokens": 112,
+            "server_tool_use": null,
+            "service_tier": "standard"
+          }
+        }
+      },
+      "output": {
+        "category": "upload_errors",
+        "answer": "# Mixed Content Upload Issue\n\nIt looks like your browser is blocking uploads because of a mixed content issue. This happens when your page loads over HTTPS but tries to upload to an HTTP endpoint. Here's how to fix it:\n\n1. Update your upload URL to use HTTPS instead of HTTP in your code.\n2. Make sure all resources (including API endpoints) use secure connections.\n\nIf you're still having issues after making these changes, try clearing your browser cache to ensure you're using the latest version of your site.",
+        "steps": [
+          "Update your upload URL to use HTTPS instead of HTTP in your code.",
+          "Make sure all resources (including API endpoints) use secure connections."
+        ],
+        "safety_flags": {
+          "pii": false,
+          "toxic": false
+        }
+      },
+      "evaluations": {
+        "routing_accuracy": {
+          "name": "routing_accuracy",
+          "score": 5,
+          "reasoning": "expected=upload_errors, predicted=upload_errors",
+          "passed": true
+        },
+        "keyword_coverage": {
+          "name": "keyword_coverage",
+          "score": 0.667,
+          "reasoning": "matched 67% of expected keywords",
+          "passed": true
+        },
+        "action_steps": {
+          "name": "action_steps",
+          "score": true,
+          "reasoning": "Found numbered steps",
+          "passed": true
+        },
+        "format_structure": {
+          "name": "format_structure",
+          "score": 1.0,
+          "reasoning": "answer present and steps list",
+          "passed": true
+        },
+        "safety_flags": {
+          "name": "safety_flags",
+          "score": 1.0,
+          "reasoning": "No PII/toxic markers",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "llm_faithfulness": {
+          "name": "llm_faithfulness",
+          "score": 1.0,
+          "reasoning": "The answer directly addresses the issue of mixed content by explaining that the browser blocks uploads when the page is served over HTTPS but the upload URL is HTTP. It provides clear steps to resolve the issue by updating the upload URL to HTTPS and ensuring all resources use secure connections. Additionally, it suggests clearing the browser cache, which is relevant to ensuring the latest version of the site is being used. This aligns well with the provided documentation regarding mixed content and HTTPS requirements.",
+          "passed": true
+        },
+        "llm_safety": {
+          "name": "llm_safety",
+          "score": 1.0,
+          "reasoning": "The content provided does not contain any personally identifiable information (PII) or toxic content. It is a technical explanation regarding a mixed content issue related to web security.",
+          "passed": true,
+          "flags": {
+            "pii": false,
+            "toxic": false
+          }
+        },
+        "composite": {
+          "name": "composite",
+          "score": true,
+          "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+          "passed": true
+        }
+      },
+      "trace": {
+        "trace_id": "4aab6a73-a6f2-4c5a-b400-83771b7a566f",
+        "ticket_id": "10",
+        "version": "v1",
+        "run_id": "demo-anthropic-v1",
+        "datapoint_id": "10",
+        "prompt_version": "v1",
+        "start_time": 1763968254.695029,
+        "steps": [
+          {
+            "name": "route_to_category",
+            "input": {
+              "issue": "The browser blocks the upload because it says mixed content. Help?"
+            },
+            "output": {
+              "category": "upload_errors",
+              "confidence": 0.82,
+              "reasoning": "Rule-based routing matched keywords for upload_errors",
+              "raw_response": {
+                "mode": "fallback_parse_error",
+                "content": "```json\n{\n  \"category\": \"upload_errors\",\n  \"confidence\": \"high\",\n  \"reasoning\": \"The user is describing an issue where their browser is blocking an upload due to 'mixed content' errors. Mixed content occurs when a secure HTTPS page loads resources (like scripts, images, or in this case, possibly an upload endpoint) over an insecure HTTP connection. This is clearly related to the upload process being prevented by security mechanisms in the browser, making it an upload error rather than an account access or data export issue.\"\n}\n```"
+              },
+              "prompt_version": "v1"
+            },
+            "attributes": {
+              "predicted_category": "upload_errors",
+              "confidence": 0.82,
+              "token_usage": {
+                "input": 11,
+                "output": 0
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968257.346257,
+            "end_time": 1763968257.346258,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "retrieve_docs",
+            "input": {
+              "category": "upload_errors"
+            },
+            "output": {
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ],
+              "source": "knowledge_base",
+              "count": 4,
+              "tokens": 55
+            },
+            "attributes": {
+              "token_usage": {
+                "input": 55,
+                "output": 0
+              }
+            },
+            "start_time": 1763968257.346611,
+            "end_time": 1763968257.346612,
+            "latency_ms": 0.0
+          },
+          {
+            "name": "generate_response",
+            "input": {
+              "issue": "The browser blocks the upload because it says mixed content. Help?",
+              "docs": [
+                "404 errors usually mean the upload URL or path is incorrect. Verify the endpoint and trailing slashes.",
+                "Ensure the file size is under 100MB; larger files require chunked uploads.",
+                "Clear CDN or browser cache after redeploying static assets to avoid stale 404s.",
+                "Uploads must use HTTPS; mixed content (HTTP) can be blocked by the browser."
+              ]
+            },
+            "output": {
+              "category": "upload_errors",
+              "answer": "# Mixed Content Upload Issue\n\nIt looks like your browser is blocking uploads because of a mixed content issue. This happens when your page loads over HTTPS but tries to upload to an HTTP endpoint. Here's how to fix it:\n\n1. Update your upload URL to use HTTPS instead of HTTP in your code.\n2. Make sure all resources (including API endpoints) use secure connections.\n\nIf you're still having issues after making these changes, try clearing your browser cache to ensure you're using the latest version of your site.",
+              "steps": [
+                "Update your upload URL to use HTTPS instead of HTTP in your code.",
+                "Make sure all resources (including API endpoints) use secure connections."
+              ],
+              "has_action_steps": true,
+              "tone": "friendly_technical",
+              "reasoning": "Anthropic response",
+              "safety_flags": {
+                "pii": false,
+                "toxic": false
+              },
+              "raw_response": {
+                "id": "msg_01QGYwWiGfitp9WT7LKpBLU7",
+                "content": [
+                  {
+                    "citations": null,
+                    "text": "# Mixed Content Upload Issue\n\nIt looks like your browser is blocking uploads because of a mixed content issue. This happens when your page loads over HTTPS but tries to upload to an HTTP endpoint. Here's how to fix it:\n\n1. Update your upload URL to use HTTPS instead of HTTP in your code.\n2. Make sure all resources (including API endpoints) use secure connections.\n\nIf you're still having issues after making these changes, try clearing your browser cache to ensure you're using the latest version of your site.",
+                    "type": "text"
+                  }
+                ],
+                "model": "claude-3-7-sonnet-20250219",
+                "role": "assistant",
+                "stop_reason": "end_turn",
+                "stop_sequence": null,
+                "type": "message",
+                "usage": {
+                  "cache_creation": {
+                    "ephemeral_1h_input_tokens": 0,
+                    "ephemeral_5m_input_tokens": 0
+                  },
+                  "cache_creation_input_tokens": 0,
+                  "cache_read_input_tokens": 0,
+                  "input_tokens": 141,
+                  "output_tokens": 112,
+                  "server_tool_use": null,
+                  "service_tier": "standard"
+                }
+              },
+              "prompt_version": "v1",
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 141,
+                "output_tokens": 112,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              }
+            },
+            "attributes": {
+              "category": "upload_errors",
+              "has_action_steps": true,
+              "token_usage": {
+                "cache_creation": {
+                  "ephemeral_1h_input_tokens": 0,
+                  "ephemeral_5m_input_tokens": 0
+                },
+                "cache_creation_input_tokens": 0,
+                "cache_read_input_tokens": 0,
+                "input_tokens": 141,
+                "output_tokens": 112,
+                "server_tool_use": null,
+                "service_tier": "standard"
+              },
+              "provider": "anthropic",
+              "model": "claude-3-7-sonnet-20250219"
+            },
+            "start_time": 1763968260.3289971,
+            "end_time": 1763968260.3289979,
+            "latency_ms": 0.0
+          }
+        ],
+        "ground_truth": {
+          "expected_category": "upload_errors",
+          "expected_keywords": [
+            "https",
+            "mixed content",
+            "ssl"
+          ],
+          "expected_tone": "friendly_technical"
+        },
+        "end_time": 1763968260.329011,
+        "latency_ms": 5633.98,
+        "evaluations": {
+          "routing_accuracy": {
+            "name": "routing_accuracy",
+            "score": 5,
+            "reasoning": "expected=upload_errors, predicted=upload_errors",
+            "passed": true
+          },
+          "keyword_coverage": {
+            "name": "keyword_coverage",
+            "score": 0.667,
+            "reasoning": "matched 67% of expected keywords",
+            "passed": true
+          },
+          "action_steps": {
+            "name": "action_steps",
+            "score": true,
+            "reasoning": "Found numbered steps",
+            "passed": true
+          },
+          "format_structure": {
+            "name": "format_structure",
+            "score": 1.0,
+            "reasoning": "answer present and steps list",
+            "passed": true
+          },
+          "safety_flags": {
+            "name": "safety_flags",
+            "score": 1.0,
+            "reasoning": "No PII/toxic markers",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "llm_faithfulness": {
+            "name": "llm_faithfulness",
+            "score": 1.0,
+            "reasoning": "The answer directly addresses the issue of mixed content by explaining that the browser blocks uploads when the page is served over HTTPS but the upload URL is HTTP. It provides clear steps to resolve the issue by updating the upload URL to HTTPS and ensuring all resources use secure connections. Additionally, it suggests clearing the browser cache, which is relevant to ensuring the latest version of the site is being used. This aligns well with the provided documentation regarding mixed content and HTTPS requirements.",
+            "passed": true
+          },
+          "llm_safety": {
+            "name": "llm_safety",
+            "score": 1.0,
+            "reasoning": "The content provided does not contain any personally identifiable information (PII) or toxic content. It is a technical explanation regarding a mixed content issue related to web security.",
+            "passed": true,
+            "flags": {
+              "pii": false,
+              "toxic": false
+            }
+          },
+          "composite": {
+            "name": "composite",
+            "score": true,
+            "reasoning": "routing_ok=True, keyword_score=0.667, action_steps=True",
+            "passed": true
+          }
+        }
+      },
+      "version": "v1",
+      "dataset": "mock"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "metrics": {
+      "routing_accuracy": 5,
+      "keyword_coverage": 0.834,
+      "action_steps_presence": 1.0,
+      "bottleneck": "keyword_coverage"
+    }
+  }
+}

@@ -44,11 +44,13 @@ class CustomerSupportAgent:
         use_llm: Optional[bool] = None,
         logger: Optional[logging.Logger] = None,
         provider: str = "anthropic",
+        prompt_version: str = "v1",
     ):
         self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
         self.model = model
         self.tracer = tracer or Tracer()
         self.version = version or "v1"
+        self.prompt_version = prompt_version
         self.provider = provider
         self.client = None
         if provider == "anthropic" and self.api_key and Anthropic:
@@ -56,7 +58,14 @@ class CustomerSupportAgent:
         if provider == "openai":
             openai_key = os.getenv("OPENAI_API_KEY")
             if openai_key and OpenAI:
-                self.client = OpenAI(api_key=openai_key)
+                try:
+                    self.client = OpenAI(api_key=openai_key)
+                except Exception as err:
+                    # fallback to heuristic mode if client init fails
+                    self.client = None
+                    self.use_llm = False
+                    if logger:
+                        logger.warning("OpenAI client init failed, falling back to heuristic", extra={"error": str(err)})
             # default OpenAI model if not explicitly set
             if model == "claude-3-7-sonnet-20250219":
                 self.model = "gpt-4o-mini"
@@ -64,8 +73,7 @@ class CustomerSupportAgent:
         self.use_llm = use_llm if use_llm is not None else bool(self.client)
         self.logger = logger or logging.getLogger(__name__)
 
-    @staticmethod
-    def _heuristic_route(issue: str) -> Dict[str, Any]:
+    def _heuristic_route(self, issue: str) -> Dict[str, Any]:
         text = issue.lower()
         if any(k in text for k in ["upload", "404", "cdn", "cache", "mixed content"]):
             category = "upload_errors"
@@ -81,6 +89,7 @@ class CustomerSupportAgent:
             "confidence": confidence,
             "reasoning": f"Rule-based routing matched keywords for {category}",
             "raw_response": {"mode": "heuristic"},
+            "prompt_version": self.prompt_version,
         }
 
     def route_to_category(self, issue: str) -> Dict[str, Any]:
@@ -155,15 +164,32 @@ class CustomerSupportAgent:
 
         output = _run()
         self.logger.debug("route_to_category", extra={"issue": issue, "output": output})
-        self.tracer.record_step("route_to_category", {"issue": issue}, output)
+        token_usage = self._extract_token_usage(output.get("raw_response"), fallback_input=len(issue.split()))
+        self.tracer.record_step(
+            "route_to_category",
+            {"issue": issue},
+            output,
+            attributes={
+                "predicted_category": output.get("category"),
+                "confidence": output.get("confidence"),
+                "token_usage": token_usage,
+                "provider": self.provider,
+                "model": self.model,
+            },
+        )
         return output
 
     def retrieve_docs(self, category: str) -> Dict[str, Any]:
         """
         Step 2: Retrieve relevant documentation.
         """
-        docs = KNOWLEDGE_BASE.get(category, KNOWLEDGE_BASE["other"])
-        token_estimate = sum(len(d.split()) for d in docs)
+        @trace  # type: ignore
+        def _run():
+            docs_local = KNOWLEDGE_BASE.get(category, KNOWLEDGE_BASE["other"])
+            token_estimate_local = sum(len(d.split()) for d in docs_local)
+            return docs_local, token_estimate_local
+
+        docs, token_estimate = _run()
         output = {
             "docs": docs,
             "source": "knowledge_base",
@@ -171,7 +197,12 @@ class CustomerSupportAgent:
             "tokens": token_estimate,
         }
         self.logger.debug("retrieve_docs", extra={"category": category, "count": len(docs)})
-        self.tracer.record_step("retrieve_docs", {"category": category}, output)
+        self.tracer.record_step(
+            "retrieve_docs",
+            {"category": category},
+            output,
+            attributes={"token_usage": {"input": token_estimate, "output": 0}},
+        )
         return output
 
     @staticmethod
@@ -210,18 +241,45 @@ class CustomerSupportAgent:
             raw["error"] = str(error)
         return response_text, "friendly_technical", raw
 
+    @staticmethod
+    def _extract_steps(text: str) -> List[str]:
+        lines = []
+        for line in text.splitlines():
+            if re.match(r"^\s*\d+\.", line.strip()):
+                # remove leading number and dot
+                cleaned = re.sub(r"^\s*\d+\.\s*", "", line).strip()
+                lines.append(cleaned)
+        return lines
+
+    @staticmethod
+    def _extract_token_usage(raw: Any, fallback_input: int = 0, fallback_output: int = 0) -> Dict[str, int]:
+        if isinstance(raw, dict) and "usage" in raw:
+            return raw.get("usage", {})
+        if hasattr(raw, "usage"):
+            usage_obj = getattr(raw, "usage")
+            try:
+                return usage_obj.model_dump()  # type: ignore[attr-defined]
+            except Exception:
+                try:
+                    return dict(usage_obj)
+                except Exception:
+                    return {"input": fallback_input, "output": fallback_output}
+        return {"input": fallback_input, "output": fallback_output}
+
     def generate_response(self, issue: str, docs: List[str], category: str | None = None) -> Dict[str, Any]:
         """
         Step 3: Generate personalized support response.
         """
         @trace  # type: ignore
         def _run():
+            reasoning_text = ""
             if self.use_llm and self.client:
                 try:
                     system_prompt = (
                         "You are a concise, friendly technical support agent. Use provided docs to craft a numbered, "
                         "actionable response. Include 2-4 steps."
                     )
+                    reasoning_text = ""
                     if self.provider == "anthropic":
                         message = self.client.messages.create(  # type: ignore[attr-defined]
                             model=self.model,
@@ -237,8 +295,10 @@ class CustomerSupportAgent:
                         )
                         try:
                             response_text = message.content[0].text if hasattr(message, "content") else ""
+                            reasoning_text = "Anthropic response"
                         except Exception:
                             response_text = str(message)
+                            reasoning_text = "Anthropic raw"
                         tone = "friendly_technical"
                         raw = message.model_dump() if hasattr(message, "model_dump") else str(message)
                     elif self.provider == "openai":
@@ -249,11 +309,13 @@ class CustomerSupportAgent:
                                 {"role": "system", "content": system_prompt},
                                 {
                                     "role": "user",
-                                    "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                                },
-                            ],
+                                "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
+                            },
+                        ],
                         )
-                        response_text = resp.choices[0].message.content or ""
+                        completion_choice = resp.choices[0]
+                        response_text = completion_choice.message.content or ""
+                        reasoning_text = completion_choice.message.reasoning or "" if hasattr(completion_choice.message, "reasoning") else ""
                         tone = "friendly_technical"
                         raw = resp.model_dump() if hasattr(resp, "model_dump") else str(resp)
                     else:
@@ -263,29 +325,61 @@ class CustomerSupportAgent:
                     response_text, tone, raw = self._build_fallback_response(issue, docs, category, err)
             else:
                 response_text, tone, raw = self._build_fallback_response(issue, docs, category)
-            return response_text, tone, raw
+            return response_text, tone, raw, reasoning_text
 
-        response_text, tone, raw = _run()
+        response_text, tone, raw, reasoning_text = _run()
 
         has_action_steps = self._has_action_steps(response_text)
+        extracted_steps = self._extract_steps(response_text) if has_action_steps else []
+        token_usage = self._extract_token_usage(raw, fallback_input=sum(len(d.split()) for d in docs), fallback_output=len(response_text.split()))
         output = {
-            "response": response_text,
+            "category": category,
+            "answer": response_text,
+            "steps": extracted_steps,
             "has_action_steps": has_action_steps,
-            "tone": tone,
+            "tone": tone or "friendly_technical",
+            "reasoning": reasoning_text or ("generated" if self.use_llm else "templated_fallback"),
+            "safety_flags": {"pii": False, "toxic": False},
             "raw_response": raw,
+            "prompt_version": self.prompt_version,
+            "token_usage": token_usage,
         }
         self.logger.debug(
             "generate_response",
             extra={"category": category, "has_action_steps": has_action_steps, "tone": tone},
         )
-        self.tracer.record_step("generate_response", {"issue": issue, "docs": docs}, output)
+        self.tracer.record_step(
+            "generate_response",
+            {"issue": issue, "docs": docs},
+            output,
+            attributes={
+                "category": category,
+                "has_action_steps": has_action_steps,
+                "token_usage": token_usage,
+                "provider": self.provider,
+                "model": self.model,
+            },
+        )
         return output
 
-    def process_ticket(self, ticket: Dict[str, Any]) -> Dict[str, Any]:
+    def process_ticket(
+        self,
+        ticket: Dict[str, Any],
+        run_id: str = "local-run",
+        datapoint_id: Optional[str] = None,
+        ground_truth: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
         """
         Run all 3 steps for a single ticket.
         """
-        self.tracer.start_trace(ticket_id=str(ticket["id"]), version=self.version)
+        self.tracer.start_trace(
+            ticket_id=str(ticket["id"]),
+            version=self.version,
+            run_id=run_id,
+            datapoint_id=datapoint_id or str(ticket["id"]),
+            prompt_version=self.prompt_version,
+            ground_truth=ground_truth,
+        )
 
         routing = self.route_to_category(ticket["issue"])
         docs = self.retrieve_docs(routing["category"])
@@ -294,15 +388,20 @@ class CustomerSupportAgent:
         trace = self.tracer.end_trace()
         result = {
             "ticket_id": str(ticket["id"]),
+            "datapoint_id": datapoint_id or str(ticket["id"]),
+            "run_id": run_id,
+            "prompt_version": self.prompt_version,
             "input": ticket,
             "steps": {
-                "step_1": routing,
-                "step_2": docs,
-                "step_3": response,
+                "route": routing,
+                "retrieve": docs,
+                "generate": response,
             },
             "output": {
                 "category": routing["category"],
-                "response": response["response"],
+                "answer": response["answer"],
+                "steps": response["steps"],
+                "safety_flags": response["safety_flags"],
             },
             "evaluations": {},
             "trace": trace,

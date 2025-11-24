@@ -9,7 +9,7 @@ from evaluators import (
 def _build_result(category: str, response: str):
     return {
         "output": {"category": category},
-        "steps": {"step_3": {"response": response}},
+        "steps": {"generate": {"answer": response}},
         "evaluations": {},
     }
 
