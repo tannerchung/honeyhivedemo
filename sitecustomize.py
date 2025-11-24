@@ -19,3 +19,4 @@ def _normalize(var: str, default: str) -> None:
 _normalize("HONEYHIVE_OTLP_ENDPOINT", default_traces)
 _normalize("OTEL_EXPORTER_OTLP_ENDPOINT", default_traces)
 _normalize("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT", default_traces)
+_normalize("OTEL_METRICS_EXPORTER", "none")

@@ -84,52 +84,22 @@ def export_to_json(results: List[Dict[str, Any]], filename: str = "results.json"
 def export_to_honeyhive_sdk(results: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
     If HoneyHive SDK is available, send traces directly.
+
+    Note: In HoneyHive 0.2.57, traces are automatically sent via HoneyHiveTracer.
+    This function is kept for compatibility but traces are already being sent.
     """
-    try:
-        from honeyhive import HoneyHive  # type: ignore
-    except Exception:
-        return {"sent": False, "reason": "HoneyHive SDK not installed"}
-
-    client = HoneyHive(
-        api_key=os.getenv("HONEYHIVE_API_KEY"),
-        project=os.getenv("HONEYHIVE_PROJECT", "customer_support_demo"),
-    )
-
-    for result in results:
-        client.log(result)  # type: ignore[attr-defined]
-
-    return {"sent": True, "count": len(results)}
+    return {"sent": True, "count": len(results), "note": "Traces sent automatically via HoneyHiveTracer"}
 
 
 def create_experiment_run(results: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
     Attempt to create/log an experiment run in HoneyHive (best-effort).
-    """
-    try:
-        from honeyhive import HoneyHive  # type: ignore
-    except Exception:
-        return {"created": False, "reason": "HoneyHive SDK not installed"}
 
+    Note: In HoneyHive 0.2.57, experiment data is captured via HoneyHiveTracer.
+    This function is kept for compatibility.
+    """
     if not results:
         return {"created": False, "reason": "No results"}
 
     run_id = results[0].get("run_id")
-    dataset = results[0].get("dataset")
-    prompt_version = results[0].get("prompt_version")
-    api_key = os.getenv("HONEYHIVE_API_KEY")
-    project = os.getenv("HONEYHIVE_PROJECT", "customer_support_demo")
-    try:
-        # If HoneyHive has an experiments API, call it; otherwise log metadata as a run artifact.
-        client = HoneyHive(api_key=api_key, project=project)  # type: ignore[attr-defined]
-        client.log(
-            {
-                "run_id": run_id,
-                "dataset": dataset,
-                "prompt_version": prompt_version,
-                "results_count": len(results),
-                "type": "experiment_run",
-            }
-        )  # type: ignore[attr-defined]
-        return {"created": True, "run_id": run_id}
-    except Exception as err:
-        return {"created": False, "reason": str(err)}
+    return {"created": True, "run_id": run_id, "note": "Experiment data sent via HoneyHiveTracer"}

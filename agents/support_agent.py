@@ -179,6 +179,8 @@ class CustomerSupportAgent:
                 "token_usage": token_usage,
                 "provider": self.provider,
                 "model": self.model,
+                "run_id": getattr(self, "_current_run_id", None),
+                "datapoint_id": getattr(self, "_current_datapoint_id", None),
             },
         )
         return output
@@ -205,7 +207,13 @@ class CustomerSupportAgent:
             "retrieve_docs",
             {"category": category},
             output,
-            attributes={"token_usage": {"input": token_estimate, "output": 0}},
+            attributes={
+                "token_usage": {"input": token_estimate, "output": 0},
+                "provider": self.provider,
+                "model": self.model,
+                "run_id": getattr(self, "_current_run_id", None),
+                "datapoint_id": getattr(self, "_current_datapoint_id", None),
+            },
         )
         return output
 
@@ -366,6 +374,8 @@ class CustomerSupportAgent:
                 "token_usage": token_usage,
                 "provider": self.provider,
                 "model": self.model,
+                "run_id": getattr(self, "_current_run_id", None),
+                "datapoint_id": getattr(self, "_current_datapoint_id", None),
             },
         )
         return output
@@ -392,6 +402,8 @@ class CustomerSupportAgent:
         routing = self.route_to_category(ticket["issue"])
         docs = self.retrieve_docs(routing["category"])
         response = self.generate_response(ticket["issue"], docs["docs"], category=routing["category"])
+        self._current_run_id = run_id
+        self._current_datapoint_id = datapoint_id or str(ticket["id"])
 
         trace = self.tracer.end_trace()
         result = {
