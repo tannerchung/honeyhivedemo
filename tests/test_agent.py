@@ -4,7 +4,7 @@ from agents.support_agent import CustomerSupportAgent
 
 
 def test_process_ticket_produces_steps():
-    agent = CustomerSupportAgent(api_key=None)
+    agent = CustomerSupportAgent(api_key=None, use_llm=False)
     ticket = {"id": "test", "customer": "Test", "issue": "Upload gives 404"}
     result = agent.process_ticket(ticket)
 
@@ -16,7 +16,7 @@ def test_process_ticket_produces_steps():
 
 
 def test_generate_response_has_action_steps():
-    agent = CustomerSupportAgent(api_key=None)
+    agent = CustomerSupportAgent(api_key=None, use_llm=False)
     docs = ["Doc one", "Doc two"]
-    output = agent.generate_response("Issue", docs)
+    output = agent.generate_response("Issue", docs, category="upload_errors")
     assert output["has_action_steps"] is True

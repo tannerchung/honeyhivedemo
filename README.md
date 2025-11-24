@@ -11,6 +11,8 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 ## Commands
 - `python main.py --run` – process mock tickets with tracing.
 - `python main.py --run --version v1` – tag a version for iterative runs.
+- `python main.py --run --provider openai` – run with OpenAI (requires `OPENAI_API_KEY`).
+- `python main.py --run --offline` – force heuristic mode (no external LLM calls).
 - `python main.py --export --output results.json` – export the latest run to JSON.
 - `python main.py --evaluate results.json` – run evaluators against a saved run.
 - `python main.py --compare v1_results.json v2_results.json` – compare iterations.
@@ -26,4 +28,5 @@ Demo customer support agent that showcases a 3-step LLM pipeline, per-step evalu
 
 ## Notes
 - The agent falls back to a deterministic, rule-based mode when no Anthropic API key is available; this keeps tests offline-friendly.
+- You can switch providers via `--provider anthropic|openai`; set `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` accordingly.
 - Traces include timings, inputs, outputs, and raw model payloads to demo observability and error cascades.

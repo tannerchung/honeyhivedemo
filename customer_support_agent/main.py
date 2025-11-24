@@ -22,8 +22,8 @@ from evaluators import (
 from utils.exporters import export_to_honeyhive_sdk, export_to_json
 
 
-def run_pipeline(version: str) -> List[Dict[str, Any]]:
-    agent = CustomerSupportAgent(version=version)
+def run_pipeline(version: str, offline: bool = False, logger=None, provider: str = "anthropic") -> List[Dict[str, Any]]:
+    agent = CustomerSupportAgent(version=version, use_llm=not offline, logger=logger, provider=provider)
     evaluators = [
         RoutingEvaluator(),
         KeywordEvaluator(),
@@ -82,6 +82,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="HoneyHive support agent demo")
     parser.add_argument("--run", action="store_true", help="Run pipeline on mock tickets")
     parser.add_argument("--version", default="v1", help="Version tag for the run")
+    parser.add_argument("--offline", action="store_true", help="Force heuristic mode, no LLM calls")
+    parser.add_argument("--provider", choices=["anthropic", "openai"], default="anthropic", help="LLM provider")
     parser.add_argument("--export", action="store_true", help="Export results to JSON")
     parser.add_argument("--output", default="results.json", help="Export file name")
     parser.add_argument("--evaluate", help="Evaluate an existing results JSON")
@@ -92,12 +94,29 @@ def main() -> None:
         action="store_true",
         help="Attempt sending results to HoneyHive SDK",
     )
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging to console and logs/run.log")
     args = parser.parse_args()
+
+    logger = None
+    if args.debug:
+        import logging
+        import os
+
+        os.makedirs("logs", exist_ok=True)
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="%(asctime)s %(levelname)s %(message)s",
+            handlers=[
+                logging.StreamHandler(),
+                logging.FileHandler("logs/run.log", encoding="utf-8"),
+            ],
+        )
+        logger = logging.getLogger("customer_support_demo")
 
     results: List[Dict[str, Any]] = []
 
     if args.run:
-        results = run_pipeline(version=args.version)
+        results = run_pipeline(version=args.version, offline=args.offline, logger=logger, provider=args.provider)
         print_summary(results)
 
     if args.export and results:

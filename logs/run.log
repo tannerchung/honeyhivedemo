@@ -1,0 +1,243 @@
+2025-11-23 23:23:48,274 DEBUG Request options: {'method': 'post', 'url': '/v1/messages', 'timeout': Timeout(connect=5.0, read=600, write=600, pool=600), 'files': None, 'idempotency_key': 'stainless-python-retry-2ccb4a90-6a4c-40b9-a2f0-51d2224d5a66', 'json_data': {'max_tokens': 150, 'messages': [{'role': 'user', 'content': "I'm getting a 404 error when I try to upload files through the dashboard."}], 'model': 'claude-3-7-sonnet-20250219', 'system': 'Categorize the issue into one of: upload_errors, account_access, data_export, other. Respond with JSON keys: category, confidence, reasoning.', 'temperature': 0}}
+2025-11-23 23:23:48,290 DEBUG Sending HTTP Request: POST https://api.anthropic.com/v1/messages
+2025-11-23 23:23:48,291 DEBUG connect_tcp.started host='api.anthropic.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-11-23 23:23:48,294 DEBUG connect_tcp.failed exception=ConnectError(gaierror(8, 'nodename nor servname provided, or not known'))
+2025-11-23 23:23:48,294 DEBUG Encountered Exception
+Traceback (most recent call last):
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/anthropic/_base_client.py", line 1047, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 8] nodename nor servname provided, or not known
+2025-11-23 23:23:48,299 DEBUG 2 retries left
+2025-11-23 23:23:48,299 INFO Retrying request to /v1/messages in 0.412311 seconds
+2025-11-23 23:23:48,716 DEBUG Request options: {'method': 'post', 'url': '/v1/messages', 'timeout': Timeout(connect=5.0, read=600, write=600, pool=600), 'files': None, 'idempotency_key': 'stainless-python-retry-2ccb4a90-6a4c-40b9-a2f0-51d2224d5a66', 'json_data': {'max_tokens': 150, 'messages': [{'role': 'user', 'content': "I'm getting a 404 error when I try to upload files through the dashboard."}], 'model': 'claude-3-7-sonnet-20250219', 'system': 'Categorize the issue into one of: upload_errors, account_access, data_export, other. Respond with JSON keys: category, confidence, reasoning.', 'temperature': 0}}
+2025-11-23 23:23:48,717 DEBUG Sending HTTP Request: POST https://api.anthropic.com/v1/messages
+2025-11-23 23:23:48,718 DEBUG connect_tcp.started host='api.anthropic.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-11-23 23:23:48,719 DEBUG connect_tcp.failed exception=ConnectError(gaierror(8, 'nodename nor servname provided, or not known'))
+2025-11-23 23:23:48,720 DEBUG Encountered Exception
+Traceback (most recent call last):
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/anthropic/_base_client.py", line 1047, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 8] nodename nor servname provided, or not known
+2025-11-23 23:23:48,722 DEBUG 1 retry left
+2025-11-23 23:23:48,723 INFO Retrying request to /v1/messages in 0.876723 seconds
+2025-11-23 23:23:49,602 DEBUG Request options: {'method': 'post', 'url': '/v1/messages', 'timeout': Timeout(connect=5.0, read=600, write=600, pool=600), 'files': None, 'idempotency_key': 'stainless-python-retry-2ccb4a90-6a4c-40b9-a2f0-51d2224d5a66', 'json_data': {'max_tokens': 150, 'messages': [{'role': 'user', 'content': "I'm getting a 404 error when I try to upload files through the dashboard."}], 'model': 'claude-3-7-sonnet-20250219', 'system': 'Categorize the issue into one of: upload_errors, account_access, data_export, other. Respond with JSON keys: category, confidence, reasoning.', 'temperature': 0}}
+2025-11-23 23:23:49,604 DEBUG Sending HTTP Request: POST https://api.anthropic.com/v1/messages
+2025-11-23 23:23:49,604 DEBUG connect_tcp.started host='api.anthropic.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-11-23 23:23:49,606 DEBUG connect_tcp.failed exception=ConnectError(gaierror(8, 'nodename nor servname provided, or not known'))
+2025-11-23 23:23:49,606 DEBUG Encountered Exception
+Traceback (most recent call last):
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 256, in handle_request
+    raise exc from None
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 101, in handle_request
+    raise exc
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 78, in handle_request
+    stream = self._connect(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_sync/connection.py", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_backends/sync.py", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 8] nodename nor servname provided, or not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/anthropic/_base_client.py", line 1047, in request
+    response = self._client.send(
+        request,
+        stream=stream or self._should_stream_response_body(request=request),
+        **kwargs,
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/tanner/.pyenv/versions/3.13.5/lib/python3.13/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 8] nodename nor servname provided, or not known
+2025-11-23 23:23:49,610 DEBUG Raising connection error
+2025-11-23 23:23:49,611 DEBUG route_to_category
+2025-11-23 23:23:49,611 DEBUG retrieve_docs
+2025-11-23 23:23:49,612 DEBUG generate_response
+2025-11-23 23:23:49,613 DEBUG process_ticket
+2025-11-23 23:23:49,613 DEBUG route_to_category
+2025-11-23 23:23:49,614 DEBUG retrieve_docs
+2025-11-23 23:23:49,614 DEBUG generate_response
+2025-11-23 23:23:49,615 DEBUG process_ticket
+2025-11-23 23:23:49,615 DEBUG route_to_category
+2025-11-23 23:23:49,616 DEBUG retrieve_docs
+2025-11-23 23:23:49,617 DEBUG generate_response
+2025-11-23 23:23:49,617 DEBUG process_ticket
+2025-11-23 23:23:49,618 DEBUG route_to_category
+2025-11-23 23:23:49,619 DEBUG retrieve_docs
+2025-11-23 23:23:49,620 DEBUG generate_response
+2025-11-23 23:23:49,621 DEBUG process_ticket
+2025-11-23 23:23:49,621 DEBUG route_to_category
+2025-11-23 23:23:49,622 DEBUG retrieve_docs
+2025-11-23 23:23:49,623 DEBUG generate_response
+2025-11-23 23:23:49,624 DEBUG process_ticket
+2025-11-23 23:23:49,625 DEBUG route_to_category
+2025-11-23 23:23:49,628 DEBUG retrieve_docs
+2025-11-23 23:23:49,629 DEBUG generate_response
+2025-11-23 23:23:49,630 DEBUG process_ticket
+2025-11-23 23:23:49,630 DEBUG route_to_category
+2025-11-23 23:23:49,631 DEBUG retrieve_docs
+2025-11-23 23:23:49,631 DEBUG generate_response
+2025-11-23 23:23:49,632 DEBUG process_ticket
+2025-11-23 23:23:49,634 DEBUG route_to_category
+2025-11-23 23:23:49,635 DEBUG retrieve_docs
+2025-11-23 23:23:49,635 DEBUG generate_response
+2025-11-23 23:23:49,635 DEBUG process_ticket
+2025-11-23 23:23:49,636 DEBUG route_to_category
+2025-11-23 23:23:49,636 DEBUG retrieve_docs
+2025-11-23 23:23:49,636 DEBUG generate_response
+2025-11-23 23:23:49,637 DEBUG process_ticket
+2025-11-23 23:23:49,637 DEBUG route_to_category
+2025-11-23 23:23:49,637 DEBUG retrieve_docs
+2025-11-23 23:23:49,637 DEBUG generate_response
+2025-11-23 23:23:49,638 DEBUG process_ticket
