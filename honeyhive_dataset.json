@@ -1,0 +1,182 @@
+[
+  {
+    "inputs": {
+      "id": "1",
+      "customer": "Alice Martinez",
+      "issue": "I'm getting a 404 error when I try to upload files through the dashboard."
+    },
+    "ground_truths": {
+      "expected_category": "upload_errors",
+      "expected_keywords": [
+        "404",
+        "endpoint",
+        "url",
+        "path"
+      ],
+      "expected_tone": "friendly_technical",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "2",
+      "customer": "Ben Chen",
+      "issue": "I can't log into my account because the SSO redirect keeps looping back to the login page."
+    },
+    "ground_truths": {
+      "expected_category": "account_access",
+      "expected_keywords": [
+        "sso",
+        "redirect",
+        "identity provider",
+        "saml"
+      ],
+      "expected_tone": "reassuring",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "3",
+      "customer": "Cara Johnson",
+      "issue": "My download isn't working and I've been waiting for 20 minutes."
+    },
+    "ground_truths": {
+      "expected_category": "data_export",
+      "expected_keywords": [
+        "queue",
+        "status",
+        "processing"
+      ],
+      "expected_tone": "urgent_but_calm",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "4",
+      "customer": "Diego Ramirez",
+      "issue": "The password reset email expired before I could use it and now I'm locked out."
+    },
+    "ground_truths": {
+      "expected_category": "account_access",
+      "expected_keywords": [
+        "password",
+        "reset",
+        "link",
+        "email"
+      ],
+      "expected_tone": "reassuring",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "5",
+      "customer": "Ella Thompson",
+      "issue": "File uploads fail in Safari but work fine in Chrome. Is this a known browser issue?"
+    },
+    "ground_truths": {
+      "expected_category": "upload_errors",
+      "expected_keywords": [
+        "browser",
+        "safari",
+        "https",
+        "compatibility",
+        "ssl"
+      ],
+      "expected_tone": "friendly_technical",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "6",
+      "customer": "Farah Patel",
+      "issue": "I need to export more than a million records but the CSV format has a row limit. Can you help?"
+    },
+    "ground_truths": {
+      "expected_category": "data_export",
+      "expected_keywords": [
+        "json",
+        "csv",
+        "limit",
+        "format"
+      ],
+      "expected_tone": "pragmatic",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "7",
+      "customer": "Gina Williams",
+      "issue": "My account is locked after too many failed 2FA attempts. How do I unlock it?"
+    },
+    "ground_truths": {
+      "expected_category": "account_access",
+      "expected_keywords": [
+        "2fa",
+        "locked",
+        "unlock",
+        "administrator"
+      ],
+      "expected_tone": "reassuring",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "8",
+      "customer": "Hank Davis",
+      "issue": "The system shows old uploaded files even after I replaced them. Cache issue maybe?"
+    },
+    "ground_truths": {
+      "expected_category": "upload_errors",
+      "expected_keywords": [
+        "cdn",
+        "cache",
+        "purge",
+        "cloudflare"
+      ],
+      "expected_tone": "friendly_technical",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "9",
+      "customer": "Ivan Sokolov",
+      "issue": "The export download link says it expired and I can't retrieve my data anymore."
+    },
+    "ground_truths": {
+      "expected_category": "data_export",
+      "expected_keywords": [
+        "expired",
+        "download",
+        "regenerate",
+        "24 hours"
+      ],
+      "expected_tone": "pragmatic",
+      "has_action_steps": true
+    }
+  },
+  {
+    "inputs": {
+      "id": "10",
+      "customer": "Judy Anderson",
+      "issue": "My browser blocks the file upload saying 'mixed content'. What does that mean?"
+    },
+    "ground_truths": {
+      "expected_category": "upload_errors",
+      "expected_keywords": [
+        "https",
+        "mixed content",
+        "ssl",
+        "security"
+      ],
+      "expected_tone": "friendly_technical",
+      "has_action_steps": true
+    }
+  }
+]

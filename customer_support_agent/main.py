@@ -35,6 +35,7 @@ from evaluators import (
     SafetyEvaluator,
 )
 from utils.exporters import export_to_honeyhive_sdk, export_to_json, create_experiment_run
+from utils.honeyhive_experiment import run_honeyhive_experiment
 
 
 def init_honeyhive_tracer(logger=None) -> None:
@@ -174,6 +175,11 @@ def main() -> None:
         action="store_true",
         help="Attempt sending results to HoneyHive SDK",
     )
+    parser.add_argument(
+        "--experiment",
+        action="store_true",
+        help="Also run HoneyHive experiment (creates Experiment entry with run_id)",
+    )
     parser.add_argument("--debug", action="store_true", help="Enable debug logging to console and logs/run.log")
     args = parser.parse_args()
 
@@ -199,6 +205,7 @@ def main() -> None:
     results: List[Dict[str, Any]] = []
 
     if args.run:
+        # Run standard pipeline with session-based tracing
         results = run_pipeline(
             version=args.version,
             offline=args.offline,
@@ -208,6 +215,28 @@ def main() -> None:
             run_id=args.run_id,
         )
         print_summary(results)
+
+        # Optionally run HoneyHive experiment (creates Experiment entry)
+        if args.experiment:
+            print("\nRunning HoneyHive experiment...")
+            agent = CustomerSupportAgent(
+                version=args.version,
+                prompt_version=args.version,
+                use_llm=not args.offline,
+                logger=logger,
+                provider=args.provider,
+            )
+            experiment_result = run_honeyhive_experiment(
+                agent=agent,
+                dataset_name=args.dataset,
+                experiment_name=f"Customer Support Experiment - {args.version}",
+                run_id=args.run_id,
+            )
+            if experiment_result.get("success"):
+                print(f"✓ HoneyHive experiment completed successfully")
+                print(f"  Check the Experiments tab in HoneyHive UI")
+            else:
+                print(f"✗ HoneyHive experiment failed: {experiment_result.get('reason')}")
 
     if args.export and results:
         export_to_json(results, filename=args.output)
