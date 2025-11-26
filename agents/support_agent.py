@@ -1,42 +1,105 @@
 """
-3-step customer support agent pipeline with tracing and deterministic fallbacks.
+Three-step customer support agent pipeline with intelligent routing and response generation.
+
+This module implements the core customer support agent that processes support tickets
+through a three-step pipeline:
+    1. Route ticket to category (upload_errors, account_access, data_export, other)
+    2. Retrieve relevant documentation for that category
+    3. Generate a personalized, actionable response
+
+The agent supports multiple LLM providers (Anthropic Claude, OpenAI) and includes
+a deterministic heuristic fallback mode for when LLM APIs are unavailable. It's
+designed to demonstrate HoneyHive tracing, evaluation, and experimentation capabilities.
+
+Key Features:
+    - Multi-provider LLM support (Anthropic, OpenAI)
+    - Graceful degradation to heuristic mode when LLM unavailable
+    - Comprehensive tracing with HoneyHive integration
+    - Ground truth enrichment for evaluation
+    - Intentional failure cases for demo purposes (Issues #3, #8)
+    - Token usage tracking across providers
+
+Architecture:
+    The agent uses a pipeline pattern where each step produces outputs consumed
+    by the next step. Each step is independently traced and can fail gracefully.
+    The @trace decorator wraps each step for observability.
+
+Demo-Specific Behavior:
+    - Heuristic routing intentionally fails on ambiguous cases (e.g., "download")
+      to demonstrate error cascades in the demo (see Issues #3 and #8)
+    - Ground truth is enriched at multiple levels (session, span) to ensure
+      evaluators can access it regardless of SDK version
 """
 
 from __future__ import annotations
 
-import os
-import re
 import json
 import logging
-from typing import Any, Dict, List, Optional
+import os
+import re
+from typing import Any, Dict, List, Optional, Union
 
 from data import KNOWLEDGE_BASE
 from tracing.tracer import Tracer
+from utils.llm_clients import LLMClientFactory, AnthropicClient, OpenAIClient, extract_token_usage
+from utils.prompts import get_prompt_builder, PromptBuilder
 
-try:
-    from anthropic import Anthropic
-except Exception:  # pragma: no cover - optional dependency for offline mode
-    Anthropic = None  # type: ignore
-
-try:
-    from openai import OpenAI
-except Exception:  # pragma: no cover - optional dependency for offline mode
-    OpenAI = None  # type: ignore
-
+# Optional HoneyHive imports with graceful fallback
+# If HoneyHive SDK is not installed, we provide no-op implementations
 try:
     from honeyhive import trace, enrich_session, enrich_span
-except Exception:  # pragma: no cover - honeyhive optional
+except ImportError:  # pragma: no cover - honeyhive optional
+    # No-op decorators/functions for local development without HoneyHive
     def trace(func):  # type: ignore
+        """No-op trace decorator when HoneyHive not available."""
         return func
+
     def enrich_session(**kwargs):  # type: ignore
+        """No-op session enrichment when HoneyHive not available."""
         pass
+
     def enrich_span(**kwargs):  # type: ignore
+        """No-op span enrichment when HoneyHive not available."""
         pass
 
 
 class CustomerSupportAgent:
     """
-    Routes tickets, retrieves docs, and generates responses.
+    AI-powered customer support agent with three-step pipeline.
+
+    This agent processes customer support tickets through a pipeline of:
+    routing → retrieval → generation. Each step is traced for observability
+    and can operate in either LLM mode (using Claude/GPT) or heuristic fallback
+    mode (using rule-based logic).
+
+    The agent is designed for experimentation and evaluation, with support for:
+    - Multiple prompt versions (v1, v2)
+    - Ground truth enrichment for evaluation
+    - Token usage tracking
+    - Comprehensive error handling
+    - Multi-provider LLM support
+
+    Attributes:
+        api_key: API key for the LLM provider (optional)
+        model: Model name to use (e.g., "claude-3-7-sonnet-20250219")
+        tracer: Tracer instance for recording pipeline steps
+        version: Agent version tag for experiment tracking
+        prompt_version: Prompt template version (v1, v2)
+        provider: LLM provider name ("anthropic" or "openai")
+        client: LLM client instance (AnthropicClient or OpenAIClient)
+        use_llm: Whether to use LLM or fall back to heuristics
+        logger: Logger for debugging and monitoring
+        prompt_builder: PromptBuilder for constructing prompts
+
+    Example:
+        >>> agent = CustomerSupportAgent(
+        ...     model="claude-3-7-sonnet-20250219",
+        ...     provider="anthropic",
+        ...     version="v1",
+        ... )
+        >>> ticket = {"id": "123", "issue": "Can't upload files"}
+        >>> result = agent.process_ticket(ticket)
+        >>> print(result["output"]["answer"])
     """
 
     def __init__(
@@ -50,60 +113,160 @@ class CustomerSupportAgent:
         provider: str = "anthropic",
         prompt_version: str = "v1",
     ):
-        self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
+        """
+        Initialize the customer support agent.
+
+        Args:
+            api_key: Optional API key for LLM provider. If not provided, will
+                    check ANTHROPIC_API_KEY or OPENAI_API_KEY env vars
+            model: LLM model name. Defaults to Claude 3.7 Sonnet
+            tracer: Optional custom Tracer instance for recording steps
+            version: Version tag for this agent (for experiment tracking)
+            use_llm: Whether to use LLM calls. If None, auto-detects based on
+                    whether client initialization succeeds
+            logger: Optional logger instance for debugging
+            provider: LLM provider ("anthropic" or "openai")
+            prompt_version: Prompt template version to use ("v1" or "v2")
+
+        Note:
+            The agent will gracefully degrade to heuristic mode if:
+            - No API key is provided
+            - API key is invalid
+            - LLM client initialization fails
+            - use_llm is explicitly set to False
+        """
+        # Store configuration
         self.model = model
         self.tracer = tracer or Tracer()
         self.version = version or "v1"
         self.prompt_version = prompt_version
         self.provider = provider
-        self.client = None
-        self._ground_truth = None
-        if provider == "anthropic" and self.api_key and Anthropic:
-            self.client = Anthropic(api_key=self.api_key)
-        if provider == "openai":
-            openai_key = os.getenv("OPENAI_API_KEY")
-            if openai_key and OpenAI:
-                try:
-                    self.client = OpenAI(api_key=openai_key)
-                except Exception as err:
-                    # fallback to heuristic mode if client init fails
-                    self.client = None
-                    self.use_llm = False
-                    if logger:
-                        logger.warning("OpenAI client init failed, falling back to heuristic", extra={"error": str(err)})
-            # default OpenAI model if not explicitly set
-            if model == "claude-3-7-sonnet-20250219":
-                self.model = "gpt-4o-mini"
-
-        self.use_llm = use_llm if use_llm is not None else bool(self.client)
         self.logger = logger or logging.getLogger(__name__)
 
-    def _enrich_current_span(self):
-        """Helper to enrich the current span with ground truth feedback."""
+        # Initialize prompt builder for this version
+        self.prompt_builder = get_prompt_builder(version=prompt_version)
+
+        # Initialize LLM client using factory
+        # The factory handles provider-specific logic and error handling
+        self.api_key = api_key or self._get_api_key_for_provider(provider)
+        self.client: Optional[Union[AnthropicClient, OpenAIClient]] = None
+
+        if self.api_key:
+            # Auto-select appropriate model for OpenAI if using default Claude model
+            selected_model = model
+            if provider == "openai" and model == "claude-3-7-sonnet-20250219":
+                selected_model = "gpt-4o-mini"
+                self.model = selected_model
+
+            # Create client using factory
+            self.client = LLMClientFactory.create_client(
+                provider=provider,
+                api_key=self.api_key,
+                model=selected_model,
+                logger=self.logger,
+            )
+
+        # Determine if we should use LLM or heuristic mode
+        # use_llm can be explicitly set, or auto-detected based on client availability
+        if use_llm is not None:
+            self.use_llm = use_llm
+        else:
+            self.use_llm = bool(self.client)
+
+        # Ground truth storage for enrichment
+        # This is set per-ticket in process_ticket() and used across all pipeline steps
+        self._ground_truth: Optional[Dict[str, Any]] = None
+
+        # Track current run/datapoint for metadata
+        self._current_run_id: Optional[str] = None
+        self._current_datapoint_id: Optional[str] = None
+
+        self.logger.debug(
+            f"CustomerSupportAgent initialized: provider={provider}, "
+            f"model={self.model}, use_llm={self.use_llm}, version={self.version}"
+        )
+
+    def _get_api_key_for_provider(self, provider: str) -> Optional[str]:
+        """
+        Get API key for the specified provider from environment.
+
+        Args:
+            provider: Provider name ("anthropic" or "openai")
+
+        Returns:
+            Optional[str]: API key if found, None otherwise
+        """
+        if provider == "anthropic":
+            return os.getenv("ANTHROPIC_API_KEY")
+        elif provider == "openai":
+            return os.getenv("OPENAI_API_KEY")
+        return None
+
+    def _enrich_current_span(self) -> None:
+        """
+        Enrich the current HoneyHive span with ground truth feedback.
+
+        This helper is called within traced functions to ensure ground truth
+        data is attached to individual spans for evaluation. The ground truth
+        is provided both as flat fields and nested under "ground_truth" key
+        for compatibility with different evaluator implementations.
+
+        Note:
+            This is a no-op if no ground truth is set or if HoneyHive is not available.
+        """
         if self._ground_truth:
             feedback_data = dict(self._ground_truth)
             feedback_data["ground_truth"] = self._ground_truth
-            # Enrich with both feedback AND metadata to ensure it propagates
             enrich_span(feedback=feedback_data, metadata={"ground_truth": self._ground_truth})
 
     def _heuristic_route(self, issue: str) -> Dict[str, Any]:
         """
-        Intentionally simplified heuristic routing that fails on ambiguous cases
-        to demonstrate error cascades in the demo.
+        Deterministic heuristic routing based on keyword matching.
+
+        This is a DEMO-SPECIFIC implementation that intentionally fails on
+        ambiguous cases to demonstrate error cascades. In production, this
+        would be more robust.
+
+        **Intentional Limitations:**
+        - Excludes "download" keyword (ambiguous - could be export or upload)
+        - Excludes "cache" keyword (ambiguous - could be CDN or data)
+        - This causes Issues #3 and #8 to fail routing, demonstrating how
+          routing errors cascade through the pipeline
+
+        Args:
+            issue: Customer issue description text
+
+        Returns:
+            dict: Routing result with keys:
+                - category: Predicted category
+                - confidence: Float confidence score (0.6-0.82)
+                - reasoning: Explanation of routing decision
+                - raw_response: Metadata about routing mode
+                - prompt_version: Prompt version used
+
+        Note:
+            The confidence scores are arbitrary but realistic-looking values
+            for demo purposes. In production, these would come from a model.
         """
         text = issue.lower()
-        # Intentionally exclude ambiguous keywords like "download" and "cache"
-        # to demonstrate failures on Issues #3 and #8
+
+        # Intentionally simplified keyword matching that fails on ambiguous cases
+        # This demonstrates the value of LLM-based routing vs. heuristics
         if any(k in text for k in ["upload", "404", "mixed content"]):
             category = "upload_errors"
         elif any(k in text for k in ["sso", "login", "reset", "2fa", "password", "locked"]):
             category = "account_access"
         elif any(k in text for k in ["export", "csv", "json", "queue"]):
-            # Removed "download" - it's ambiguous!
+            # NOTE: "download" is intentionally excluded - it's ambiguous!
+            # This causes Issue #3 and #8 to fail routing (demo feature)
             category = "data_export"
         else:
+            # Catch-all for unmatched issues
             category = "other"
+
+        # Lower confidence for "other" category
         confidence = 0.82 if category != "other" else 0.6
+
         return {
             "category": category,
             "confidence": confidence,
@@ -115,86 +278,114 @@ class CustomerSupportAgent:
     @trace(event_name="route_to_category")  # type: ignore
     def route_to_category(self, issue: str) -> Dict[str, Any]:
         """
-        Step 1: Use LLM (or heuristic fallback) to categorize customer issue.
+        Step 1: Route customer issue to appropriate support category.
+
+        Uses LLM (if available) or heuristic fallback to categorize the issue
+        into one of: upload_errors, account_access, data_export, other.
+
+        This step is traced for observability and enriched with ground truth
+        for evaluation purposes.
+
+        Args:
+            issue: Customer's issue description text
+
+        Returns:
+            dict: Routing result containing:
+                - category: Predicted category
+                - confidence: Float confidence score
+                - reasoning: Explanation of routing decision
+                - raw_response: Full LLM response or fallback metadata
+                - prompt_version: Prompt version used
+
+        Note:
+            This method has a nested _run() function to separate the business
+            logic from the tracing/logging logic. Ground truth enrichment happens
+            before _run() executes to ensure it's captured in traces.
+
+        Example:
+            >>> agent = CustomerSupportAgent()
+            >>> routing = agent.route_to_category("Can't upload files")
+            >>> print(routing["category"])  # "upload_errors"
         """
-        # Enrich this span with ground truth
+        # Enrich this span with ground truth for evaluation
+        # This ensures evaluators can access ground truth from traces
         if hasattr(self, '_ground_truth') and self._ground_truth:
             feedback_data = dict(self._ground_truth)
             feedback_data["ground_truth"] = self._ground_truth
             enrich_span(feedback=feedback_data)
 
-        def _run():
+        def _run() -> Dict[str, Any]:
+            """Inner function containing routing logic."""
+            # Use LLM if available and enabled
             if self.use_llm and self.client:
                 try:
-                    prompt = (
-                        "Categorize the issue into one of: upload_errors, account_access, data_export, other. "
-                        "Respond with JSON keys: category, confidence, reasoning."
-                    )
-                    if self.provider == "anthropic":
-                        message = self.client.messages.create(  # type: ignore[attr-defined]
-                            model=self.model,
-                            max_tokens=150,
-                            temperature=0,
-                            system=prompt,
-                            messages=[{"role": "user", "content": issue}],
-                        )
-                        content_text = ""
-                        try:
-                            content_text = message.content[0].text if hasattr(message, "content") else ""
-                            parsed = json.loads(content_text)
-                            output = {
-                                "category": parsed.get("category", "other"),
-                                "confidence": float(parsed.get("confidence", 0.5)),
-                                "reasoning": parsed.get("reasoning", content_text),
-                                "raw_response": (
-                                    message.model_dump() if hasattr(message, "model_dump") else str(message)
-                                ),
-                            }
-                        except Exception:
-                            output = self._heuristic_route(issue)
-                            output["raw_response"] = {
-                                "mode": "fallback_parse_error",
-                                "content": content_text,
-                            }
-                    elif self.provider == "openai":
-                        @trace  # type: ignore
-                        def _openai_route_call():
-                            return self.client.chat.completions.create(  # type: ignore[attr-defined]
-                                model=self.model,
-                                temperature=0,
-                                messages=[
-                                    {"role": "system", "content": prompt},
-                                    {"role": "user", "content": issue},
-                                ],
-                            )
+                    # Build prompt using prompt builder
+                    prompt_data = self.prompt_builder.build_routing_prompt(issue)
 
-                        resp = _openai_route_call()
-                        content_text = resp.choices[0].message.content or "{}"
-                        try:
-                            parsed = json.loads(content_text)
-                            output = {
-                                "category": parsed.get("category", "other"),
-                                "confidence": float(parsed.get("confidence", 0.5)),
-                                "reasoning": parsed.get("reasoning", content_text),
-                                "raw_response": resp.model_dump() if hasattr(resp, "model_dump") else str(resp),
-                            }
-                        except Exception:
-                            output = self._heuristic_route(issue)
-                            output["raw_response"] = {
-                                "mode": "fallback_parse_error",
-                                "content": content_text,
-                            }
+                    # Make LLM call using client
+                    response = self.client.chat_completion(
+                        messages=prompt_data["messages"],
+                        system=prompt_data["system"],
+                        max_tokens=150,
+                        temperature=0.0,
+                    )
+
+                    # Parse JSON response
+                    try:
+                        content = response["content"]
+                        parsed = json.loads(content)
+
+                        return {
+                            "category": parsed.get("category", "other"),
+                            "confidence": float(parsed.get("confidence", 0.5)),
+                            "reasoning": parsed.get("reasoning", content),
+                            "raw_response": response["raw_response"],
+                            "prompt_version": self.prompt_version,
+                        }
+
+                    except (json.JSONDecodeError, KeyError, ValueError):
+                        # LLM didn't return valid JSON, fall back to heuristic
+                        self.logger.warning(
+                            "Failed to parse LLM routing response, using heuristic",
+                            extra={"content": response.get("content", "")},
+                        )
+                        output = self._heuristic_route(issue)
+                        output["raw_response"] = {
+                            "mode": "fallback_parse_error",
+                            "content": response.get("content", ""),
+                        }
+                        return output
+
                 except Exception as err:
+                    # LLM call failed, fall back to heuristic
+                    self.logger.warning(
+                        f"LLM routing failed, falling back to heuristic: {err}",
+                    )
                     output = self._heuristic_route(issue)
                     output["raw_response"] = {"mode": "fallback_on_error", "error": str(err)}
+                    # Disable LLM for future calls in this session
                     self.use_llm = False
+                    return output
             else:
-                output = self._heuristic_route(issue)
-            return output
+                # LLM not available, use heuristic
+                return self._heuristic_route(issue)
 
+        # Execute routing logic
         output = _run()
-        self.logger.debug("route_to_category", extra={"issue": issue, "output": output})
-        token_usage = self._extract_token_usage(output.get("raw_response"), fallback_input=len(issue.split()))
+
+        # Log routing result for debugging
+        self.logger.debug(
+            "route_to_category completed",
+            extra={"issue": issue, "output": output},
+        )
+
+        # Extract token usage for tracking
+        token_usage = extract_token_usage(
+            output.get("raw_response"),
+            fallback_input=len(issue.split()),
+        )
+
+        # Record this step in tracer for pipeline visibility
         self.tracer.record_step(
             "route_to_category",
             {"issue": issue},
@@ -205,36 +396,75 @@ class CustomerSupportAgent:
                 "token_usage": token_usage,
                 "provider": self.provider,
                 "model": self.model,
-                "run_id": getattr(self, "_current_run_id", None),
-                "datapoint_id": getattr(self, "_current_datapoint_id", None),
+                "run_id": self._current_run_id,
+                "datapoint_id": self._current_datapoint_id,
             },
         )
+
         return output
 
     @trace(event_name="retrieve_docs")  # type: ignore
     def retrieve_docs(self, category: str) -> Dict[str, Any]:
         """
-        Step 2: Retrieve relevant documentation.
+        Step 2: Retrieve relevant documentation for the issue category.
+
+        Looks up documentation snippets from the knowledge base for the given
+        category. This is a simple dictionary lookup in the demo, but in
+        production would be a vector database or semantic search.
+
+        Args:
+            category: Issue category from routing step
+
+        Returns:
+            dict: Retrieval result containing:
+                - docs: List of documentation snippets
+                - source: Where docs came from ("knowledge_base")
+                - count: Number of docs retrieved
+                - tokens: Estimated token count for docs
+
+        Note:
+            Token estimate is a simple word count approximation. In production,
+            use proper tokenization for accuracy.
+
+        Example:
+            >>> agent = CustomerSupportAgent()
+            >>> docs = agent.retrieve_docs("upload_errors")
+            >>> print(docs["count"])  # Number of docs found
         """
-        # Enrich this span with ground truth
+        # Enrich this span with ground truth for evaluation
         if hasattr(self, '_ground_truth') and self._ground_truth:
             feedback_data = dict(self._ground_truth)
             feedback_data["ground_truth"] = self._ground_truth
             enrich_span(feedback=feedback_data)
 
-        def _run():
+        def _run() -> tuple[List[str], int]:
+            """Inner function containing retrieval logic."""
+            # Look up docs in knowledge base, with fallback to "other" category
             docs_local = KNOWLEDGE_BASE.get(category, KNOWLEDGE_BASE["other"])
+
+            # Estimate token count (rough approximation: 1 token ≈ 1 word)
             token_estimate_local = sum(len(d.split()) for d in docs_local)
+
             return docs_local, token_estimate_local
 
+        # Execute retrieval
         docs, token_estimate = _run()
+
+        # Build output
         output = {
             "docs": docs,
             "source": "knowledge_base",
             "count": len(docs),
             "tokens": token_estimate,
         }
-        self.logger.debug("retrieve_docs", extra={"category": category, "count": len(docs)})
+
+        # Log retrieval result
+        self.logger.debug(
+            "retrieve_docs completed",
+            extra={"category": category, "count": len(docs)},
+        )
+
+        # Record this step in tracer
         self.tracer.record_step(
             "retrieve_docs",
             {"category": category},
@@ -243,155 +473,181 @@ class CustomerSupportAgent:
                 "token_usage": {"input": token_estimate, "output": 0},
                 "provider": self.provider,
                 "model": self.model,
-                "run_id": getattr(self, "_current_run_id", None),
-                "datapoint_id": getattr(self, "_current_datapoint_id", None),
+                "run_id": self._current_run_id,
+                "datapoint_id": self._current_datapoint_id,
             },
         )
+
         return output
 
     @staticmethod
     def _has_action_steps(text: str) -> bool:
+        """
+        Check if text contains numbered action steps.
+
+        Args:
+            text: Response text to check
+
+        Returns:
+            bool: True if text contains lines starting with "1.", "2.", etc.
+        """
         return bool(re.search(r"^\s*\d+\.", text, re.MULTILINE))
 
     @staticmethod
-    def _build_fallback_response(
-        issue: str, docs: List[str], category: str | None = None, error: Optional[Exception] = None
-    ) -> tuple[str, str, Dict[str, Any]]:
-        """
-        Build a deterministic response that still carries useful keywords.
-        """
-        keyword_hints = {
-            "upload_errors": "Check HTTPS, CDN cache, path/404, and mixed content settings.",
-            "account_access": "SSO/IdP redirect loops, password reset link expiry (15 minutes), 2FA lockout; admins can unlock accounts from the Security page.",
-            "data_export": "Exports are queued (check status page), up to 15 minutes; use JSON for >1M rows; download link expires after 24 hours.",
-            "other": "Collect logs, timestamps, browser/OS/app version, and check status page.",
-        }
-        hint = keyword_hints.get(category or "other", keyword_hints["other"])
-        steps = [
-            f"Issue noted: {issue}",
-            f"Review: {docs[0]}",
-            f"Next: {docs[1] if len(docs) > 1 else 'Apply recommended settings.'}",
-            f"Validate/Retry and verify status page. {hint}",
-        ]
-        response_text = (
-            "Thanks for reaching out. Here's how to fix this:\n"
-            f"1. {steps[0]}\n"
-            f"2. {steps[1]}\n"
-            f"3. {steps[2]}\n"
-            f"4. {steps[3]}"
-        )
-        raw = {"mode": "templated", "steps": steps}
-        if error:
-            raw["error"] = str(error)
-        return response_text, "friendly_technical", raw
-
-    @staticmethod
     def _extract_steps(text: str) -> List[str]:
+        """
+        Extract numbered steps from response text.
+
+        Args:
+            text: Response text containing numbered steps
+
+        Returns:
+            list: List of step texts (without numbers)
+
+        Example:
+            >>> text = "1. First step\\n2. Second step"
+            >>> steps = CustomerSupportAgent._extract_steps(text)
+            >>> print(steps)  # ["First step", "Second step"]
+        """
         lines = []
         for line in text.splitlines():
+            # Check if line starts with a number and period
             if re.match(r"^\s*\d+\.", line.strip()):
-                # remove leading number and dot
+                # Remove leading number and period
                 cleaned = re.sub(r"^\s*\d+\.\s*", "", line).strip()
                 lines.append(cleaned)
         return lines
 
-    @staticmethod
-    def _extract_token_usage(raw: Any, fallback_input: int = 0, fallback_output: int = 0) -> Dict[str, int]:
-        if isinstance(raw, dict) and "usage" in raw:
-            return raw.get("usage", {})
-        if hasattr(raw, "usage"):
-            usage_obj = getattr(raw, "usage")
-            try:
-                return usage_obj.model_dump()  # type: ignore[attr-defined]
-            except Exception:
-                try:
-                    return dict(usage_obj)
-                except Exception:
-                    return {"input": fallback_input, "output": fallback_output}
-        return {"input": fallback_input, "output": fallback_output}
-
     @trace(event_name="generate_response")  # type: ignore
-    def generate_response(self, issue: str, docs: List[str], category: str | None = None) -> Dict[str, Any]:
+    def generate_response(
+        self,
+        issue: str,
+        docs: List[str],
+        category: str | None = None,
+    ) -> Dict[str, Any]:
         """
         Step 3: Generate personalized support response.
+
+        Uses LLM (if available) or fallback template to create a helpful,
+        actionable response to the customer's issue using the retrieved
+        documentation as context.
+
+        Args:
+            issue: Customer's issue description
+            docs: List of documentation snippets from retrieval step
+            category: Optional category for fallback response context
+
+        Returns:
+            dict: Generation result containing:
+                - category: Issue category
+                - answer: The generated response text
+                - steps: Extracted action steps from response
+                - has_action_steps: Boolean whether response has numbered steps
+                - tone: Response tone ("friendly_technical")
+                - reasoning: Generation reasoning (if available from LLM)
+                - safety_flags: Safety check results (pii, toxic)
+                - raw_response: Full LLM response or fallback metadata
+                - prompt_version: Prompt version used
+                - token_usage: Token usage statistics
+
+        Note:
+            Safety flags are placeholders in this demo. In production, you'd
+            run actual safety checks on the generated content.
+
+        Example:
+            >>> agent = CustomerSupportAgent()
+            >>> response = agent.generate_response(
+            ...     "Upload fails",
+            ...     ["Check HTTPS", "Verify CDN"],
+            ...     "upload_errors"
+            ... )
+            >>> print(response["answer"])  # Generated support response
         """
-        # Enrich this span with ground truth
+        # Enrich this span with ground truth for evaluation
         if hasattr(self, '_ground_truth') and self._ground_truth:
             feedback_data = dict(self._ground_truth)
             feedback_data["ground_truth"] = self._ground_truth
             enrich_span(feedback=feedback_data)
 
-        def _run():
+        def _run() -> tuple[str, str, Dict[str, Any], str]:
+            """
+            Inner function containing generation logic.
+
+            Returns:
+                tuple: (response_text, tone, raw_response, reasoning)
+            """
             reasoning_text = ""
+
+            # Use LLM if available and enabled
             if self.use_llm and self.client:
                 try:
-                    system_prompt = (
-                        "You are a concise, friendly technical support agent. Use provided docs to craft a numbered, "
-                        "actionable response. Include 2-4 steps."
-                    )
-                    reasoning_text = ""
+                    # Build prompt using prompt builder
+                    prompt_data = self.prompt_builder.build_generation_prompt(issue, docs)
+
+                    # Special handling for Anthropic to enable nested tracing
                     if self.provider == "anthropic":
-                        # Wrap LLM call in a traced function to ensure feedback propagates
+                        # Wrap in traced function to ensure feedback propagates
                         @trace(event_name="anthropic.chat")  # type: ignore
                         def _call_anthropic():
                             # Enrich this specific span with feedback
                             self._enrich_current_span()
-                            return self.client.messages.create(  # type: ignore[attr-defined]
-                                model=self.model,
+                            return self.client.chat_completion(  # type: ignore
+                                messages=prompt_data["messages"],
+                                system=prompt_data["system"],
                                 max_tokens=350,
-                                temperature=0,
-                                system=system_prompt,
-                                messages=[
-                                    {
-                                        "role": "user",
-                                        "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                                    },
-                                ],
-                            )
-                        message = _call_anthropic()
-                        try:
-                            response_text = message.content[0].text if hasattr(message, "content") else ""
-                            reasoning_text = "Anthropic response"
-                        except Exception:
-                            response_text = str(message)
-                            reasoning_text = "Anthropic raw"
-                        tone = "friendly_technical"
-                        raw = message.model_dump() if hasattr(message, "model_dump") else str(message)
-                    elif self.provider == "openai":
-                        @trace  # type: ignore
-                        def _openai_generate_call():
-                            return self.client.chat.completions.create(  # type: ignore[attr-defined]
-                                model=self.model,
-                                temperature=0,
-                                messages=[
-                                    {"role": "system", "content": system_prompt},
-                                    {
-                                        "role": "user",
-                                        "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                                    },
-                                ],
+                                temperature=0.0,
                             )
 
-                        resp = _openai_generate_call()
-                        completion_choice = resp.choices[0]
-                        response_text = completion_choice.message.content or ""
-                        reasoning_text = completion_choice.message.reasoning or "" if hasattr(completion_choice.message, "reasoning") else ""
-                        tone = "friendly_technical"
-                        raw = resp.model_dump() if hasattr(resp, "model_dump") else str(resp)
+                        response = _call_anthropic()
                     else:
-                        raise RuntimeError("Unsupported provider")
-                except Exception as err:
-                    self.use_llm = False
-                    response_text, tone, raw = self._build_fallback_response(issue, docs, category, err)
-            else:
-                response_text, tone, raw = self._build_fallback_response(issue, docs, category)
-            return response_text, tone, raw, reasoning_text
+                        # OpenAI or other provider
+                        response = self.client.chat_completion(
+                            messages=prompt_data["messages"],
+                            system=prompt_data["system"],
+                            max_tokens=350,
+                            temperature=0.0,
+                        )
 
+                    # Extract response content
+                    response_text = response["content"]
+                    reasoning_text = response.get("reasoning", "")
+                    tone = "friendly_technical"
+                    raw = response["raw_response"]
+
+                    return response_text, tone, raw, reasoning_text
+
+                except Exception as err:
+                    # LLM call failed, fall back to template
+                    self.logger.warning(
+                        f"LLM generation failed, using fallback template: {err}",
+                    )
+                    self.use_llm = False
+                    response_text, tone, raw = self.prompt_builder.build_fallback_response(
+                        issue, docs, category, err
+                    )
+                    return response_text, tone, raw, ""
+            else:
+                # LLM not available, use template
+                response_text, tone, raw = self.prompt_builder.build_fallback_response(
+                    issue, docs, category
+                )
+                return response_text, tone, raw, ""
+
+        # Execute generation logic
         response_text, tone, raw, reasoning_text = _run()
 
+        # Extract structured information from response
         has_action_steps = self._has_action_steps(response_text)
         extracted_steps = self._extract_steps(response_text) if has_action_steps else []
-        token_usage = self._extract_token_usage(raw, fallback_input=sum(len(d.split()) for d in docs), fallback_output=len(response_text.split()))
+
+        # Calculate token usage
+        token_usage = extract_token_usage(
+            raw,
+            fallback_input=sum(len(d.split()) for d in docs),
+            fallback_output=len(response_text.split()),
+        )
+
+        # Build output
         output = {
             "category": category,
             "answer": response_text,
@@ -399,15 +655,23 @@ class CustomerSupportAgent:
             "has_action_steps": has_action_steps,
             "tone": tone or "friendly_technical",
             "reasoning": reasoning_text or ("generated" if self.use_llm else "templated_fallback"),
-            "safety_flags": {"pii": False, "toxic": False},
+            "safety_flags": {"pii": False, "toxic": False},  # Placeholder for demo
             "raw_response": raw,
             "prompt_version": self.prompt_version,
             "token_usage": token_usage,
         }
+
+        # Log generation result
         self.logger.debug(
-            "generate_response",
-            extra={"category": category, "has_action_steps": has_action_steps, "tone": tone},
+            "generate_response completed",
+            extra={
+                "category": category,
+                "has_action_steps": has_action_steps,
+                "tone": tone,
+            },
         )
+
+        # Record this step in tracer
         self.tracer.record_step(
             "generate_response",
             {"issue": issue, "docs": docs},
@@ -418,10 +682,11 @@ class CustomerSupportAgent:
                 "token_usage": token_usage,
                 "provider": self.provider,
                 "model": self.model,
-                "run_id": getattr(self, "_current_run_id", None),
-                "datapoint_id": getattr(self, "_current_datapoint_id", None),
+                "run_id": self._current_run_id,
+                "datapoint_id": self._current_datapoint_id,
             },
         )
+
         return output
 
     def process_ticket(
@@ -432,11 +697,67 @@ class CustomerSupportAgent:
         ground_truth: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
-        Run all 3 steps for a single ticket.
+        Process a complete support ticket through the three-step pipeline.
+
+        This is the main entry point for the agent. It orchestrates the full
+        pipeline: routing → retrieval → generation, with comprehensive tracing
+        and ground truth enrichment for evaluation.
+
+        Args:
+            ticket: Ticket dict with keys:
+                - id: Ticket identifier
+                - issue: Customer's issue description
+                - customer: Optional customer identifier
+            run_id: Experiment run identifier for grouping results
+            datapoint_id: Optional datapoint ID (defaults to ticket ID)
+            ground_truth: Optional ground truth data for evaluation with keys:
+                - expected_category: Expected routing category
+                - expected_keywords: List of keywords that should appear
+                - expected_tone: Expected response tone
+                - (other eval-specific fields)
+
+        Returns:
+            dict: Complete result containing:
+                - ticket_id: Ticket identifier
+                - datapoint_id: Datapoint identifier
+                - run_id: Run identifier
+                - prompt_version: Prompt version used
+                - input: Original ticket data
+                - steps: Dict with results from each step (route, retrieve, generate)
+                - output: Formatted output with category, answer, steps, safety_flags
+                - evaluations: Dict of evaluation results (populated by evaluators)
+                - trace: Full trace data from tracer
+                - version: Agent version
+
+        Note:
+            Ground truth is enriched at multiple levels:
+            - Session level (enrich_session) for UI evaluators
+            - Span level (enrich_span) for span-based evaluators
+            - Instance level (self._ground_truth) for method access
+            This redundancy ensures compatibility with different SDK versions.
+
+        Example:
+            >>> agent = CustomerSupportAgent()
+            >>> ticket = {
+            ...     "id": "123",
+            ...     "issue": "Can't upload files",
+            ...     "customer": "customer@example.com"
+            ... }
+            >>> ground_truth = {
+            ...     "expected_category": "upload_errors",
+            ...     "expected_keywords": ["HTTPS", "CDN"]
+            ... }
+            >>> result = agent.process_ticket(ticket, ground_truth=ground_truth)
+            >>> print(result["output"]["category"])  # "upload_errors"
         """
-        # Store ground truth on instance so it can be accessed by all methods
+        # Store ground truth on instance for access across all methods
         self._ground_truth = ground_truth
 
+        # Store run/datapoint IDs for metadata
+        self._current_run_id = run_id
+        self._current_datapoint_id = datapoint_id or str(ticket["id"])
+
+        # Start trace for this ticket
         self.tracer.start_trace(
             ticket_id=str(ticket["id"]),
             version=self.version,
@@ -447,19 +768,25 @@ class CustomerSupportAgent:
         )
 
         # Enrich session with ground truth for UI evaluators
-        # Provide both flat fields AND nested ground_truth for compatibility with different evaluators
+        # Provide both flat fields AND nested ground_truth for compatibility
         if ground_truth:
             feedback_data = dict(ground_truth)  # Copy all fields at flat level
             feedback_data["ground_truth"] = ground_truth  # Also nest under ground_truth key
             enrich_session(feedback=feedback_data)
 
+        # Execute three-step pipeline
         routing = self.route_to_category(ticket["issue"])
         docs = self.retrieve_docs(routing["category"])
-        response = self.generate_response(ticket["issue"], docs["docs"], category=routing["category"])
-        self._current_run_id = run_id
-        self._current_datapoint_id = datapoint_id or str(ticket["id"])
+        response = self.generate_response(
+            ticket["issue"],
+            docs["docs"],
+            category=routing["category"],
+        )
 
+        # End trace and get trace data
         trace = self.tracer.end_trace()
+
+        # Build comprehensive result
         result = {
             "ticket_id": str(ticket["id"]),
             "datapoint_id": datapoint_id or str(ticket["id"]),
@@ -477,9 +804,18 @@ class CustomerSupportAgent:
                 "steps": response["steps"],
                 "safety_flags": response["safety_flags"],
             },
-            "evaluations": {},
+            "evaluations": {},  # Populated by external evaluators
             "trace": trace,
             "version": self.version,
         }
-        self.logger.debug("process_ticket", extra={"ticket_id": ticket["id"], "category": routing["category"]})
+
+        # Log completion
+        self.logger.debug(
+            "process_ticket completed",
+            extra={
+                "ticket_id": ticket["id"],
+                "category": routing["category"],
+            },
+        )
+
         return result

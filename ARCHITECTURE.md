@@ -26,7 +26,7 @@ This demo implements a 3-step customer support agent with tracing, evaluation, a
 - **Providers**: selectable via `--provider anthropic|openai`. Default model: Anthropic `claude-3-7-sonnet-20250219`; OpenAI default `gpt-4o-mini`.
 - **Env vars**:
   - LLM: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`.
-  - HoneyHive: `HONEYHIVE_API_KEY`, `HONEYHIVE_PROJECT`, `HONEYHIVE_SOURCE`, `HONEYHIVE_SESSION`, `HONEYHIVE_OTLP_ENDPOINT` (defaults set in code/sitecustomize).
+  - HoneyHive: `HONEYHIVE_API_KEY`, `HONEYHIVE_PROJECT`, `HONEYHIVE_SOURCE`, `HONEYHIVE_SESSION`, `HONEYHIVE_OTLP_ENDPOINT` (defaults set in `utils/honeyhive_init.py`).
   - App: `ENVIRONMENT`, `DEBUG`, optional `OPENAI_MODEL`.
 
 ## Error Handling & Fallbacks

@@ -19,7 +19,7 @@ customer_support_agent/__pycache__/
 
 # Logs / results
 logs/
-results.json
+results*.json
 honeyhive_dataset.json
 
 # Debug/test scripts (temporary)
