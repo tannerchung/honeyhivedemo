@@ -1,6 +1,5 @@
 # Environments
 .env
-.env.example
 .venv
 .python-version
 
@@ -21,6 +20,12 @@ customer_support_agent/__pycache__/
 # Logs / results
 logs/
 results.json
+honeyhive_dataset.json
+
+# Debug/test scripts (temporary)
+scripts/inspect_*.py
+scripts/test_*.py
+scripts/verify_*.py
 
 # Node (if any tooling pulled in)
 node_modules/
