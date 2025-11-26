@@ -71,11 +71,11 @@ GROUND_TRUTH_ENHANCED = {
 
     # === Issue 8: INTENTIONAL FAILURE CASE ===
     "8": {
-        "expected_category": "upload_errors",  # Technically correct, but "cache" might confuse
+        "expected_category": "upload_errors",  # Should be upload_errors (CDN cache issue)
         "expected_keywords": ["cdn", "cache", "purge", "cloudflare"],
         "expected_tone": "friendly_technical",
         "has_action_steps": True,
-        "demo_note": "DEMO FAILURE CASE: Mentions 'cache' which might route to 'other'. Shows pattern of ambiguous technical terms causing failures."
+        "demo_note": "DEMO FAILURE CASE: Ambiguous 'cache' and 'stale' without 'upload' keyword. Will route to 'other' in heuristic mode. Shows pattern of ambiguous technical terms causing failures."
     },
 
     # === Issue 9: Success case ===

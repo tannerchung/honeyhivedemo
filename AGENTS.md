@@ -8,7 +8,8 @@ Overview of the customer support agent implementations and how to run them with 
   1. `route_to_category(issue)` – LLM or heuristic routing into `upload_errors`, `account_access`, `data_export`, or `other`.
   2. `retrieve_docs(category)` – deterministic knowledge base lookup.
   3. `generate_response(issue, docs, category)` – LLM or templated response with structured fields (`answer`, parsed `steps`, `category`, `reasoning`, `safety_flags`).
-- Tracing: every step is recorded via `tracing/tracer.py` (timings, inputs/outputs, raw responses); HoneyHive spans wrap route/retrieve/generate (including OpenAI sub-calls).
+- Tracing: every step is recorded via `tracing/tracer.py` (timings, inputs/outputs, raw responses); HoneyHive spans wrap route/retrieve/generate (including OpenAI sub-calls). Ground truth is enriched into sessions and spans for evaluator access.
+- Heuristic routing: intentionally simplified to exclude ambiguous keywords (e.g., "download", "cache") to demonstrate error cascades on Issues #3 and #8.
 - Fallbacks: if an LLM call errors or parsing fails, the agent switches to deterministic responses and disables further LLM calls for the run. Token usage and provider/model metadata are attached to spans.
 
 ## Providers

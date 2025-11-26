@@ -24,10 +24,14 @@ except Exception:  # pragma: no cover - optional dependency for offline mode
     OpenAI = None  # type: ignore
 
 try:
-    from honeyhive import trace
+    from honeyhive import trace, enrich_session, enrich_span
 except Exception:  # pragma: no cover - honeyhive optional
     def trace(func):  # type: ignore
         return func
+    def enrich_session(**kwargs):  # type: ignore
+        pass
+    def enrich_span(**kwargs):  # type: ignore
+        pass
 
 
 class CustomerSupportAgent:
@@ -53,6 +57,7 @@ class CustomerSupportAgent:
         self.prompt_version = prompt_version
         self.provider = provider
         self.client = None
+        self._ground_truth = None
         if provider == "anthropic" and self.api_key and Anthropic:
             self.client = Anthropic(api_key=self.api_key)
         if provider == "openai":
@@ -73,13 +78,28 @@ class CustomerSupportAgent:
         self.use_llm = use_llm if use_llm is not None else bool(self.client)
         self.logger = logger or logging.getLogger(__name__)
 
+    def _enrich_current_span(self):
+        """Helper to enrich the current span with ground truth feedback."""
+        if self._ground_truth:
+            feedback_data = dict(self._ground_truth)
+            feedback_data["ground_truth"] = self._ground_truth
+            # Enrich with both feedback AND metadata to ensure it propagates
+            enrich_span(feedback=feedback_data, metadata={"ground_truth": self._ground_truth})
+
     def _heuristic_route(self, issue: str) -> Dict[str, Any]:
+        """
+        Intentionally simplified heuristic routing that fails on ambiguous cases
+        to demonstrate error cascades in the demo.
+        """
         text = issue.lower()
-        if any(k in text for k in ["upload", "404", "cdn", "cache", "mixed content"]):
+        # Intentionally exclude ambiguous keywords like "download" and "cache"
+        # to demonstrate failures on Issues #3 and #8
+        if any(k in text for k in ["upload", "404", "mixed content"]):
             category = "upload_errors"
         elif any(k in text for k in ["sso", "login", "reset", "2fa", "password", "locked"]):
             category = "account_access"
-        elif any(k in text for k in ["export", "csv", "json", "download", "queue"]):
+        elif any(k in text for k in ["export", "csv", "json", "queue"]):
+            # Removed "download" - it's ambiguous!
             category = "data_export"
         else:
             category = "other"
@@ -92,11 +112,17 @@ class CustomerSupportAgent:
             "prompt_version": self.prompt_version,
         }
 
+    @trace(event_name="route_to_category")  # type: ignore
     def route_to_category(self, issue: str) -> Dict[str, Any]:
         """
         Step 1: Use LLM (or heuristic fallback) to categorize customer issue.
         """
-        @trace  # type: ignore
+        # Enrich this span with ground truth
+        if hasattr(self, '_ground_truth') and self._ground_truth:
+            feedback_data = dict(self._ground_truth)
+            feedback_data["ground_truth"] = self._ground_truth
+            enrich_span(feedback=feedback_data)
+
         def _run():
             if self.use_llm and self.client:
                 try:
@@ -185,11 +211,17 @@ class CustomerSupportAgent:
         )
         return output
 
+    @trace(event_name="retrieve_docs")  # type: ignore
     def retrieve_docs(self, category: str) -> Dict[str, Any]:
         """
         Step 2: Retrieve relevant documentation.
         """
-        @trace  # type: ignore
+        # Enrich this span with ground truth
+        if hasattr(self, '_ground_truth') and self._ground_truth:
+            feedback_data = dict(self._ground_truth)
+            feedback_data["ground_truth"] = self._ground_truth
+            enrich_span(feedback=feedback_data)
+
         def _run():
             docs_local = KNOWLEDGE_BASE.get(category, KNOWLEDGE_BASE["other"])
             token_estimate_local = sum(len(d.split()) for d in docs_local)
@@ -278,11 +310,17 @@ class CustomerSupportAgent:
                     return {"input": fallback_input, "output": fallback_output}
         return {"input": fallback_input, "output": fallback_output}
 
+    @trace(event_name="generate_response")  # type: ignore
     def generate_response(self, issue: str, docs: List[str], category: str | None = None) -> Dict[str, Any]:
         """
         Step 3: Generate personalized support response.
         """
-        @trace  # type: ignore
+        # Enrich this span with ground truth
+        if hasattr(self, '_ground_truth') and self._ground_truth:
+            feedback_data = dict(self._ground_truth)
+            feedback_data["ground_truth"] = self._ground_truth
+            enrich_span(feedback=feedback_data)
+
         def _run():
             reasoning_text = ""
             if self.use_llm and self.client:
@@ -293,18 +331,24 @@ class CustomerSupportAgent:
                     )
                     reasoning_text = ""
                     if self.provider == "anthropic":
-                        message = self.client.messages.create(  # type: ignore[attr-defined]
-                            model=self.model,
-                            max_tokens=350,
-                            temperature=0,
-                            system=system_prompt,
-                            messages=[
-                                {
-                                    "role": "user",
-                                    "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
-                                },
-                            ],
-                        )
+                        # Wrap LLM call in a traced function to ensure feedback propagates
+                        @trace(event_name="anthropic.chat")  # type: ignore
+                        def _call_anthropic():
+                            # Enrich this specific span with feedback
+                            self._enrich_current_span()
+                            return self.client.messages.create(  # type: ignore[attr-defined]
+                                model=self.model,
+                                max_tokens=350,
+                                temperature=0,
+                                system=system_prompt,
+                                messages=[
+                                    {
+                                        "role": "user",
+                                        "content": f"Issue: {issue}\nDocs:\n" + "\n".join(docs),
+                                    },
+                                ],
+                            )
+                        message = _call_anthropic()
                         try:
                             response_text = message.content[0].text if hasattr(message, "content") else ""
                             reasoning_text = "Anthropic response"
@@ -390,6 +434,9 @@ class CustomerSupportAgent:
         """
         Run all 3 steps for a single ticket.
         """
+        # Store ground truth on instance so it can be accessed by all methods
+        self._ground_truth = ground_truth
+
         self.tracer.start_trace(
             ticket_id=str(ticket["id"]),
             version=self.version,
@@ -398,6 +445,13 @@ class CustomerSupportAgent:
             prompt_version=self.prompt_version,
             ground_truth=ground_truth,
         )
+
+        # Enrich session with ground truth for UI evaluators
+        # Provide both flat fields AND nested ground_truth for compatibility with different evaluators
+        if ground_truth:
+            feedback_data = dict(ground_truth)  # Copy all fields at flat level
+            feedback_data["ground_truth"] = ground_truth  # Also nest under ground_truth key
+            enrich_session(feedback=feedback_data)
 
         routing = self.route_to_category(ticket["issue"])
         docs = self.retrieve_docs(routing["category"])

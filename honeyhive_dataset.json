@@ -129,7 +129,7 @@
     "inputs": {
       "id": "8",
       "customer": "Hank Davis",
-      "issue": "The system shows old uploaded files even after I replaced them. Cache issue maybe?"
+      "issue": "The system shows stale files even after I refreshed. Cache issue maybe?"
     },
     "ground_truths": {
       "expected_category": "upload_errors",

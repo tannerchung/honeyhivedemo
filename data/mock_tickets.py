@@ -73,10 +73,10 @@ MOCK_TICKETS_ENHANCED = [
     {
         "id": "8",
         "customer": "Hank Davis",
-        "issue": "The system shows old uploaded files even after I replaced them. Cache issue maybe?",
+        "issue": "The system shows stale files even after I refreshed. Cache issue maybe?",
         "complexity": "ambiguous",
         "expected_outcome": "failure",
-        "demo_note": "Could be upload_errors (CDN cache) or other. Shows pattern of ambiguous issues failing."
+        "demo_note": "Ambiguous cache issue - removed 'upload' keyword to ensure routing failure. Shows pattern of ambiguous technical terms failing."
     },
 
     # === SUCCESSES to Close Strong (Issues 9-10) ===

@@ -8,17 +8,18 @@ This demo implements a 3-step customer support agent with tracing, evaluation, a
    - Step 1: `route_to_category(issue)` – LLM (Anthropic/OpenAI) or heuristic routing.
    - Step 2: `retrieve_docs(category)` – deterministic KB lookup.
    - Step 3: `generate_response(issue, docs, category)` – LLM or templated response with structured outputs (`answer`, parsed `steps`, `category`, `reasoning`, `safety_flags`).
-3. **Tracing**: `tracing/tracer.py` records step inputs/outputs/latencies; HoneyHive auto-instrumentation is initialized in `customer_support_agent/main.py` when env vars are set. `@trace` decorators wrap route/retrieve/generate (including OpenAI sub-spans).
-4. **Evaluations** (`evaluators/`): routing accuracy, keyword coverage, action steps, format, safety (code), plus optional LLM evaluators (faithfulness, safety).
+3. **Tracing**: `tracing/tracer.py` records step inputs/outputs/latencies; HoneyHive auto-instrumentation is initialized in `customer_support_agent/main.py` when env vars are set. `@trace` decorators wrap route/retrieve/generate (including OpenAI sub-spans). Ground truth is enriched into sessions and spans via `enrich_session` and `enrich_span` for evaluator access.
+4. **Evaluations** (`evaluators/`): Three active evaluators used in experiments: routing accuracy, keyword coverage, and action steps. Additional evaluators available but not integrated: format, safety (code-based), LLM faithfulness, and LLM safety.
 5. **Export**: results and summary stats emitted via `utils/exporters.py` (JSON/HoneyHive-ready).
 
 ## Key Components
 - **Agents**: `CustomerSupportAgent` orchestrates the 3-step pipeline, switches between Anthropic/OpenAI/heuristics, and collects traces.
 - **Tracing**:
   - Internal tracer: `tracing/tracer.py` tracks per-step spans for demo/export.
-  - HoneyHive: `HoneyHiveTracer.init` in `customer_support_agent/main.py`; `@trace` on route/generate enables span capture for LLM calls.
+  - HoneyHive: `HoneyHiveTracer.init` in `customer_support_agent/main.py`; `@trace` decorators on route/retrieve/generate enable span capture for LLM calls.
+  - Ground truth enrichment: `enrich_session` and `enrich_span` attach ground truth data to traces for evaluator access in the UI.
 - **Data**: in-memory ticket set, knowledge base, and ground truth (`data/`).
-- **Evaluators**: code-based (routing/keyword/action/format/safety) and optional LLM judges (faithfulness/safety) to score outputs and identify bottlenecks.
+- **Evaluators**: Three active evaluators in experiments (routing/keyword/action steps). Additional evaluators available in codebase but not used: format, safety (code-based), LLM faithfulness, LLM safety.
 - **CLI**: `customer_support_agent/main.py` handles run, export, evaluate, compare, debug logging, provider selection, and HoneyHive send.
 
 ## Providers & Config

@@ -186,7 +186,6 @@ def main() -> None:
     logger = None
     if args.debug:
         import logging
-        import os
 
         os.makedirs("logs", exist_ok=True)
         logging.basicConfig(
@@ -205,18 +204,20 @@ def main() -> None:
     results: List[Dict[str, Any]] = []
 
     if args.run:
-        # Run standard pipeline with session-based tracing
-        results = run_pipeline(
-            version=args.version,
-            offline=args.offline,
-            logger=logger,
-            provider=args.provider,
-            dataset_name=args.dataset,
-            run_id=args.run_id,
-        )
-        print_summary(results)
+        # If running experiment, skip the standard pipeline to avoid duplicate processing
+        if not args.experiment:
+            # Run standard pipeline with session-based tracing (sessions only)
+            results = run_pipeline(
+                version=args.version,
+                offline=args.offline,
+                logger=logger,
+                provider=args.provider,
+                dataset_name=args.dataset,
+                run_id=args.run_id,
+            )
+            print_summary(results)
 
-        # Optionally run HoneyHive experiment (creates Experiment entry)
+        # Run HoneyHive experiment (creates both sessions AND experiment)
         if args.experiment:
             print("\nRunning HoneyHive experiment...")
             agent = CustomerSupportAgent(
@@ -226,14 +227,39 @@ def main() -> None:
                 logger=logger,
                 provider=args.provider,
             )
+            # Check if dataset was uploaded and get ID
+            dataset_id = os.getenv("HONEYHIVE_DATASET_ID")  # Optional: set in .env to use managed dataset
+
             experiment_result = run_honeyhive_experiment(
                 agent=agent,
                 dataset_name=args.dataset,
                 experiment_name=f"Customer Support Experiment - {args.version}",
                 run_id=args.run_id,
+                suite=f"Customer Support Agent",  # Enhancement #1: Group experiments
+                dataset_id=dataset_id,  # Enhancement #4: Use managed dataset if available
             )
             if experiment_result.get("success"):
                 print(f"✓ HoneyHive experiment completed successfully")
+
+                # Enhancement #2 & #5: Display return value metadata
+                result_obj = experiment_result.get("result")
+                if result_obj:
+                    # Try to extract useful info from result object
+                    try:
+                        # Check if result has useful attributes
+                        if hasattr(result_obj, '__dict__'):
+                            result_dict = result_obj.__dict__
+                            if 'status' in result_dict:
+                                print(f"  Status: {result_dict['status']}")
+                        # Try to get session count
+                        print(f"  Suite: Customer Support Agent")
+                        if dataset_id:
+                            print(f"  Dataset: {dataset_id} (managed)")
+                        else:
+                            print(f"  Dataset: inline (10 test cases)")
+                    except:
+                        pass
+
                 print(f"  Check the Experiments tab in HoneyHive UI")
             else:
                 print(f"✗ HoneyHive experiment failed: {experiment_result.get('reason')}")
